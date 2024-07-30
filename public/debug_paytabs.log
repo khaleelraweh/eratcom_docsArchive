@@ -1,0 +1,2 @@
+2024-04-20T12:48:46+00:00 PayTabs.Error (FB): Paytabs Admin: Response [(6) Could not resolve host: secure.paytabs.sa], []
+2024-04-24T12:38:27+00:00 PayTabs.Error (FB): Paytabs Admin: Response [(35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to secure.paytabs.sa:443 ], []
