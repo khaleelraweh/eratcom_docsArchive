@@ -53,37 +53,7 @@ class EditFormWizardComponent extends Component
 
     public function mount($documentTemplateId = null)
     {
-
-
         $this->currentPageIndex = 0;
-
-        // Initialize the pages array with a default page if it's empty
-        if (empty($this->pages)) {
-            $this->pages = [
-                [
-                    'pageId' => 1,
-                    'doc_page_name' => __('panel.page') . ' 1',
-                    'doc_page_description' => 'Page Description 1',
-                    'groups' => [
-                        [
-                            'pg_name' =>  '',
-                            'variables' => [
-                                [
-                                    'pv_name'               =>  '',
-                                    'pv_question'           =>  '',
-                                    'pv_type'               =>   1,
-                                    'pv_required'           =>   1,
-                                    'pv_details'            =>  '',
-                                ],
-                            ],
-
-                        ],
-
-                    ],
-                    'saved' => false, // Initialize saved as false
-                ]
-            ];
-        }
 
         if ($this->documentTemplate) {
             $this->document_category_id =   $this->documentTemplate->document_category_id;
@@ -93,6 +63,68 @@ class EditFormWizardComponent extends Component
             $this->published_on         =   $this->documentTemplate->published_on;
             $this->status               =   $this->documentTemplate->status;
             $this->doc_template_text    =   $this->documentTemplate->doc_template_text;
+
+            // Initialize the pages array from the documentPages relationship
+            // $this->pages = $this->documentTemplate->documentPages->map(function ($page) {
+            //     return [
+            //         'pageId' => $page->id,
+            //         'doc_page_name' => $page->doc_page_name,
+            //         'doc_page_description' => $page->doc_page_description,
+            //         'groups' => [], // Assuming you'll populate groups separately if needed
+            //         'saved' => true,
+            //     ];
+            // })->toArray();
+
+            // Initialize the pages array from the documentPages relationship
+            $this->pages = $this->documentTemplate->documentPages->map(function ($page) {
+                return [
+                    'pageId' => $page->id,
+                    'doc_page_name' => $page->doc_page_name,
+                    'doc_page_description' => $page->doc_page_description,
+                    'groups' => $page->pageGroups->map(function ($group) {
+                        return [
+                            'pg_name' => $group->pg_name,
+                            'variables' => $group->pageVariables->map(function ($variable) {
+                                return [
+                                    'pv_name' => $variable->pv_name,
+                                    'pv_question' => $variable->pv_question,
+                                    'pv_type' => $variable->pv_type,
+                                    'pv_required' => $variable->pv_required,
+                                    'pv_details' => $variable->pv_details,
+                                ];
+                            })->toArray(),
+                        ];
+                    })->toArray(),
+                    'saved' => true,
+                ];
+            })->toArray();
+
+            // if (empty($this->pages)) {
+            //     $this->pages = [
+            //         [
+            //             'pageId' => 1,
+            //             'doc_page_name' => __('panel.page') . ' 1',
+            //             'doc_page_description' => 'Page Description 1',
+            //             'groups' => [
+            //                 [
+            //                     'pg_name' =>  '',
+            //                     'variables' => [
+            //                         [
+            //                             'pv_name'               =>  '',
+            //                             'pv_question'           =>  '',
+            //                             'pv_type'               =>   1,
+            //                             'pv_required'           =>   1,
+            //                             'pv_details'            =>  '',
+            //                         ],
+            //                     ],
+
+            //                 ],
+
+            //             ],
+            //             'saved' => false, // Initialize saved as false
+            //         ]
+            //     ];
+            // }
         }
 
         // Initialize count based on existing pages

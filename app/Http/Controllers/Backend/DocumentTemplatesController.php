@@ -72,7 +72,7 @@ class DocumentTemplatesController extends Controller
             return redirect('admin/index');
         }
 
-        $documentTemplate = DocumentTemplate::where('id', $documentTemplate)->first();
+        $documentTemplate = DocumentTemplate::with('documentPages')->where('id', $documentTemplate)->first();
 
         return view('backend.document_templates.edit', compact('documentTemplate'));
     }
