@@ -195,6 +195,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     // #################   Guest Access Pages   ################ //
     Route::group(['middleware' => 'guest'], function () {
+        Route::get('/', [BackendController::class, 'login'])->name('login');
         Route::get('/login', [BackendController::class, 'login'])->name('login');
         Route::get('/register', [BackendController::class, 'register'])->name('register');
         Route::get('/lock-screen', [BackendController::class, 'lock_screen'])->name('lock-screen');
