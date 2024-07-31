@@ -399,48 +399,100 @@ class EditFormWizardComponent extends Component
     }
 
 
+    // public function saveStepThree()
+    // {
+    //     // // Perform validation
+    //     $this->validateStepThree();
+
+    //     // Save the data to the database
+    //     foreach ($this->pages as $page) {
+    //         $pageData = [
+    //             'doc_page_name'         => $page['doc_page_name'],
+    //             'doc_page_description'  => $page['doc_page_description'],
+    //             'document_template_id'  => $this->documentTemplate->id,
+    //         ];
+
+    //         $pageModel = DocumentPage::updateOrCreate($pageData);
+
+    //         foreach ($page['groups'] as $group) {
+    //             $groupData = [
+    //                 'pg_name'           => $group['pg_name'],
+    //                 'document_page_id'  => $pageModel->id,
+    //             ];
+
+    //             $groupModel = PageGroup::updateOrCreate($groupData);
+
+    //             foreach ($group['variables'] as $variable) {
+
+    //                 $variableData = [
+    //                     'pv_name'       => $variable['pv_name'],
+    //                     'pv_question'   => $variable['pv_question'],
+    //                     'pv_type'       => $variable['pv_type'],
+    //                     'pv_required'   => $variable['pv_required'],
+    //                     'pv_details'    => $variable['pv_details'],
+    //                     'page_group_id' => $groupModel->id,
+    //                 ];
+
+    //                 PageVariable::updateOrCreate($variableData);
+    //             }
+    //         }
+    //     }
+
+    //     // Indicate that step three data is saved
+    //     $this->stepData['step3'] = 'saved';
+    // }
+
     public function saveStepThree()
     {
-        // // Perform validation
+        // Perform validation
         $this->validateStepThree();
 
-        // Save the data to the database
+        // Delete existing pages, groups, and variables related to this document template
+        DocumentPage::where('document_template_id', $this->documentTemplate->id)
+            ->each(function ($page) {
+                $page->pageGroups()->each(function ($group) {
+                    $group->pageVariables()->delete(); // Delete page variables
+                });
+                $page->pageGroups()->delete(); // Delete page groups
+            });
+        DocumentPage::where('document_template_id', $this->documentTemplate->id)->delete(); // Delete document pages
+
+        // Save the new data to the database
         foreach ($this->pages as $page) {
-            $pageData = [
+            // Save the page
+            $pageModel = DocumentPage::create([
                 'doc_page_name'         => $page['doc_page_name'],
                 'doc_page_description'  => $page['doc_page_description'],
                 'document_template_id'  => $this->documentTemplate->id,
-            ];
+            ]);
 
-            $pageModel = DocumentPage::updateOrCreate($pageData);
-
+            // Save the groups
             foreach ($page['groups'] as $group) {
-                $groupData = [
+                $groupModel = PageGroup::create([
                     'pg_name'           => $group['pg_name'],
                     'document_page_id'  => $pageModel->id,
-                ];
+                ]);
 
-                $groupModel = PageGroup::updateOrCreate($groupData);
-
+                // Save the variables
                 foreach ($group['variables'] as $variable) {
-
-                    $variableData = [
+                    PageVariable::create([
                         'pv_name'       => $variable['pv_name'],
                         'pv_question'   => $variable['pv_question'],
                         'pv_type'       => $variable['pv_type'],
                         'pv_required'   => $variable['pv_required'],
                         'pv_details'    => $variable['pv_details'],
                         'page_group_id' => $groupModel->id,
-                    ];
-
-                    PageVariable::updateOrCreate($variableData);
+                    ]);
                 }
             }
         }
 
         // Indicate that step three data is saved
         $this->stepData['step3'] = 'saved';
+
+        $this->alert('success', __('panel.document_template_variables_saved'));
     }
+
 
     // for saving step3 using btn 
     public function saveStepThreeDataUsingBtn()
