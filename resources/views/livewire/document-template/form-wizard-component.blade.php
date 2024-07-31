@@ -579,7 +579,7 @@
             <ul role="menu" aria-label="Pagination">
                 <li class="{{ $currentStep == 1 ? 'disabled' : '' }}"
                     aria-disabled="{{ $currentStep == 1 ? 'true' : 'false' }} ">
-                    <a href="#previous" style="display: {{ $currentStep == 1 ? 'block' : 'none' }} ;"
+                    <a href="#previous" style="display: {{ $currentStep == 1 ? 'none' : 'none' }} ;"
                         role="menuitem">
                         Previous
                     </a>
