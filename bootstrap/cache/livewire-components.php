@@ -2,6 +2,7 @@
   'backend.topbar.notification-component' => 'App\\Http\\Livewire\\Backend\\Topbar\\NotificationComponent',
   'document-archive.create-archive-component' => 'App\\Http\\Livewire\\DocumentArchive\\CreateArchiveComponent',
   'document-archive.edit-archive-component' => 'App\\Http\\Livewire\\DocumentArchive\\EditArchiveComponent',
+  'document-template.edit-form-wizard-component' => 'App\\Http\\Livewire\\DocumentTemplate\\EditFormWizardComponent',
   'document-template.form-wizard-component' => 'App\\Http\\Livewire\\DocumentTemplate\\FormWizardComponent',
   'frontend.blogs.blog-list-component' => 'App\\Http\\Livewire\\Frontend\\Blogs\\BlogListComponent',
   'frontend.blogs.blog-review-component' => 'App\\Http\\Livewire\\Frontend\\Blogs\\BlogReviewComponent',

@@ -66,20 +66,18 @@ class DocumentTemplatesController extends Controller
     }
 
 
-    public function edit($documentType)
+    public function edit($documentTemplate)
     {
         if (!auth()->user()->ability('admin', 'update_document_templates')) {
             return redirect('admin/index');
         }
 
-        $documentCategories = DocumentCategory::Active()->get(['id', 'doc_cat_name']);
+        $documentTemplate = DocumentTemplate::where('id', $documentTemplate)->first();
 
-        $documentTypes = DocumentType::where('id', $documentType)->first();
-
-        return view('backend.document_templates.edit', compact('documentCategories', 'documentTypes'));
+        return view('backend.document_templates.edit', compact('documentTemplate'));
     }
 
-    public function update(Request $request,  $documentType)
+    public function update(Request $request,  $documentTemplate)
     {
         if (!auth()->user()->ability('admin', 'update_document_templates')) {
             return redirect('admin/index');
