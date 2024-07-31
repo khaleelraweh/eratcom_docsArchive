@@ -430,8 +430,9 @@ class FormWizardComponent extends Component
     }
 
     // for saving step3 using btn 
-    public function saveStepThreeData()
+    public function saveStepThreeDataUsingBtn()
     {
         $this->saveStepThree();
+        $this->currentStep++;
     }
 }

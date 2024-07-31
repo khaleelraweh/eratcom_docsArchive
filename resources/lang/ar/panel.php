@@ -227,6 +227,9 @@ return [
     'pv_required'                                           =>  'إلزامي',
     'pv_details'                                            =>  'التفاصيل',
 
+    'finish'                                                =>  'إنهاء',
+    'previous'                                              =>  'السابق',
+
 
 
     // --------------- Document Archive  --------------//

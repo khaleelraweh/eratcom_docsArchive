@@ -222,6 +222,8 @@ return [
     'pv_type_number'                                        =>  'Number',
     'pv_required'                                           =>  'Required',
     'pv_details'                                            =>  'Details',
+    'finish'                                                =>  'Finish',
+    'previous'                                              =>  'Previous',
 
 
     // --------------- Document Archive  --------------//

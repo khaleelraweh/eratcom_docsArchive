@@ -200,7 +200,7 @@
                         <h4>{{ __('panel.document_template_variables') }}</h4>
                     </div>
                     <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
-                        <button wire:click="saveStepThreeData" class="btn btn-primary">
+                        <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
                             {{ __('panel.document_template_variables_save') }}
                         </button>
                     </div>
@@ -585,7 +585,7 @@
                     </a>
                     <a href="#previous" wire:click="previousStep"
                         style="display: {{ $currentStep == 1 ? 'none' : 'block' }} ;" role="menuitem">
-                        Previous
+                        {{ __('panel.previous') }}
                     </a>
                 </li>
                 <li aria-hidden="false" aria-disabled="false"
@@ -604,7 +604,7 @@
                     </a>
                 </li>
                 <li aria-hidden="true" style="display: {{ $currentStep == 4 ? 'block' : 'none' }}"><a
-                        href="#finish" wire:click="finish" role="menuitem">Finish</a>
+                        href="#finish" wire:click="finish" role="menuitem">{{ __('panel.finish') }}</a>
                 </li>
             </ul>
         </div>
