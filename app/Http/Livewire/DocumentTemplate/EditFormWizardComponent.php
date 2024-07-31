@@ -54,10 +54,6 @@ class EditFormWizardComponent extends Component
     public function mount($documentTemplateId = null)
     {
 
-        // Ensure the currentPageIndex is within the bounds of the pages array
-        // if ($this->currentPageIndex >= count($this->pages)) {
-        //     $this->currentPageIndex = count($this->pages) - 1;
-        // }
 
         $this->currentPageIndex = 0;
 

@@ -8,17 +8,30 @@
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 
+
     {{-- flat picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="{{ URL::asset('assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css') }}"
+        rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/pickerjs/picker.min.css') }}" rel="stylesheet">
+    <!-- Internal Spectrum-colorpicker css -->
+    <link href="{{ URL::asset('assets/plugins/spectrum-colorpicker/spectrum.css') }}" rel="stylesheet">
+    @livewireStyles
 @endsection
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">
-                    <a href="{{ route('admin.document_templates.index') }}">{{ __('panel.manage_document_categories') }}</a>
+                    <a
+                        href="{{ route('admin.document_templates.index') }}">{{ __('panel.manage_document_categories') }}</a>
                 </h4>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">
                     /
@@ -41,6 +54,7 @@
     </div>
     <!-- breadcrumb -->
 @endsection
+
 @section('content')
     <!-- row opened -->
     <div class="row row-sm ">
@@ -85,6 +99,7 @@
 
     <!-- main-content closed -->
 @endsection
+
 @section('js')
     <!-- Internal Data tables -->
     <script src="{{ URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
@@ -106,11 +121,59 @@
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
 
+
     <!-- Include the Flatpickr JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/{{ app()->getLocale() }}.js"></script>
 
 
+
+    <!--Internal  Datepicker js -->
+    <script src="{{ URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+    <!--Internal  jquery.maskedinput js -->
+    <script src="{{ URL::asset('assets/plugins/jquery.maskedinput/jquery.maskedinput.js') }}"></script>
+    <!--Internal  spectrum-colorpicker js -->
+    <script src="{{ URL::asset('assets/plugins/spectrum-colorpicker/spectrum.js') }}"></script>
+    <!-- Internal Select2.min js -->
+    <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <!-- Internal Jquery.steps js -->
+    <script src="{{ URL::asset('assets/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/plugins/parsleyjs/parsley.min.js') }}"></script>
+    <!--Internal  Form-wizard js -->
+    <script src="{{ URL::asset('assets/js/form-wizard.js') }}"></script>
+
+
+    <!--Internal Ion.rangeSlider.min js -->
+    <script src="{{ URL::asset('assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+    <!--Internal  jquery-simple-datetimepicker js -->
+    <script src="{{ URL::asset('assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js') }}"></script>
+    <!-- Ionicons js -->
+    <script src="{{ URL::asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js') }}"></script>
+    <!--Internal  pickerjs js -->
+    <script src="{{ URL::asset('assets/plugins/pickerjs/picker.min.js') }}"></script>
+    <!-- Internal form-elements js -->
+    <script src="{{ URL::asset('assets/js/form-elements.js') }}"></script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize the toggle switch based on the hidden input value
+            var statusInput = $('#status');
+            var mainToggler = $('#main-toggler');
+
+            // Handle toggle switch click
+            mainToggler.click(function() {
+
+                if ($(this).hasClass('on')) {
+                    statusInput.val(1); // Set status to active
+                } else {
+                    statusInput.val(0); // Set status to inactive
+                }
+            });
+        });
+    </script>
 
     <script>
         $(function() {
