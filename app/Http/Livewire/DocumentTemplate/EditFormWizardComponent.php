@@ -98,33 +98,31 @@ class EditFormWizardComponent extends Component
                     'saved' => true,
                 ];
             })->toArray();
+        } else {
+            $this->pages = [
+                [
+                    'pageId' => 1,
+                    'doc_page_name' => __('panel.page') . ' 1',
+                    'doc_page_description' => 'Page Description 1',
+                    'groups' => [
+                        [
+                            'pg_name' =>  '',
+                            'variables' => [
+                                [
+                                    'pv_name'               =>  '',
+                                    'pv_question'           =>  '',
+                                    'pv_type'               =>   1,
+                                    'pv_required'           =>   1,
+                                    'pv_details'            =>  '',
+                                ],
+                            ],
 
-            // if (empty($this->pages)) {
-            //     $this->pages = [
-            //         [
-            //             'pageId' => 1,
-            //             'doc_page_name' => __('panel.page') . ' 1',
-            //             'doc_page_description' => 'Page Description 1',
-            //             'groups' => [
-            //                 [
-            //                     'pg_name' =>  '',
-            //                     'variables' => [
-            //                         [
-            //                             'pv_name'               =>  '',
-            //                             'pv_question'           =>  '',
-            //                             'pv_type'               =>   1,
-            //                             'pv_required'           =>   1,
-            //                             'pv_details'            =>  '',
-            //                         ],
-            //                     ],
+                        ],
 
-            //                 ],
-
-            //             ],
-            //             'saved' => false, // Initialize saved as false
-            //         ]
-            //     ];
-            // }
+                    ],
+                    'saved' => false, // Initialize saved as false
+                ]
+            ];
         }
 
         // Initialize count based on existing pages
