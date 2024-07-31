@@ -143,7 +143,7 @@ class FormWizardComponent extends Component
     {
         $this->validateStep();
         $this->saveStepData();
-        // $this->currentStep++;
+        return redirect()->route('admin.document_templates.index');
     }
 
     public function previousStep()
