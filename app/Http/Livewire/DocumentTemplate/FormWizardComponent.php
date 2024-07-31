@@ -187,16 +187,31 @@ class FormWizardComponent extends Component
     public function saveStepData()
     {
         if ($this->currentStep == 1) {
-            $documentTemplate = DocumentTemplate::updateOrCreate(
-                [
-                    'document_category_id'  => $this->document_category_id,
-                    'document_type_id'      => $this->document_type_id,
-                    'doc_template_name'     => $this->doc_template_name,
-                    'language'              => $this->language,
-                    'published_on'          => $this->published_on,
-                    'status'                => $this->status,
-                ]
-            );
+            if ($this->documentTemplateId) {
+                $documentTemplate = DocumentTemplate::updateOrCreate(
+                    ['id' => $this->documentTemplateId],
+                    [
+                        'document_category_id'  => $this->document_category_id,
+                        'document_type_id'      => $this->document_type_id,
+                        'doc_template_name'     => $this->doc_template_name,
+                        'language'              => $this->language,
+                        'published_on'          => $this->published_on,
+                        'status'                => $this->status,
+                    ]
+                );
+            } else {
+                $documentTemplate = DocumentTemplate::updateOrCreate(
+                    [
+                        'document_category_id'  => $this->document_category_id,
+                        'document_type_id'      => $this->document_type_id,
+                        'doc_template_name'     => $this->doc_template_name,
+                        'language'              => $this->language,
+                        'published_on'          => $this->published_on,
+                        'status'                => $this->status,
+                    ]
+                );
+            }
+
 
             $this->documentTemplateId = $documentTemplate->id;
             $this->alert('success', __('panel.document_template_data_saved'));
