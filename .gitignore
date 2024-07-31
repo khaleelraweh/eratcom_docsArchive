@@ -14,4 +14,4 @@ yarn-error.log
 /.idea
 /.vscode
 # /public/backend/js/app.js
-# /database/seeders/WorldSeeder.php
+/database/seeders/WorldSeeder.php
