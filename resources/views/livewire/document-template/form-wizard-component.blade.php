@@ -15,7 +15,7 @@
                         </span>
                         <span class="number">1</span>
                         <span class="title">
-                            بيانات نموذج الوثيقة
+                            {{ __('panel.document_template_data') }}
                         </span>
                     </a>
                 </li>
@@ -23,21 +23,21 @@
                     class="disabled {{ $currentStep == 2 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-1" href="#wizard1-h-1" aria-controls="wizard1-p-1">
                         <span class="number">2</span>
-                        <span class="title">نص نموذج الوثيقة</span>
+                        <span class="title"> {{ __('panel.document_template_text') }} </span>
                     </a>
                 </li>
                 <li role="tab" wire:click="directMoveToStep(3)"
                     class="disabled {{ $currentStep == 3 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-1" href="#wizard1-h-1" aria-controls="wizard1-p-1">
                         <span class="number">3</span>
-                        <span class="title">متغيرات نموذج الوثيقة</span>
+                        <span class="title"> {{ __('panel.document_template_variables') }} </span>
                     </a>
                 </li>
                 <li role="tab" wire:click="directMoveToStep(4)"
                     class="disabled last {{ $currentStep == 4 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-2" href="#wizard1-h-2" aria-controls="wizard1-p-2"><span class="number">4</span>
                         <span class="title">
-                            تنيسق الوثيقة والمستند
+                            {{ __('panel.document_and_template_formatting') }}
                         </span>
                     </a>
                 </li>
