@@ -47,7 +47,11 @@ class FrontendController extends Controller
 
         $callActions = CallAction::with('photos')->get();
 
-        return view('backend.admin-login');
+        if (!auth()->check()) {
+            return view('backend.admin-login');
+        } else {
+            return view('backend.index');
+        }
 
         // return view('frontend.index', compact('main_sliders', 'instructors', 'events', 'posts', 'callActions'));
     }
