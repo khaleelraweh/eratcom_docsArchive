@@ -108,16 +108,16 @@ class FormWizardComponent extends Component
             $this->count = count($this->pages);
         }
 
-        // Load data from session if available
-        if ($data = session('form_data')) {
-            $this->documentTemplateId = $data['document_template_id'] ?? null;
-            $this->document_category_id = $data['document_category_id'] ?? null;
-            $this->document_type_id = $data['document_type_id'] ?? null;
-            $this->doc_template_name = $data['doc_template_name'] ?? null;
-            $this->language = $data['language'] ?? null;
-            $this->published_on = $data['published_on'] ?? null;
-            $this->status = $data['status'] ?? 0;
-        }
+        // // Load data from session if available
+        // if ($data = session('form_data')) {
+        //     $this->documentTemplateId = $data['document_template_id'] ?? null;
+        //     $this->document_category_id = $data['document_category_id'] ?? null;
+        //     $this->document_type_id = $data['document_type_id'] ?? null;
+        //     $this->doc_template_name = $data['doc_template_name'] ?? null;
+        //     $this->language = $data['language'] ?? null;
+        //     $this->published_on = $data['published_on'] ?? null;
+        //     $this->status = $data['status'] ?? 0;
+        // }
     }
 
 
@@ -224,15 +224,15 @@ class FormWizardComponent extends Component
             }
 
             // using session to save data when refresh page :
-            session()->put('form_data', [
-                'document_category_id' => $this->document_category_id,
-                'document_type_id' => $this->document_type_id,
-                'document_template_id'  =>  $this->documentTemplateId,
-                'doc_template_name' => $this->doc_template_name,
-                'language' => $this->language,
-                'published_on' => $this->published_on,
-                'status' => $this->status,
-            ]);
+            // session()->put('form_data', [
+            //     'document_category_id' => $this->document_category_id,
+            //     'document_type_id' => $this->document_type_id,
+            //     'document_template_id'  =>  $this->documentTemplateId,
+            //     'doc_template_name' => $this->doc_template_name,
+            //     'language' => $this->language,
+            //     'published_on' => $this->published_on,
+            //     'status' => $this->status,
+            // ]);
 
             $this->documentTemplateId = $documentTemplate->id;
             $this->alert('success', __('panel.document_template_data_saved'));
