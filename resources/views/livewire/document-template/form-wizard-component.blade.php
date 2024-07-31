@@ -491,17 +491,15 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4 pt-3">
                         <label for="pv_name">{{ __('panel.select_pv_name') }}</label>
+                        {{-- <select name="pv_name" class="form-control" wire:model="selectedVariable"> --}}
                         <select name="pv_name" class="form-control">
-                            {{-- <option value="">select varaible</option> --}}
+                            <option value="" selected>-- Select Variable --</option>
                             @if ($documentTemplate)
                                 @if ($documentTemplate->documentPages->isNotEmpty())
                                     @foreach ($documentTemplate->documentPages as $page)
                                         @foreach ($page->pageGroups as $group)
                                             @foreach ($group->pageVariables as $variable)
-                                                {{-- <option value="{!{{ $variable->id }}!}">{{ $variable->pv_name }}
-                                                </option> --}}
-                                                <option value="{{ $variable->id }}">
-                                                    {{ $variable->pv_name }}
+                                                <option value="{{ $variable->id }}">{{ $variable->pv_name }}
                                                 </option>
                                             @endforeach
                                         @endforeach
@@ -515,9 +513,10 @@
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-8 pt-3" wire:ignore>
-                        <textarea name="" id="khaleel3" class="form-control">{{ $doc_template_text }}</textarea>
+                        <textarea name="doc_template_text" id="khaleel3" class="form-control">{{ $doc_template_text }}</textarea>
                     </div>
                 </div>
+
 
             </section>
 
@@ -540,23 +539,22 @@
 
                             // Handle select changes
                             document.querySelector('select[name="pv_name"]').addEventListener('change', function() {
-                                const selectedValue = this.value.split('-')[0];
+                                const selectedValue = this.value;
                                 const selectedText = this.options[this.selectedIndex].text;
 
-                                if (editorInstance) {
+                                if (selectedValue && editorInstance) {
                                     editorInstance.model.change(writer => {
                                         writer.insertText("{!-" + selectedValue + '-' + selectedText +
                                             "!}",
-                                            editorInstance.model
-                                            .document
-                                            .selection.getFirstPosition());
+                                            editorInstance.model.document.selection
+                                            .getFirstPosition());
                                     });
                                 }
                             });
 
                             // Sync CKEditor data with Livewire
                             editor.model.document.on('change:data', () => {
-                                @this.set('doc_template_text', editor.getData());
+                                @this.set('doc_template_text', editorInstance.getData());
                             });
                         })
                         .catch(error => {
@@ -570,6 +568,7 @@
                     }
                 });
             </script>
+
 
 
 

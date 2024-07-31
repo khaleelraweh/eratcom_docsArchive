@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'معهد خطوة شباب للتدريب واللغات',
+    'name' => 'Contract',
     'env' => 'local',
     'debug' => true,
     'url' => 'https://era-t.com',
@@ -251,7 +251,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'maahd_khto_shbab_lltdryb_oallghat_cache',
+    'prefix' => 'contract_cache',
   ),
   'cart' => 
   array (
@@ -366,7 +366,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'maahd_khto_shbab_lltdryb_oallghat_database_',
+        'prefix' => 'contract_database_',
       ),
       'default' => 
       array (
@@ -779,7 +779,7 @@
     'from' => 
     array (
       'address' => 'khaleelvisa@gmail.com',
-      'name' => 'معهد خطوة شباب للتدريب واللغات',
+      'name' => 'Contract',
     ),
     'markdown' => 
     array (
@@ -928,7 +928,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'maahd_khto_shbab_lltdryb_oallghat_session',
+    'cookie' => 'contract_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,
@@ -1057,7 +1057,7 @@
       0 => 
       array (
         'id' => 'khaleelId',
-        'name' => 'معهد خطوة شباب للتدريب واللغات',
+        'name' => 'Contract',
         'host' => NULL,
         'key' => 'khaleelkey',
         'secret' => 'khaleelsecret',

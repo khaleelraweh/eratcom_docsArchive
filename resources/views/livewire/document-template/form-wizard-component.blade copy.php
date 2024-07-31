@@ -15,7 +15,7 @@
                         </span>
                         <span class="number">1</span>
                         <span class="title">
-                            بيانات نموذج الوثيقة
+                            {{ __('panel.document_template_data') }}
                         </span>
                     </a>
                 </li>
@@ -23,21 +23,21 @@
                     class="disabled {{ $currentStep == 2 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-1" href="#wizard1-h-1" aria-controls="wizard1-p-1">
                         <span class="number">2</span>
-                        <span class="title">نص نموذج الوثيقة</span>
+                        <span class="title"> {{ __('panel.document_template_text') }} </span>
                     </a>
                 </li>
                 <li role="tab" wire:click="directMoveToStep(3)"
                     class="disabled {{ $currentStep == 3 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-1" href="#wizard1-h-1" aria-controls="wizard1-p-1">
                         <span class="number">3</span>
-                        <span class="title">متغيرات نموذج الوثيقة</span>
+                        <span class="title"> {{ __('panel.document_template_variables') }} </span>
                     </a>
                 </li>
                 <li role="tab" wire:click="directMoveToStep(4)"
                     class="disabled last {{ $currentStep == 4 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-2" href="#wizard1-h-2" aria-controls="wizard1-p-2"><span class="number">4</span>
                         <span class="title">
-                            تنيسق الوثيقة والمستند
+                            {{ __('panel.document_and_template_formatting') }}
                         </span>
                     </a>
                 </li>
@@ -141,7 +141,7 @@
                         <div class="col-sm-12 col-md-3">
 
                             {{-- publish_start publish time field --}}
-                            <div class="row">
+                            <div class="row" wire:ignore>
                                 <div class="col-sm-12 col-md-12 pt-3">
                                     <label for="published_on"> {{ __('panel.published_date') }} </label>
                                     <input type="text" id="published_on" wire:model.defer="published_on"
@@ -200,7 +200,7 @@
                         <h4>{{ __('panel.document_template_variables') }}</h4>
                     </div>
                     <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
-                        <button wire:click="saveStepThreeData" class="btn btn-primary">
+                        <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
                             {{ __('panel.document_template_variables_save') }}
                         </button>
                     </div>
@@ -491,37 +491,17 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4 pt-3">
                         <label for="pv_name">{{ __('panel.select_pv_name') }}</label>
-                        {{-- <select name="pv_name" class="form-control"
-                            wire:model.defer="pages.{{ $currentPageIndex }}.groups.{{ $groupIndex }}.variables.{{ $variableIndex }}.pv_name">
-                            <option value="1" {{ old('pv_name') == '1' ? 'selected' : null }}>
-                                {{ __('panel.yes') }}
-                            </option>
-                            <option value="0" {{ old('pv_name') == '0' ? 'selected' : null }}>
-                                {{ __('panel.no') }}
-                            </option>
-                        </select> --}}
-
-                        {{-- <select name="pv_name" class="form-control">
-                            @if ($documentTemplate)
-                                @if ($documentTemplate->documentPages->isNotEmpty())
-                                    @foreach ($documentTemplate->documentPages as $page)
-                                        <option value="{{ $page->id }}">{{ $page->doc_page_name }}</option>
-                                    @endforeach
-                                @else
-                                    <option value="">No pages available</option>
-                                @endif
-                            @else
-                                <p>No document template found.</p>
-                            @endif
-                        </select> --}}
-
                         <select name="pv_name" class="form-control">
+                            {{-- <option value="">select varaible</option> --}}
                             @if ($documentTemplate)
                                 @if ($documentTemplate->documentPages->isNotEmpty())
                                     @foreach ($documentTemplate->documentPages as $page)
                                         @foreach ($page->pageGroups as $group)
                                             @foreach ($group->pageVariables as $variable)
-                                                <option value="{!{{ $variable->id }}!}">{{ $variable->pv_name }}
+                                                {{-- <option value="{!{{ $variable->id }}!}">{{ $variable->pv_name }}
+                                                </option> --}}
+                                                <option value="{{ $variable->id }}">
+                                                    {{ $variable->pv_name }}
                                                 </option>
                                             @endforeach
                                         @endforeach
@@ -535,7 +515,7 @@
                         </select>
                     </div>
                     <div class="col-sm-12 col-md-8 pt-3" wire:ignore>
-                        <textarea name="" id="khaleel2" class="form-control"></textarea>
+                        <textarea name="" id="khaleel3" class="form-control">{{ $doc_template_text }}</textarea>
                     </div>
                 </div>
 
@@ -543,29 +523,50 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const selectElement = document.querySelector('select[name="pv_name"]');
+                    let editorInstance;
 
-                    if (selectElement) {
-                        selectElement.addEventListener('change', function() {
-                            const selectedValue = this.value;
-                            const selectedText = this.options[this.selectedIndex].text;
+                    ClassicEditor
+                        .create(document.querySelector('#khaleel3'), {
+                            language: 'ar', // Example setting
+                            // Other editor configurations
+                        })
+                        .then(editor => {
+                            editorInstance = editor;
 
-                            if (editorInstance) {
-                                // Get the current editor data
-                                const editorData = editorInstance.getData();
+                            // Set the initial text from Livewire
+                            @this.on('updateDocTemplateText', (text) => {
+                                editorInstance.setData(text);
+                            });
 
-                                // Get the current cursor position
-                                const position = editorInstance.model.document.selection.getFirstPosition();
+                            // Handle select changes
+                            document.querySelector('select[name="pv_name"]').addEventListener('change', function() {
+                                const selectedValue = this.value.split('-')[0];
+                                const selectedText = this.options[this.selectedIndex].text;
 
-                                // Insert the selected text at the current cursor position
-                                editorInstance.model.change(writer => {
-                                    writer.insertText(selectedText, position);
-                                });
+                                if (editorInstance) {
+                                    editorInstance.model.change(writer => {
+                                        writer.insertText("{!-" + selectedValue + '-' + selectedText +
+                                            "!}",
+                                            editorInstance.model
+                                            .document
+                                            .selection.getFirstPosition());
+                                    });
+                                }
+                            });
 
-                                // Update the editor data
-                                editorInstance.updateSourceElement();
-                            }
+                            // Sync CKEditor data with Livewire
+                            editor.model.document.on('change:data', () => {
+                                @this.set('doc_template_text', editor.getData());
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error initializing CKEditor:', error);
                         });
+                });
+
+                Livewire.on('updateDocTemplateText', text => {
+                    if (editorInstance) {
+                        editorInstance.setData(text);
                     }
                 });
             </script>
@@ -578,23 +579,32 @@
             <ul role="menu" aria-label="Pagination">
                 <li class="{{ $currentStep == 1 ? 'disabled' : '' }}"
                     aria-disabled="{{ $currentStep == 1 ? 'true' : 'false' }} ">
-                    <a href="#previous" style="display: {{ $currentStep == 1 ? 'block' : 'none' }} ;"
+                    <a href="#previous" style="display: {{ $currentStep == 1 ? 'none' : 'none' }} ;"
                         role="menuitem">
                         Previous
                     </a>
                     <a href="#previous" wire:click="previousStep"
                         style="display: {{ $currentStep == 1 ? 'none' : 'block' }} ;" role="menuitem">
-                        Previous
+                        {{ __('panel.previous') }}
                     </a>
                 </li>
                 <li aria-hidden="false" aria-disabled="false"
                     style="display: {{ $currentStep == 4 ? 'none' : 'block' }}">
                     <a href="#next" wire:click="nextStep" role="menuitem">
-                        Next
+                        {{-- Next --}}
+                        @if ($currentStep == 1)
+                            {{ __('panel.document_template_text') }} >>
+                        @else
+                            @if ($currentStep == 2)
+                                {{ __('panel.document_template_variables') }} >>
+                            @else
+                                {{ __('panel.document_and_template_formatting') }} >>
+                            @endif
+                        @endif
                     </a>
                 </li>
                 <li aria-hidden="true" style="display: {{ $currentStep == 4 ? 'block' : 'none' }}"><a
-                        href="#finish" role="menuitem">Finish</a>
+                        href="#finish" wire:click="finish" role="menuitem">{{ __('panel.finish') }}</a>
                 </li>
             </ul>
         </div>
