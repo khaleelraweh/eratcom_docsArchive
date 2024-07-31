@@ -185,10 +185,52 @@
                 aria-hidden="{{ $currentStep == 2 ? 'false' : 'true' }}"
                 style="display: {{ $currentStep == 2 ? 'block' : 'none' }}">
 
-                <textarea name="doc_template_text" wire:model="doc_template_text" rows="10" class="form-control summernote">{!! old('doc_template_text') !!}</textarea>
+                {{-- <textarea name="doc_template_text" wire:model="doc_template_text" rows="10" class="form-control summernote">{!! old('doc_template_text') !!}</textarea> --}}
+
+                <div wire:ignore>
+                    <textarea name="doc_template_text" id="ckEditor2" wire:model="doc_template_text" rows="10"
+                        class="form-control">{{ $doc_template_text }}</textarea>
+                </div>
+
                 @error('doc_template_text')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        let editorInstance2;
+
+                        ClassicEditor
+                            .create(document.querySelector('#ckEditor2'), {
+                                language: 'ar', // Example setting for Arabic language
+                                // Other editor configurations
+                            })
+                            .then(editor => {
+                                editorInstance2 = editor;
+
+                                // Set the initial text from Livewire
+                                @this.on('updateDocTemplateText', (text) => {
+                                    editorInstance2.setData(text);
+                                });
+
+                                // Sync CKEditor data with Livewire
+                                editor.model.document.on('change:data', () => {
+                                    @this.set('doc_template_text', editorInstance2.getData());
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error initializing CKEditor:', error);
+                            });
+                    });
+
+                    Livewire.on('updateDocTemplateText', text => {
+                        if (editorInstance2) {
+                            editorInstance2.setData(text);
+                        }
+                    });
+                </script>
+
 
             </section>
 
