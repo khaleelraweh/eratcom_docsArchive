@@ -79,46 +79,21 @@ class DocumentTemplatesController extends Controller
 
     public function update(Request $request,  $documentTemplate)
     {
-        if (!auth()->user()->ability('admin', 'update_document_templates')) {
-            return redirect('admin/index');
-        }
-        $documentType = DocumentType::where('id', $documentType)->first();
-
-        $input['doc_type_name']      =   $request->doc_type_name;
-        $input['doc_type_note']      =   $request->doc_type_note;
-        $input['updated_by']        =   auth()->user()->full_name;
-        $input['published_on']      =   $request->published_on;
-        $input['status']            =   $request->status;
-
-        $documentType->update($input);
-
-        if ($documentType) {
-            return redirect()->route('admin.document_templates.index')->with([
-                'message' => __('panel.updated_successfully'),
-                'alert-type' => 'success'
-            ]);
-        }
-
-        return redirect()->route('admin.document_templates.index')->with([
-            'message' => __('panel.something_was_wrong'),
-            'alert-type' => 'danger'
-        ]);
     }
 
-    public function destroy($documentType)
+    public function destroy($documentTemplate)
     {
-
         if (!auth()->user()->ability('admin', 'delete_document_templates')) {
             return redirect('admin/index');
         }
 
-        $documentType = DocumentType::where('id', $documentType)->first();
+        $documentTemplate = DocumentTemplate::where('id', $documentTemplate)->first();
 
-        $documentType->deleted_by = auth()->user()->full_name;
-        $documentType->save();
-        $documentType->delete();
+        $documentTemplate->deleted_by = auth()->user()->full_name;
+        $documentTemplate->save();
+        $documentTemplate->delete();
 
-        if ($documentType) {
+        if ($documentTemplate) {
             return redirect()->route('admin.document_templates.index')->with([
                 'message' => __('panel.deleted_successfully'),
                 'alert-type' => 'success'

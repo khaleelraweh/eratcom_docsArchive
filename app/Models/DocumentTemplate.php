@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -14,7 +15,7 @@ use Spatie\Translatable\HasTranslations;
 
 class DocumentTemplate extends Model
 {
-    use HasFactory, HasTranslations, HasTranslatableSlug, SearchableTrait;
+    use HasFactory, HasTranslations, HasTranslatableSlug, SearchableTrait, SoftDeletes;
     protected $guarded = [];
 
     public $translatable = ['doc_template_name', 'slug'];
