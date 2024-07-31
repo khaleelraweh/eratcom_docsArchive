@@ -493,7 +493,7 @@
                         <label for="pv_name">{{ __('panel.select_pv_name') }}</label>
                         {{-- <select name="pv_name" class="form-control" wire:model="selectedVariable"> --}}
                         <select name="pv_name" class="form-control">
-                            <option value="" selected>-- Select Variable --</option>
+                            <option value="" selected>-- {{ __('panel.select_variable') }} --</option>
                             @if ($documentTemplate)
                                 @if ($documentTemplate->documentPages->isNotEmpty())
                                     @foreach ($documentTemplate->documentPages as $page)

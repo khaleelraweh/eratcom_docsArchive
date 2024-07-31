@@ -227,6 +227,9 @@ return [
     'pv_required'                                           =>  'إلزامي',
     'pv_details'                                            =>  'التفاصيل',
 
+    'select_variable'                                       =>  'حدد متغير',
+
+
     'finish'                                                =>  'إنهاء',
     'previous'                                              =>  'السابق',
 

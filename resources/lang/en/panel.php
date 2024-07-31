@@ -222,6 +222,7 @@ return [
     'pv_type_number'                                        =>  'Number',
     'pv_required'                                           =>  'Required',
     'pv_details'                                            =>  'Details',
+    'select_variable'                                       =>  'Select Variable',
     'finish'                                                =>  'Finish',
     'previous'                                              =>  'Previous',
 
