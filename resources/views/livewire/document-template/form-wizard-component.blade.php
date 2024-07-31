@@ -141,7 +141,7 @@
                         <div class="col-sm-12 col-md-3">
 
                             {{-- publish_start publish time field --}}
-                            <div class="row">
+                            <div class="row" wire:ignore>
                                 <div class="col-sm-12 col-md-12 pt-3">
                                     <label for="published_on"> {{ __('panel.published_date') }} </label>
                                     <input type="text" id="published_on" wire:model.defer="published_on"
