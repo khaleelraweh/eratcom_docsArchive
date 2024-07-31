@@ -136,14 +136,11 @@ class EditFormWizardComponent extends Component
         $this->document_categories  = DocumentCategory::whereStatus(true)->get();
         $this->document_types       = $this->document_category_id != '' ? DocumentType::whereStatus(true)->whereDocumentCategoryId($this->document_category_id)->get() : [];
 
-        // Fetch the DocumentTemplate instance
-        $documentTemplate = $this->documentTemplateId ? DocumentTemplate::find($this->documentTemplateId) : null;
-
         return view('livewire.document-template.edit-form-wizard-component', [
             'document_categories'   => $this->document_categories,
             'document_types'        => $this->document_types,
-            'documentTemplateId'    => $this->documentTemplateId,
-            'documentTemplate'      => $documentTemplate, // Pass the DocumentTemplate instance
+            'documentTemplateId'    => $this->documentTemplate->id,
+            'documentTemplate'      => $this->documentTemplate, // Pass the DocumentTemplate instance
             'doc_template_text'     => $this->doc_template_text, // Pass the doc_template_text to the view
 
         ]);
@@ -205,6 +202,7 @@ class EditFormWizardComponent extends Component
     {
         if ($this->currentStep == 1) {
             $documentTemplate = DocumentTemplate::updateOrCreate(
+                ['id'   =>  $this->documentTemplate->id],
                 [
                     'document_category_id'  => $this->document_category_id,
                     'document_type_id'      => $this->document_type_id,
@@ -214,12 +212,10 @@ class EditFormWizardComponent extends Component
                     'status'                => $this->status,
                 ]
             );
-
-            $this->documentTemplateId = $documentTemplate->id;
             $this->alert('success', __('panel.document_template_data_saved'));
         } elseif ($this->currentStep == 2) {
             DocumentTemplate::updateOrCreate(
-                ['id' => $this->documentTemplateId],
+                ['id' => $this->documentTemplate->id],
                 [
                     'doc_template_text'     => $this->doc_template_text,
                 ]
@@ -231,7 +227,7 @@ class EditFormWizardComponent extends Component
             $this->alert('success', __('panel.document_template_variables_saved'));
         } elseif ($this->currentStep == 4) {
             DocumentTemplate::updateOrCreate(
-                ['id' => $this->documentTemplateId],
+                ['id' => $this->documentTemplate->id],
                 [
                     'doc_template_text' => $this->doc_template_text,
                 ]
@@ -413,7 +409,7 @@ class EditFormWizardComponent extends Component
             $pageData = [
                 'doc_page_name'         => $page['doc_page_name'],
                 'doc_page_description'  => $page['doc_page_description'],
-                'document_template_id'  => $this->documentTemplateId,
+                'document_template_id'  => $this->documentTemplate->id,
             ];
 
             $pageModel = DocumentPage::updateOrCreate($pageData);
