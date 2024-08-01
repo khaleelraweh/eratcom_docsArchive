@@ -169,29 +169,12 @@ Route::group(['middleware' => ['roles', 'role:customer|supervisor', 'verified']]
     });
 });
 
-// ######################################################### //
-// ###############   Instructor Authed Route   ############### //
-// ######################################################### //
-Route::group(['middleware' => ['roles', 'role:instructor', 'verified']], function () {
-
-    Route::group(['prefix' => 'instructor/', 'as' => 'instructor.'], function () {
-        // ==============  instructor Profile Setting   ==============  //
-        Route::get('dashboard', [FrontendInstructorController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile', [FrontendInstructorController::class, 'profile'])->name('profile');
-        Route::patch('profile/update', [FrontendInstructorController::class, 'update_profile'])->name('update_profile');
-        Route::get('profile/remove-image', [FrontendInstructorController::class, 'remove_profile_image'])->name('remove_profile_image');
-
-        Route::post('courses/remove-image', [InstructorCourseController::class, 'remove_image'])->name('courses.remove_image');
-        Route::resource('courses', InstructorCourseController::class);
-    });
-});
 
 
 // ######################################################### //
 // ###################   Backend Routes   ################## //
 // ######################################################### //
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-
 
     // #################   Guest Access Pages   ################ //
     Route::group(['middleware' => 'guest'], function () {
@@ -201,7 +184,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/lock-screen', [BackendController::class, 'lock_screen'])->name('lock-screen');
         Route::get('/recover-password', [BackendController::class, 'recover_password'])->name('recover-password');
     });
-
 
     // ==============   Theme Icon To Style Website Ready ==============  //
     Route::post('/cookie/create/update', [BackendController::class, 'create_update_theme'])->name('create_update_theme');
