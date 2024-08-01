@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Hash;
 
 class BackendController extends Controller
 {
-
     public function login()
     {
         return view('backend.admin-login');
@@ -42,70 +41,6 @@ class BackendController extends Controller
         return view('backend.index');
     }
 
-    // public function index($id)
-    // {
-    //     if (view()->exists($id)) {
-    //         return view($id);
-    //     } else {
-    //         return view('404');
-    //     }
-
-    //     //   return view($id);
-    // }
-
-
-    // public function index($id)
-    // {
-    //     // Define the folder where you want to check the view
-    //     $folder = 'backend';
-
-    //     // Create the full view name including the folder
-    //     $viewName = $folder . '.' . $id;
-
-    //     // Check if the view exists
-    //     if (view()->exists($viewName)) {
-    //         return view($viewName);
-    //     } else {
-    //         return view('404');
-    //     }
-    // }
-
-
-    // public function index($id = 'index')
-    // {
-    //     // Define the base folder where you want to check the view
-    //     $folder = 'backend';
-
-    //     // Create the full view name including the folder
-    //     $viewName = $folder . '.' . str_replace('/', '.', $id);
-
-    //     // Check if the view exists
-    //     if (view()->exists($viewName)) {
-    //         return view($viewName);
-    //     } else {
-    //         return view('404');
-    //     }
-    // }
-
-
-    // public function index($id = 'index')
-    // {
-    //     // Define the base folder where you want to check the view
-    //     $folder = 'backend';
-
-    //     // Create the full view name including the folder
-    //     $viewName = $folder . '.' . str_replace('/', '.', $id);
-
-    //     // Check if the view exists
-    //     if (view()->exists($viewName)) {
-    //         return view($viewName, ['currentPath' => $id]);
-    //     } else {
-    //         return view('404');
-    //     }
-    // }
-
-
-
     public function create_update_theme(Request $request)
     {
         $theme = $request->input('theme_choice');
@@ -130,7 +65,6 @@ class BackendController extends Controller
 
     public function update_profile(Request $request)
     {
-
         $user = auth()->user();
         $data['first_name'] =   $request->first_name;
         $data['last_name']  =   $request->last_name;
@@ -209,8 +143,6 @@ class BackendController extends Controller
 
     public function remove_image(Request $request)
     {
-
-
 
         $user = auth()->user();
 
