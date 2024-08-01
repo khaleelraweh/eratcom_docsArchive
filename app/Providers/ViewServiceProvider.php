@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Permission;
-use App\Models\SiteSetting;
-use App\Models\WebMenu;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
