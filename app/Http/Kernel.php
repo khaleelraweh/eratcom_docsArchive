@@ -39,7 +39,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // added for checking cart items when the user login 
-            \App\Http\Middleware\CheckCartAfterLogin::class,
         ],
 
         'api' => [
@@ -74,8 +73,6 @@ class Kernel extends HttpKernel
         'role' => \Mindscms\Entrust\Middleware\EntrustRole::class,
         'permission' => \Mindscms\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Mindscms\Entrust\Middleware\EntrustAbility::class,
-
-        'check_cart' => \App\Http\Middleware\CheckCart::class,
 
     ];
 }
