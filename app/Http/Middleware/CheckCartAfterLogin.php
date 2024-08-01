@@ -18,18 +18,6 @@ class CheckCartAfterLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-            $purchasedCourses = $user->orders()->with('courses')->get()->pluck('courses.*.id')->flatten()->unique();
-
-            $cartItems = Cart::instance('default')->content();
-
-            foreach ($cartItems as $item) {
-                if ($purchasedCourses->contains($item->id)) {
-                    Cart::instance('default')->remove($item->rowId);
-                }
-            }
-        }
 
         return $next($request);
     }

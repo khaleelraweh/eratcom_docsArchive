@@ -94,30 +94,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserAddress::class);
     }
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    // public function courses(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Course::class);
-    // }
-
-    public function scopeHasCourses($query)
-    {
-        return $query->whereHas('courses');
-    }
-
-    public function specializations(): BelongsToMany
-    {
-        return $this->belongsToMany(Specialization::class);
-    }
 
     // to return the the user who has role lake lectures or admin or customer 
     public function scopeWhereHasRoles($query, $role)
@@ -125,19 +101,5 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereHas('roles', function ($query) use ($role) {
             $query->where('name', $role);
         });
-    }
-
-    public function posts(): MorphToMany
-    {
-        return $this->morphedByMany(Post::class, 'userable');
-    }
-    public function events(): MorphToMany
-    {
-        return $this->morphedByMany(Post::class, 'userable');
-    }
-
-    public function courses(): MorphToMany
-    {
-        return $this->morphedByMany(Course::class, 'userable');
     }
 }
