@@ -27,8 +27,22 @@ app('debugbar')->disable();
 // ###################   Frontend Route   ################## //
 // ######################################################### //
 
-Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
-Route::get('/index', [FrontendController::class, 'index'])->name('frontend.index');
+
+Route::get('/', function () {
+    if (!auth()->check()) {
+        return view('backend.admin-login');
+    } else {
+        return view('backend.index');
+    }
+});
+
+Route::get('/index', function () {
+    if (!auth()->check()) {
+        return view('backend.admin-login');
+    } else {
+        return view('backend.index');
+    }
+});
 
 Route::post('currency_load', [CurrenciesController::class, 'currencyLoad'])->name('currency.load');
 Route::get('change_currency/{currency_code?}', [CurrenciesController::class, 'currencyLoad'])->name('change.currency');
