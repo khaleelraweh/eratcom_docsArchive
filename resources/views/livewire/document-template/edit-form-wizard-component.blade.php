@@ -1,5 +1,5 @@
 <div>
-    <link rel="stylesheet" href="{{ asset('frontend/css/mywizard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mywizard.css') }}">
     <style>
         .ck.ck-editor__main>.ck-editor__editable {
             height: 200px !important;
