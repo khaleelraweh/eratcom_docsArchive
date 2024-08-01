@@ -14,7 +14,6 @@ use App\Http\Controllers\Backend\LocaleController;
 use App\Http\Controllers\Backend\SiteSettingsController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\SupervisorController;
-use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\auth;
 use Illuminate\Support\Facades\Route;
 
