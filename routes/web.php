@@ -20,12 +20,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 // لايقاف الديباجر نضيف هذا الكود
-app('debugbar')->disable();
+// app('debugbar')->disable();
 
 // ######################################################### //
 // ###################   Frontend Route   ################## //
 // ######################################################### //
-
 
 Route::get('/', function () {
     if (!auth()->check()) {
