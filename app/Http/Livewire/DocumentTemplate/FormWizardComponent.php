@@ -471,4 +471,8 @@ class FormWizardComponent extends Component
         $this->saveStepThree();
         $this->currentStep++;
     }
+
+    public function updateDocTemplateText()
+    {
+    }
 }
