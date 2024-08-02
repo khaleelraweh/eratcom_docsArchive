@@ -64,7 +64,7 @@
 
                                             </form>
                                             <div class="main-signin-footer mt-5">
-                                                <p><a href="{{ route('admin.recover-password') }}"> نسيت كلمة المرور؟</a>
+                                                <p><a href="{{ route('admin.forgot_password') }}"> نسيت كلمة المرور؟</a>
                                                 </p>
                                             </div>
                                         </div>

@@ -56,8 +56,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [BackendController::class, 'login'])->name('login');
         Route::get('/login', [BackendController::class, 'login'])->name('login');
         Route::get('/register', [BackendController::class, 'register'])->name('register');
-        Route::get('/lock-screen', [BackendController::class, 'lock_screen'])->name('lock-screen');
-        Route::get('/recover-password', [BackendController::class, 'recover_password'])->name('recover-password');
+        Route::get('/lock-screen', [BackendController::class, 'lock_screen'])->name('lock_screen');
+        Route::get('/forgot-password', [BackendController::class, 'forgot_password'])->name('forgot_password');
     });
 
     // ==============   Theme Icon To Style Website Ready ==============  //

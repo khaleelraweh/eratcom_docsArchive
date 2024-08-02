@@ -31,9 +31,9 @@ class BackendController extends Controller
         return view('backend.admin-lock-screen');
     }
 
-    public function recover_password()
+    public function forgot_password()
     {
-        return view('backend.admin-recoverpw');
+        return view('backend.admin-forgotpw');
     }
 
     public function index()
