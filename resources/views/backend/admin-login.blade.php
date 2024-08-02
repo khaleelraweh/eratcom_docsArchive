@@ -14,10 +14,6 @@
                 <div class="text-center mt-4">
                     <div class="mb-3">
                         <a href="{{ route('admin.index') }}" class="auth-logo">
-                            {{-- <img src="{{ asset('backend/images/logo-dark.png') }}" height="30" class="logo-dark mx-auto"
-                                alt="">
-                            <img src="{{ asset('backend/images/logo-light.png') }}" height="30"
-                                class="logo-light mx-auto" alt=""> --}}
                         </a>
                     </div>
                 </div>
@@ -29,11 +25,6 @@
                         @csrf
                         <div class="form-group mb-3 row">
                             <div class="col-12">
-                                {{-- <input class="form-control" type="text" name='username' id="username" value="{{old('username')}}" placeholder="Username">
-                            @error('username')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror --}}
-
                                 <div class="form-group">
                                     {{-- <label for="email">Email Address</label> --}}
                                     <input type="text" name="email"
@@ -51,11 +42,6 @@
 
                         <div class="form-group mb-3 row">
                             <div class="col-12">
-                                {{-- <input class="form-control" type="password" name="password" id="password"
-                                placeholder="Password">
-                            @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror --}}
                                 <div class="form-group">
                                     <input type="password" name="password" required autocomplete="current-password"
                                         class="form-control form-control--sm js_email_fe rounded-pill"
@@ -66,8 +52,6 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-
-                                    <!-- <div class="invalid-feedback">لا يكون الحقل فارغ</div> -->
                                 </div>
                             </div>
                         </div>
