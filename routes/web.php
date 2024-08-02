@@ -42,8 +42,7 @@ Route::get('/index', function () {
     }
 });
 
-Route::post('currency_load', [CurrenciesController::class, 'currencyLoad'])->name('currency.load');
-Route::get('change_currency/{currency_code?}', [CurrenciesController::class, 'currencyLoad'])->name('change.currency');
+
 Route::get('/change-language/{locale}',     [LocaleController::class, 'switch'])->name('change.language');
 
 
