@@ -1,82 +1,98 @@
-@extends('layouts.app')
-
+@extends('layouts.master2')
+@section('css')
+    <!-- Sidemenu-respoansive-tabs css -->
+    <link href="{{ URL::asset('assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css') }}"
+        rel="stylesheet">
+@endsection
 @section('content')
-    <section class="py-5 pref">
-        <div class="container">
-            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="h2 text-uppercase mb-0">{{ __('panel.f_reset_password') }}</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <!-- The image half -->
+            <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
+                <div class="row wd-100p mx-auto text-center">
+                    <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+                        <img src="{{ URL::asset('assets/img/media/forgot.png') }}"
+                            class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <!-- The content half -->
+            <div class="col-md-6 col-lg-6 col-xl-5 bg-white">
+                <div class="login d-flex align-items-center py-2">
+                    <!-- Demo content-->
+                    <div class="container p-0">
+                        <div class="row">
+                            <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                                <div class="mb-5 d-flex"> <a href="{{ url('/' . ($page = 'index')) }}"><img
+                                            src="{{ URL::asset('assets/img/brand/favicon.png') }}"
+                                            class="sign-favicon ht-40" alt="logo"></a>
+                                    <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Ad<span>el</span>xpress</h1>
 
-    <section class="py-5 ">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <h2 class="h5 text-uppercase mb-3">{{ __('panel.f_reset_password') }}</h2>
-                    @if (session('status'))
-                        <div class="alert alert-success"
-                            style="margin-bottom: 5px ; background-color:rgba(200 , 100 , 100,0.3) ; border-radius: 10px"
-                            role="alert">
-                            <div class="d-none">{{ session('status') }}</div>
-                            {{ __('panel.f_we_have_sent_you_a_reset_link_to_your_email') }}
-                        </div>
-                    @endif
+                                </div>
+                                <div class="main-card-signin d-md-flex bg-white">
+                                    <div class="wd-100p">
+                                        <div class="main-signin-header">
+                                            <h2>إعادة تعيين كلمة المرور!</h2>
+                                            <h4>الرجاء إدخل بريدك الإلكتروني</h4>
 
+                                            @if (session('status'))
+                                                <div class="alert alert-success" role="alert">
+                                                    <button aria-label="Close" class="close" data-dismiss="alert"
+                                                        type="button">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <div class="d-none">{{ session('status') }}</div>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                                                    <strong>ملاحظة !</strong>
+                                                    {{ __('panel.f_we_have_sent_you_a_reset_link_to_your_email') }}
+                                                </div>
+                                            @else
+                                                <div class="alert alert-info" role="alert">
+                                                    <button aria-label="Close" class="close" data-dismiss="alert"
+                                                        type="button">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <strong>ملاحظة !</strong>
+                                                    ادخل <strong> بريدك الإلكتروني </strong> , وسيتم إرسال التعليمات الى
+                                                    البريد الإلكتروني
+                                                </div>
+                                            @endif
 
-                        <div class="form-group js_login_fe">
-                            <p class="form-row mb-3">
+                                            <form method="POST" action="{{ route('password.email') }}">
+                                                @csrf
 
-                                <label for="email">
-                                    <i class="fa fa-envelope custom-color"></i>
-                                    {{ __('panel.f_email') }}
-                                    <span class="required">*</span>
-                                </label>
+                                                <div class="form-group">
+                                                    <label for="email">البريد الإلكتروني</label>
+                                                    <input type="email" name="email" id="email" class="form-control"
+                                                        name="email" value="{{ old('email') }}"
+                                                        placeholder="ادخل بريدك الإلكتروني" autocomplete="email"
+                                                        autocapitalize="none">
+                                                    @error('email')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
 
-                                <input type="email" name="email" id="email"
-                                    class="form-control form-control--sm mt-3" value="" placeholder="your@email.com"
-                                    autocomplete="email" autocapitalize="none">
-
-                                @error('email')
-                                    <span class="invalid-feedback text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </p>
-                        </div>
-
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-2">
-                                <button type="submit" class="btn btn-block btn-primary mt-3">
-                                    {{ __('panel.f_send_reset_link') }}
-
-                                </button>
-
+                                                </div>
+                                                <button class="btn btn-main-primary btn-block" type="submit"
+                                                    name="submit">
+                                                    {{ __('panel.f_send_reset_link') }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="main-signup-footer mg-t-20">
+                                            <p>
+                                                تذكرت بيانات حسابي العودة الى
+                                                <a href="{{ route('admin.login') }}"> واجهة تسجيل الدخول </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mt-3"></div>
-                        <h6 class="small-body-subtitle">
-                            {{ __('transf.txt_remember_your_password') }}
-                            <a href="{{ route('login') }}">
-                                <span> {{ __('transf.lnk_login') }}</span>
-                            </a>
-                        </h6>
-                    </form>
-
-
-
+                    </div><!-- End -->
                 </div>
-            </div>
+            </div><!-- End -->
         </div>
-
-    </section>
+    </div>
+@endsection
+@section('js')
 @endsection

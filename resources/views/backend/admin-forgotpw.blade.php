@@ -34,8 +34,19 @@
                                         <div class="main-signin-header">
                                             <h2>إعادة تعيين كلمة المرور!</h2>
                                             <h4>الرجاء إدخل بريدك الإلكتروني</h4>
-                                            <form action="{{ route('password.email') }}">
-                                                @csrf
+
+                                            @if (session('status'))
+                                                <div class="alert alert-success" role="alert">
+                                                    <button aria-label="Close" class="close" data-dismiss="alert"
+                                                        type="button">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <div class="d-none">{{ session('status') }}</div>
+
+                                                    <strong>ملاحظة !</strong>
+                                                    {{ __('panel.f_we_have_sent_you_a_reset_link_to_your_email') }}
+                                                </div>
+                                            @else
                                                 <div class="alert alert-info" role="alert">
                                                     <button aria-label="Close" class="close" data-dismiss="alert"
                                                         type="button">
@@ -45,16 +56,26 @@
                                                     ادخل <strong> بريدك الإلكتروني </strong> , وسيتم ارسالت التعليمات الى
                                                     البريد الإلكتروني
                                                 </div>
+                                            @endif
+
+                                            <form method="POST" action="{{ route('password.email') }}">
+                                                @csrf
+
                                                 <div class="form-group">
-                                                    <label>البريد الإلكتروني</label>
-                                                    <input class="form-control" name="email" value="{{ old('email') }}"
-                                                        placeholder="ادخل بريدك الإلكتروني" type="text">
+                                                    <label for="email">البريد الإلكتروني</label>
+                                                    <input type="email" name="email" id="email" class="form-control"
+                                                        name="email" value="{{ old('email') }}"
+                                                        placeholder="ادخل بريدك الإلكتروني" autocomplete="email"
+                                                        autocapitalize="none">>
                                                     @error('email')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
+
                                                 </div>
                                                 <button class="btn btn-main-primary btn-block" type="submit"
-                                                    name="submit">إرسال</button>
+                                                    name="submit">
+                                                    {{ __('panel.f_send_reset_link') }}
+                                                </button>
                                             </form>
                                         </div>
                                         <div class="main-signup-footer mg-t-20">
