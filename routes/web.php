@@ -42,6 +42,14 @@ Route::get('/index', function () {
     }
 });
 
+Route::get('/register', function () {
+    if (!auth()->check()) {
+        return view('backend.admin-login');
+    } else {
+        return view('backend.index');
+    }
+});
+
 
 Route::get('/change-language/{locale}',     [LocaleController::class, 'switch'])->name('change.language');
 
