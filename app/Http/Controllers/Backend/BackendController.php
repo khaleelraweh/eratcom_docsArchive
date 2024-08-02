@@ -26,6 +26,11 @@ class BackendController extends Controller
         return view('backend.admin-register');
     }
 
+    public function reset()
+    {
+        return view('backend.admin-reset');
+    }
+
     public function lock_screen()
     {
         return view('backend.admin-lock-screen');
