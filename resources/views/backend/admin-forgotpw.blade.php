@@ -53,7 +53,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     <strong>ملاحظة !</strong>
-                                                    ادخل <strong> بريدك الإلكتروني </strong> , وسيتم ارسالت التعليمات الى
+                                                    ادخل <strong> بريدك الإلكتروني </strong> , وسيتم ارسال التعليمات الى
                                                     البريد الإلكتروني
                                                 </div>
                                             @endif
@@ -66,7 +66,7 @@
                                                     <input type="email" name="email" id="email" class="form-control"
                                                         name="email" value="{{ old('email') }}"
                                                         placeholder="ادخل بريدك الإلكتروني" autocomplete="email"
-                                                        autocapitalize="none">>
+                                                        autocapitalize="none">
                                                     @error('email')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
