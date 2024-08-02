@@ -68,7 +68,6 @@ class LoginController extends Controller
     {
         /* Call original logout method  */
         $response = $this->originalLogout($request);
-
         /* Return Original Response */
         return $response;
     }
