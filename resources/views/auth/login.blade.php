@@ -1,182 +1,85 @@
-@extends('layouts.app')
+@extends('layouts.master2')
 
+@section('css')
+    <!-- Sidemenu-respoansive-tabs css -->
+    <link href="{{ URL::asset('assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css') }}"
+        rel="stylesheet">
+@endsection
 @section('content')
-    <section class="py-3 pref">
-        <div class="container">
-            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="h2 text-uppercase mb-0">{{ __('transf.lnk_login') }}</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <!-- The image half -->
+            <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent">
+                <div class="row wd-100p mx-auto text-center">
+                    <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+                        <img src="{{ URL::asset('assets/img/media/login.png') }}"
+                            class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <!-- The content half -->
+            <div class="col-md-6 col-lg-6 col-xl-5 bg-white">
+                <div class="login d-flex align-items-center py-2">
+                    <!-- Demo content-->
+                    <div class="container p-0">
+                        <div class="row">
+                            <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+                                <div class="card-sigin">
+                                    <div class="mb-5 d-flex"> <a href="{{ url('/' . ($page = 'index')) }}"><img
+                                                src="{{ URL::asset('assets/img/brand/favicon.png') }}"
+                                                class="sign-favicon ht-40" alt="logo"></a>
+                                        <h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Ad<span>el</span>xpress</h1>
+                                    </div>
+                                    <div class="card-sigin">
+                                        <div class="main-signup-header">
+                                            <h2>مرحبا مجددا !</h2>
+                                            <h5 class="font-weight-semibold mb-4">الرجاء تسجيل الدخول من اجل المتابعة</h5>
+                                            <form action="{{ route('login') }}" method="POST">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="email">إسم المستخدم او البريد الإلكتروني</label>
 
-    <section class="py-5 ">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2 class="h5 text-uppercase mb-3">{{ __('transf.lnk_login') }}</h2>
+                                                    <input
+                                                        class="form-control  @if ($errors->has('email') || $errors->has('username')) has-error @endif"
+                                                        name="email" id="email" value="{{ old('email') }}"
+                                                        placeholder="ادخل اسم المستخدم او البريد الالكتروي" type="text">
+                                                    @if ($errors->has('email') || $errors->has('username'))
+                                                        <span class="help">{{ $errors->first('email') }}
+                                                            {{ $errors->first('username') }}</span>
+                                                    @endif
 
-                {{-- <form method="POST" action="{{ route('login') }}">
+                                                </div>
 
-                    @csrf
-                    <div class="row">
+                                                <div class="form-group">
+                                                    <label>كلمة المرور</label>
+                                                    <input class="form-control" name="password" required
+                                                        autocomplete="current-password" placeholder="ادخل كلمة المرور"
+                                                        type="password">
+                                                    @error('password')
+                                                        <span class="invalid-feedback text-danger" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <button class="btn btn-main-primary btn-block" type="submit">تسجيل
+                                                    الدخول</button>
 
-                        <div class="col-md-12 mb-3">
-                            <div class="form-group">
-                                <label for="username" class="text-small text-uppercase">{{ __('إسم الحساب') }}</label>
-                                <input id="username" type="text"
-                                    class="form-control form-control-lg @error('username') is-invalid @enderror"
-                                    name="username" placeholder="ادخل اسم الحساب" value="{{ old('username') }}" required
-                                    autocomplete="username" autofocus>
-                                @error('username')
-                                    <span class="invalid-feedback text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
-                        <div class="col-12 mb-3">
-                            <div class="form-group">
-                                <label for="password" class="text-small text-uppercase">{{ __('كلمة المرور') }}</label>
-                                <input id="password" type="password"
-                                    class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                    name="password" placeholder="ادخل كلمة المرور" required autocomplete="current-password">
-                                @error('password')
-                                    <span class="invalid-feedback text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 form-group mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label  text-small text-uppercase" for="remember">
-                                    {{ __('Remember Me') }}
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col-12 mb-3">
-                            <div class="form-group d-flex align-item-center justify-content-between flex-wrap">
-
-                                <div class="mb-2">
-                                    <button type="submit" class="btn btn-dark">
-                                        {{ __('Login') }}
-                                    </button>
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link  " href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
+                                            </form>
+                                            <div class="main-signin-footer mt-5">
+                                                <p><a href="{{ route('admin.forgot_password') }}"> نسيت كلمة المرور؟</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                @if (Route::has('register'))
-                                    <a class="btn btn-secondary mb-2 " href="{{ route('register') }}">
-                                        {{ __('إنشاء حساب جديد') }}
-                                    </a>
-                                @endif
-
                             </div>
                         </div>
-                    </div>
-
-                </form> --}}
-
-
-
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="form-group">
-
-                        {{-- <input type="text" name="username" value="{{ old('username') }}" required autocomplete="username"
-                            class="form-control form-control--sm js_email_fe rounded-pill"
-                            placeholder="ادخل اسم المستخدم" />
-
-                        @error('username')
-                            <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror --}}
-
-                        {{-- user name or email --}}
-                        <div class="form-group mb-5">
-                            <label for="modalSigninEmail">
-                                {{ __('transf.lbl_username_or_email') }}
-                            </label>
-                            <input type="text" name="email"
-                                class="form-control  @if ($errors->has('email') || $errors->has('username')) has-error @endif"
-                                id="modalSigninEmail" placeholder="{{ __('transf.holder_your_name_or_email') }}"
-                                value="{{ old('email') }}">
-                            @if ($errors->has('email') || $errors->has('username'))
-                                <span class="help">{{ $errors->first('email') }}
-                                    {{ $errors->first('username') }}</span>
-                            @endif
-                        </div>
-
-                        <!-- <div class="invalid-feedback">لا يكون الحقل فارغ</div> -->
-                    </div>
-
-                    <div class="form-group mb-5">
-                        <label for="modalSigninPassword">
-                            {{ __('transf.lbl_password') }}
-                        </label>
-                        <input type="password" name="password" required autocomplete="current-password" class="form-control"
-                            id="modalSigninPassword" placeholder="{{ __('transf.holder_stars') }}" />
-
-                        @error('password')
-                            <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-
-                    <div class="d-flex align-items-center mb-5 font-size-sm">
-                        <div class="form-check">
-                            <input class="form-check-input text-gray-800" type="checkbox" id="autoSizingCheck">
-                            <label class="form-check-label text-gray-800" for="autoSizingCheck">
-                                {{ __('transf.lbl_remember_me') }}
-                            </label>
-                        </div>
-
-                    </div>
-
-                    <!-- Submit -->
-                    <button class="btn btn-block btn-primary" type="submit">
-                        {{ __('transf.btn_login') }}
-                    </button>
-
-                    <div class="d-flex justify-content-between">
-                        <div class="mt-3">
-                            @if (Route::has('password.request'))
-                                <a class="  " href="{{ route('password.request') }}">
-                                    {{ __('transf.lnk_forgot_password') }}
-                                </a>
-                            @endif
-                        </div>
-
-                        <div class="mt-3">
-                            @if (Route::has('register'))
-                                <h6 class="small-body-subtitle">
-                                    {{ __('transf.New user') }}
-                                    <a href="{{ route('register') }}"
-                                        class="dropdn-link js-dropdn-link js-dropdn-link only-icon custom-color"
-                                        data-panel="#dropdnSignUp">
-                                        <!-- <i class="icon-user"></i> -->
-                                        <span>{{ __('transf.Create a new account') }}</span>
-                                    </a>
-                                </h6>
-                            @endif
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    </div><!-- End -->
+                </div>
+            </div><!-- End -->
         </div>
-    </section>
+    </div>
+@endsection
+@section('js')
 @endsection

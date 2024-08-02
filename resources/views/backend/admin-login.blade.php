@@ -39,12 +39,15 @@
                                                 <div class="form-group">
                                                     <label for="email">إسم المستخدم او البريد الإلكتروني</label>
 
-                                                    <input class="form-control" name="email" value="{{ old('email') }}"
+                                                    <input
+                                                        class="form-control  @if ($errors->has('email') || $errors->has('username')) has-error @endif"
+                                                        name="email" id="email" value="{{ old('email') }}"
                                                         placeholder="ادخل اسم المستخدم او البريد الالكتروي" type="text">
                                                     @if ($errors->has('email') || $errors->has('username'))
                                                         <span class="help">{{ $errors->first('email') }}
                                                             {{ $errors->first('username') }}</span>
                                                     @endif
+
                                                 </div>
 
                                                 <div class="form-group">
