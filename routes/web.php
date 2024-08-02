@@ -137,8 +137,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::get('site_setting/site_counters', [SiteSettingsController::class, 'show_site_counter_informations'])->name('settings.site_counters.show');
         Route::post('site_setting/update_site_counter/{id?}', [SiteSettingsController::class, 'update_site_counter_informations'])->name('settings.site_counters.update');
-
-        Route::resource('currencies', CurrenciesController::class);
-        Route::post('update-currency-status', [CurrenciesController::class, 'updateCurrencyStatus'])->name('currencies.update_currency_status');
     });
 });
