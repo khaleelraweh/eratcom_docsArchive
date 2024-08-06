@@ -29,8 +29,6 @@ class DocumentDataSeeder extends Seeder
             'doc_data_type'  =>  $faker->randomElement($docDataTypes),
             'page_variable_id'  =>  $pvs->random(),
 
-            'created_by' => 'Admin System',
-            'status' => true,
         ]);
 
         DocumentData::create([
@@ -39,8 +37,6 @@ class DocumentDataSeeder extends Seeder
             'doc_data_type'  =>  $faker->randomElement($docDataTypes),
             'page_variable_id'  =>  $pvs->random(),
 
-            'created_by' => 'Admin System',
-            'status' => true,
         ]);
     }
 }

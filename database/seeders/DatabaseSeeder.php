@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DocumentPageSeeder::class);
         $this->call(PageGroupSeeder::class);
+        $this->call(PageVariableSeeder::class);
 
-        // $this->call(DocumentDataSeeder::class);
+        $this->call(DocumentDataSeeder::class);
     }
 }

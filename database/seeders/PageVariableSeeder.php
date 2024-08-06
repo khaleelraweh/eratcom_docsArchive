@@ -19,12 +19,29 @@ class PageVariableSeeder extends Seeder
     {
         $faker = Factory::create();
         $pgs = PageGroup::query()->pluck('id');
+        $docDataTypes = ['text', 'number'];
+        $docDataRequired = [0, 1];
+
 
         PageVariable::create([
             'pv_name' => $faker->text(),
+            'pv_question' =>  $pgs->random(),
+            'pv_type'       =>  $faker->randomElement($docDataTypes),
+            'pv_required'   =>  $faker->randomElement($docDataRequired),
+            'pv_details'    =>  $faker->text(),
             'page_group_id' =>  $pgs->random(),
             'created_at' => $faker->dateTime(),
+        ]);
 
+
+        PageVariable::create([
+            'pv_name' => $faker->text(),
+            'pv_question' =>  $pgs->random(),
+            'pv_type'       =>  $faker->randomElement($docDataTypes),
+            'pv_required'   =>  $faker->randomElement($docDataRequired),
+            'pv_details'    =>  $faker->text(),
+            'page_group_id' =>  $pgs->random(),
+            'created_at' => $faker->dateTime(),
         ]);
     }
 }
