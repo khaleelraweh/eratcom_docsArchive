@@ -85,4 +85,9 @@ class DocumentTemplate extends Model
     {
         return $this->hasMany(DocumentPage::class);
     }
+
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
 }

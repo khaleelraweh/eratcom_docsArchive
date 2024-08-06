@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helper\MySlugHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\Sluggable\HasTranslatableSlug;
@@ -72,5 +73,10 @@ class Document extends Model
     public function scopeActive($query)
     {
         return $query->whereStatus(true);
+    }
+
+    public function documentTemplate(): BelongsTo
+    {
+        return $this->belongsTo(DocumentTemplate::class);
     }
 }
