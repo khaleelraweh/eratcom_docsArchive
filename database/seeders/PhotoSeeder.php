@@ -28,32 +28,6 @@ class PhotoSeeder extends Seeder
             $images[] = ['file_name' => '6.webp', 'file_type' => 'images/webp', 'file_size' => rand(100, 900), 'file_status' => true];
             $images[] = ['file_name' => '7.webp', 'file_type' => 'images/webp', 'file_size' => rand(100, 900), 'file_status' => true];
             $images[] = ['file_name' => '8.webp', 'file_type' => 'images/webp', 'file_size' => rand(100, 900), 'file_status' => true];
-
-
-            CourseCategory::all()->each(function ($courseCategory) use ($images) {
-                $courseCategory->photo()->createMany(Arr::random($images, rand(1, 1)));
-            });
-
-
-            Course::all()->each(function ($course) use ($images) {
-                $course->photos()->createMany(Arr::random($images, rand(2, 3)));
-            });
-
-            Post::all()->each(function ($post) use ($images) {
-                $post->photos()->createMany(Arr::random($images, rand(1, 3)));
-            });
-
-
-
-            //slider photo faker 
-            Slider::all()->each(function ($slider) use ($images) {
-                $slider->photos()->createMany(Arr::random($images, rand(1, 1)));
-            });
-
-            //slider photo faker 
-            CallAction::all()->each(function ($callAction) use ($images) {
-                $callAction->photos()->createMany(Arr::random($images, rand(1, 1)));
-            });
         }
     }
 }

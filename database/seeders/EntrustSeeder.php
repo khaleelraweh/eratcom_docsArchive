@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\Specialization;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,7 +29,6 @@ class EntrustSeeder extends Seeder
 
         //create fake information  using faker factory lab 
         $faker = Factory::create();
-        $specializations = Specialization::query()->pluck('id');
 
 
         //------------- 01- Roles ------------//
@@ -150,7 +148,6 @@ class EntrustSeeder extends Seeder
         $customer->attachRole($customerRole);
         $customer2->attachRole($customerRole);
         $instructor->attachRole($instructorRole);
-        $instructor->specializations()->sync($specializations->random(1, 3));
 
 
         //------------- 05- Permission  ------------//
