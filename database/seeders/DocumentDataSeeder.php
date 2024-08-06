@@ -18,7 +18,6 @@ class DocumentDataSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-
         $pvs = PageVariable::query()->pluck('id');
 
         $docDataTypes = ['text', 'number'];
