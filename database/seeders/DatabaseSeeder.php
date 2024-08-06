@@ -37,5 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DocumentTypeSeeder::class);
         $this->call(DocumentTemplateSeeder::class);
         $this->call(DocumentArchiveSeeder::class);
+
+        $this->call(DocumentDataSeeder::class);
     }
 }

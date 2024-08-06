@@ -33,5 +33,15 @@ class DocumentDataSeeder extends Seeder
             'created_by' => 'Admin System',
             'status' => true,
         ]);
+
+        DocumentData::create([
+            'doc_data_name' => $faker->name(),
+            'doc_data_value' =>  $faker->text(),
+            'doc_data_type'  =>  $faker->randomElement($docDataTypes),
+            'page_variable_id'  =>  $pvs->random(),
+
+            'created_by' => 'Admin System',
+            'status' => true,
+        ]);
     }
 }
