@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PageGroup;
+use App\Models\PageVariable;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,5 +19,12 @@ class PageVariableSeeder extends Seeder
     {
         $faker = Factory::create();
         $pgs = PageGroup::query()->pluck('id');
+
+        PageVariable::create([
+            'pv_name' => $faker->text(),
+            'page_group_id' =>  $pgs->random(),
+            'created_at' => $faker->dateTime(),
+
+        ]);
     }
 }
