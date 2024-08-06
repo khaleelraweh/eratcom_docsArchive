@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DocumentArchivesController;
 use App\Http\Controllers\Backend\DocumentCategoriescontroller;
 use App\Http\Controllers\Backend\DocumentDatasController;
+use App\Http\Controllers\Backend\DocumentsController;
 use App\Http\Controllers\Backend\DocumentTemplatesController;
 use App\Http\Controllers\Backend\DocumentTypesController;
 use App\Http\Controllers\Backend\LocaleController;
@@ -96,7 +97,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('document_types', DocumentTypesController::class);
         Route::resource('document_templates', DocumentTemplatesController::class);
         Route::resource('document_archives', DocumentArchivesController::class);
-        Route::resource('document_datas', DocumentDatasController::class);
+        Route::resource('documents', DocumentsController::class);
+
+        // Route::resource('document_datas', DocumentDatasController::class);
 
 
 
