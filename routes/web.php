@@ -99,7 +99,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('document_archives', DocumentArchivesController::class);
         Route::resource('documents', DocumentsController::class);
 
-        // Route::resource('document_datas', DocumentDatasController::class);
+        Route::resource('document_datas', DocumentDatasController::class);
 
 
 
