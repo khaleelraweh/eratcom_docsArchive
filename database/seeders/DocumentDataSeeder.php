@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\DocumentData;
+use App\Models\PageVariable;
+use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +17,18 @@ class DocumentDataSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $faker = Factory::create();
+
+        $pvs = PageVariable::query()->pluck('id');
+
+        DocumentData::create([
+            'doc_data_name' => $faker->name(),
+            'doc_data_value' =>  $faker->text(),
+            'doc_data_type'  =>  $document_categories->random(),
+            'page_variable_id'  =>  $pvs->random(),
+
+            'created_by' => 'Admin System',
+            'status' => true,
+        ]);
     }
 }
