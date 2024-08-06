@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PageGroupSeeder::class);
         $this->call(PageVariableSeeder::class);
 
+        $this->call(DocumentSeeder::class);
+
         $this->call(DocumentDataSeeder::class);
     }
 }
