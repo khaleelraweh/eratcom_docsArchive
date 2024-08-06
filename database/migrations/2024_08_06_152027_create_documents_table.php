@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('doc_name');
             $table->json('doc_content');
             $table->string('doc_file')->nullable();
+            $table->foreignId('document_template_id')->constrained()->cascadeOnDelete();
 
             $table->tinyInteger('doc_status')->nullable()->default(1);
             $table->dateTime('published_on')->nullable();
