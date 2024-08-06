@@ -18,26 +18,19 @@ class DatabaseSeeder extends Seeder
 
         $this->call(WorldSeeder::class);
         $this->call(WorldStatusSeeder::class);
-
         $this->call(EntrustSeeder::class);
-
-
         $this->call(SiteSettingSeeder::class);
-
         $this->call(CurrencySeeder::class);
-
-
-
         $this->call(PhotoSeeder::class);
-
-
-
 
         $this->call(DocumentCategorySeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(DocumentTemplateSeeder::class);
         $this->call(DocumentArchiveSeeder::class);
 
-        $this->call(DocumentDataSeeder::class);
+        $this->call(DocumentPageSeeder::class);
+        $this->call(PageGroupSeeder::class);
+
+        // $this->call(DocumentDataSeeder::class);
     }
 }
