@@ -151,6 +151,7 @@ return [
     'manage_document_categories'                            => 'إدارة تصنيف الوثائق',
     'manage_document_types'                                 => 'إدارة انواع الوثائق',
     'manage_document_templates'                                 => 'إدارة نماذج الوثائق',
+    'manage_documents'                                          => 'إدارة الوثائق',
     'manage_document_archives'                                 => 'إدارة ارشيف الموثائق',
 
 
@@ -232,6 +233,16 @@ return [
 
     'finish'                                                =>  'إنهاء',
     'previous'                                              =>  'السابق',
+
+
+    // --------------- Documents --------------//
+    'show_documents'                            => 'الوثائق',
+    'add_new_document'                          => 'وثيقة جديدة',
+    'edit_existing_document'                    => 'تعديل بيانات الوثيقة',
+
+    // ........... commons in Categories ....... //
+    'document_name'                                     => 'إسم الوثيقة',
+    'document_content'                                  =>  'تقاصيل الوثيقة',
 
 
 

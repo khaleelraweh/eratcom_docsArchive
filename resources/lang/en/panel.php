@@ -152,6 +152,7 @@ return [
     'manage_document_categories'                            => 'Manage Document Categories',
     'manage_document_types'                                 => 'Manage Document Types',
     'manage_document_templates'                             => 'Manage Document Templates',
+    'manage_documents'                                      =>  'Manage Documents',
     'manage_document_archives'                              => 'Manage Document Archives',
 
     // --------------- Document Categories --------------//
@@ -225,6 +226,16 @@ return [
     'select_variable'                                       =>  'Select Variable',
     'finish'                                                =>  'Finish',
     'previous'                                              =>  'Previous',
+
+
+    // --------------- Documents --------------//
+    'show_documents'                            => 'Documents',
+    'add_new_document'                          => 'New Document',
+    'edit_existing_document'                    => 'Edit Existing Document',
+
+    // ........... commons in Categories ....... //
+    'document_name'                                     => ' Document Name',
+    'document_content'                                  =>  'Document Content',
 
 
     // --------------- Document Archive  --------------//
