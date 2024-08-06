@@ -21,10 +21,13 @@ class DocumentDataSeeder extends Seeder
 
         $pvs = PageVariable::query()->pluck('id');
 
+        $docDataTypes = ['text', 'number'];
+
+
         DocumentData::create([
             'doc_data_name' => $faker->name(),
             'doc_data_value' =>  $faker->text(),
-            'doc_data_type'  =>  $document_categories->random(),
+            'doc_data_type'  =>  $faker->randomElement($docDataTypes),
             'page_variable_id'  =>  $pvs->random(),
 
             'created_by' => 'Admin System',
