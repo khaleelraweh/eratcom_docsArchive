@@ -13,10 +13,10 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">{{ __('panel.manage_document_templates') }}</h4>
+                <h4 class="content-title mb-0 my-auto">{{ __('panel.manage_documents') }}</h4>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">
                     /
-                    {{ __('panel.show_document_templates') }}
+                    {{ __('panel.show_documents') }}
                 </span>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
             <div class="pr-1 mb-3 mb-xl-0">
                 {{-- <button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button> --}}
-                <a href="{{ route('admin.document_templates.index') }}" class="btn btn-warning  btn-icon ml-2"><i
+                <a href="{{ route('admin.documents.index') }}" class="btn btn-warning  btn-icon ml-2"><i
                         class="mdi mdi-refresh"></i></a>
             </div>
 
@@ -60,15 +60,15 @@
                             <span class="icon">
                                 <i class="far fa-eye me-3"></i>
                             </span>
-                            <span class="text">{{ __('panel.show_document_templates') }}</span>
+                            <span class="text">{{ __('panel.show_documents') }}</span>
                         </h4>
                         {{-- <i class="mdi mdi-dots-horizontal text-gray"></i> --}}
-                        @ability('admin', 'create_document_templates')
-                            <a href="{{ route('admin.document_templates.create') }}" class="btn btn-primary">
+                        @ability('admin', 'create_documents')
+                            <a href="{{ route('admin.documents.create') }}" class="btn btn-primary">
                                 <span class="icon text-white-50">
                                     <i class="fa fa-plus-square"></i>
                                 </span>
-                                <span class="text">{{ __('panel.add_new_document_type') }}</span>
+                                <span class="text">{{ __('panel.add_new_document') }}</span>
                             </a>
                         @endability
 
@@ -80,9 +80,8 @@
                             <thead>
                                 <tr>
                                     <th class="wd-5p border-bottom-0">#</th>
-                                    <th class="wd-15p border-bottom-0">{{ __('panel.document_template_name') }}</th>
-                                    <th class="wd-15p border-bottom-0">{{ __('panel.document_category_name') }}</th>
-                                    <th class="wd-15p border-bottom-0">{{ __('panel.document_type_name') }}</th>
+                                    <th class="wd-15p border-bottom-0">{{ __('panel.document_name') }}</th>
+                                    <th class="wd-15p border-bottom-0">{{ __('panel.document_content') }}</th>
                                     <th class="wd-15p border-bottom-0">{{ __('panel.published_on') }}</th>
                                     <th class="wd-15p border-bottom-0">{{ __('panel.published_by') }}</th>
                                     <th class="wd-15p border-bottom-0">{{ __('panel.status') }}</th>
@@ -92,33 +91,29 @@
                             <tbody>
 
 
-                                @foreach ($documentTemplates as $docTemplate)
+                                @foreach ($documents as $document)
                                     <tr>
                                         <td class="text-center"><input type="checkbox" name="checkfilter"
-                                                value="{{ $docTemplate->id }}"></td>
-                                        <td>{{ $docTemplate->doc_template_name }}</td>
-                                        {{-- <td>{{ $docTemplate->documentCategory->doc_cat_name }}</td> --}}
-                                        <td>{{ $docTemplate->documentType->documentCategory->doc_cat_name }}</td>
-                                        <td>{{ $docTemplate->documentType->doc_type_name }}</td>
-                                        <td>{{ $docTemplate->created_at->format('Y-m-d ') }}</td>
-                                        <td>{{ $docTemplate->created_by }}</td>
-                                        <td>{{ $docTemplate->status() }}</td>
+                                                value="{{ $document->id }}"></td>
+                                        <td>{{ $document->doc_name }}</td>
+                                        <td>{{ $document->doc_content }}</td>
+                                        <td>{{ $document->published_on }}</td>
+                                        <td>{{ $document->created_by }}</td>
+                                        <td>{{ $document->doc_status() }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{ route('admin.document_templates.edit', $docTemplate->id) }}"
+                                                <a href="{{ route('admin.documents.edit', $document->id) }}"
                                                     class="btn btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="javascript:void(0);"
-                                                    onclick=" if( confirm('{{ __('panel.confirm_delete_message') }}') ){document.getElementById('delete-document-templates-{{ $docTemplate->id }}').submit();}else{return false;}"
+                                                    onclick=" if( confirm('{{ __('panel.confirm_delete_message') }}') ){document.getElementById('delete-document-{{ $document->id }}').submit();}else{return false;}"
                                                     class="btn btn-danger">
                                                     <i class="fa fa-trash "></i>
                                                 </a>
                                             </div>
-                                            <form
-                                                action="{{ route('admin.document_templates.destroy', $docTemplate->id) }}"
-                                                method="post" class="d-none"
-                                                id="delete-document-templates-{{ $docTemplate->id }}">
+                                            <form action="{{ route('admin.documents.destroy', $document->id) }}"
+                                                method="post" class="d-none" id="delete-document-{{ $document->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
