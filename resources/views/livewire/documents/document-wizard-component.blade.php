@@ -124,7 +124,19 @@
 
 
                             <div class="row">
-                                <div class="col-sm-12 col-md-9 pt-3">
+                                <div class="col-sm-12  col-md-3 pt-3">
+
+                                    <label for="doc_no" class="text-small text-uppercase">
+                                        {{ __('panel.document_number') }}
+                                    </label>
+                                    <input type="number" name="doc_no" id="doc_no" class="form-control"
+                                        wire:model="doc_no">
+                                    @error('doc_no')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                                <div class="col-sm-12 col-md-6 pt-3">
                                     <label for="doc_name"> {{ __('panel.document_name') }} </label>
                                     <input type="text" id="doc_name" wire:model="doc_name" name="doc_name"
                                         value="{{ old('doc_name') }}" class="form-control" placeholder="">
