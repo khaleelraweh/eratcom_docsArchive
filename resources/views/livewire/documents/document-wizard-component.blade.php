@@ -176,7 +176,18 @@
                             aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
                             style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
 
-                            <div class="row">welcome to step {{ $key + 2 }} </div>
+                            <div class="row">
+
+                                <ul style="list-style: none;margin:0;padding:0;">
+                                    @foreach ($documentPage->pageGroups as $pageGroup)
+                                        <li class="w-100 mb-1 d-flex justify-content-between">
+                                            <a class="d-block" href="#">
+                                                {{ $pageGroup->pg_name }}</a>
+
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </section>
                     @endforeach
                 @endif
