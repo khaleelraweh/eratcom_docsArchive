@@ -29,13 +29,12 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">
-                    <a
-                        href="{{ route('admin.document_templates.index') }}">{{ __('panel.manage_document_templates') }}</a>
+                    <a href="{{ route('admin.documents.index') }}">{{ __('panel.manage_documents') }}</a>
 
                 </h4>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">
                     /
-                    {{ __('panel.add_new_document_template') }}
+                    {{ __('panel.add_new_document') }}
                 </span>
             </div>
         </div>

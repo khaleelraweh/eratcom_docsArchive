@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('doc_file')->nullable();
             $table->foreignId('document_template_id')->constrained()->cascadeOnDelete();
 
+            $table->tinyInteger('doc_type')->nullable()->default(1); // داخلي 1  خارجي 2
+
             $table->tinyInteger('doc_status')->nullable()->default(1); // مسودة 1  مكتملة 2
             $table->dateTime('published_on')->nullable();
             $table->string('created_by')->nullable();

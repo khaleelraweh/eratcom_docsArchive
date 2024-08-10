@@ -160,6 +160,7 @@ return [
     'add_new_document_category'                         => 'تصنيف وثيقة جديدة',
     'edit_existing_document_category'                   => 'التعديل على تصنيف موجود',
 
+
     // ........... commons in Categories ....... //
     'document_category_name'                             => 'تصنيف الوثيقة',
     'document_category_note'                             =>  ' ملاحظة',
@@ -240,9 +241,14 @@ return [
     'add_new_document'                          => 'وثيقة جديدة',
     'edit_existing_document'                    => 'تعديل بيانات الوثيقة',
 
-    // ........... commons in Categories ....... //
+    // ........... commons in documents ....... //
     'document_name'                                     => 'إسم الوثيقة',
     'document_content'                                  =>  'تقاصيل الوثيقة',
+    'document_number'                                   =>  'رقم الوثيقة',
+    'document_type'                                     =>  'نوع الوثيقة',
+    'document_type_inner'                               =>   'داخلي',
+    'document_type_outer'                               =>   'خارجي',
+    'document_text'                                     =>  'محتوى الوثيقة',
 
 
 

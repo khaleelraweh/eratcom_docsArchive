@@ -236,6 +236,12 @@ return [
     // ........... commons in Categories ....... //
     'document_name'                                     => ' Document Name',
     'document_content'                                  =>  'Document Content',
+    'document_number'                                   =>  'Document No',
+    'document_type'                                     =>   'Document Type',
+    'document_type_inner'                               =>   'Inner',
+    'document_type_outer'                               =>   'Outer',
+    'document_content'                                     =>  'Document Content',
+
 
 
     // --------------- Document Archive  --------------//
