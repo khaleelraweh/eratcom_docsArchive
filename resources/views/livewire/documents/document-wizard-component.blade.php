@@ -19,7 +19,30 @@
                         </span>
                     </a>
                 </li>
-                <li role="tab" wire:click="directMoveToStep(2)"
+                @if ($document_template)
+
+                    @if (count($document_template->documentPages) > 0)
+                        @foreach ($document_template->documentPages as $key => $documentPage)
+                            <li role="tab" wire:click="directMoveToStep({{ $key + 2 }})"
+                                class="disabled {{ $currentStep == $key + 2 ? 'current' : '' }}" aria-disabled="true">
+                                <a id="wizard1-t-{{ $key + 2 }}" href="#wizard1-h-1"
+                                    aria-controls="wizard1-p-{{ $key + 2 }}">
+                                    <span class="number">{{ $key + 2 }}</span>
+                                    <span class="title">
+
+                                        {{-- {!! Str::limit($documentPage->doc_page_name, 10, ' ...') !!} --}}
+
+                                        {!! Str::words($documentPage->doc_page_name, 3, ' ...') !!}
+
+                                        {{-- {{ $documentPage->doc_page_name }} --}}
+                                    </span>
+                                </a>
+                            </li>
+                        @endforeach
+                    @endif
+
+                @endif
+                {{-- <li role="tab" wire:click="directMoveToStep(2)"
                     class="disabled {{ $currentStep == 2 ? 'current' : '' }}" aria-disabled="true">
                     <a id="wizard1-t-1" href="#wizard1-h-1" aria-controls="wizard1-p-1">
                         <span class="number">2</span>
@@ -40,7 +63,7 @@
                             {{ __('panel.document_and_template_formatting') }}
                         </span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
 
@@ -103,15 +126,14 @@
                                 </div>
 
                                 <div class="col-sm-12  col-md-4 pt-3">
-
                                     <label for="document_template_id" class="text-small text-uppercase">
                                         {{ __('panel.document_template_name') }}
                                     </label>
                                     <select class="form-control form-control-lg" wire:model="document_template_id">
                                         <option value="">---</option>
-                                        @forelse ($document_types as $document_type)
-                                            <option value="{{ $document_type->id }}">
-                                                {{ $document_type->doc_type_name }}</option>
+                                        @forelse ($document_templates as $document_template)
+                                            <option value="{{ $document_template->id }}">
+                                                {{ $document_template->doc_template_name }}</option>
                                         @empty
                                         @endforelse
                                     </select>
