@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @livewire('document-template.form-wizard-component')
+                    @livewire('documents.document-wizard-component')
                 </div>
             </div>
         </div>
