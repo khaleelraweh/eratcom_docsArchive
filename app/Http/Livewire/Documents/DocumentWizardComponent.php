@@ -32,10 +32,6 @@ class DocumentWizardComponent extends Component
     public $doc_type;
 
 
-    public $doc_template_name;
-    public $language;
-    public $published_on;
-    public $status = 1; // Default status value
 
     //step2
     public $documentTemplateId;
@@ -58,11 +54,6 @@ class DocumentWizardComponent extends Component
 
     public function mount($documentTemplateId = null)
     {
-
-        // Ensure the currentPageIndex is within the bounds of the pages array
-        // if ($this->currentPageIndex >= count($this->pages)) {
-        //     $this->currentPageIndex = count($this->pages) - 1;
-        // }
 
         $this->currentPageIndex = 0;
 
@@ -102,10 +93,6 @@ class DocumentWizardComponent extends Component
             if ($documentTemplate) {
                 $this->document_category_id =   $documentTemplate->document_category_id;
                 $this->document_type_id     =   $documentTemplate->document_type_id;
-                $this->doc_template_name    =   $documentTemplate->doc_template_name;
-                $this->language             =   $documentTemplate->language;
-                $this->published_on         =   $documentTemplate->published_on;
-                $this->status               =   $documentTemplate->status;
                 $this->doc_template_text    =   $documentTemplate->doc_template_text;
                 // Initialize other fields as needed
             }
@@ -174,9 +161,6 @@ class DocumentWizardComponent extends Component
             $this->validate([
                 'document_category_id'  => 'required|numeric',
                 'document_type_id'      => 'required|numeric',
-                'doc_template_name'     => 'required|string',
-                'language'              => 'required|numeric',
-                'published_on'          => 'required|date',
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([
@@ -201,10 +185,6 @@ class DocumentWizardComponent extends Component
                     [
                         'document_category_id'  => $this->document_category_id,
                         'document_type_id'      => $this->document_type_id,
-                        'doc_template_name'     => $this->doc_template_name,
-                        'language'              => $this->language,
-                        'published_on'          => $this->published_on,
-                        'status'                => $this->status,
                     ]
                 );
             } else {
@@ -212,10 +192,6 @@ class DocumentWizardComponent extends Component
                     [
                         'document_category_id'  => $this->document_category_id,
                         'document_type_id'      => $this->document_type_id,
-                        'doc_template_name'     => $this->doc_template_name,
-                        'language'              => $this->language,
-                        'published_on'          => $this->published_on,
-                        'status'                => $this->status,
                     ]
                 );
             }
@@ -255,10 +231,6 @@ class DocumentWizardComponent extends Component
         // Handle final form submission, e.g., redirect or show a success message
     }
 
-    public function toggleStatus()
-    {
-        $this->status = $this->status == 1 ? 0 : 1;
-    }
 
 
     // ===================== for step 3 making page  =================//
