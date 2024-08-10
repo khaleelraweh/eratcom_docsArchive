@@ -19,7 +19,9 @@ class DocumentWizardComponent extends Component
 
     // -------- for document categories and types ---------//
     public $document_categories;
+    public $document_category_id;
     public $document_types = [];
+    public $document_type_id;
     public $document_templates = [];
 
 
@@ -34,7 +36,7 @@ class DocumentWizardComponent extends Component
 
 
 
-    public $document_category_id;
+
     public $language;
 
     //step2
