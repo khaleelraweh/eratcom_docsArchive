@@ -66,7 +66,7 @@
                             <!-- document category -->
                             <div class="row">
 
-                                <div class="col-sm-12 col-md-6   pt-3">
+                                <div class="col-sm-12 col-md-4   pt-3">
                                     <label for="document_category_id" class="text-small text-uppercase">
                                         {{ __('panel.document_category_name') }} </label>
                                     <select class="form-control form-control-lg" wire:model="document_category_id">
@@ -83,7 +83,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-sm-12  col-md-6 pt-3">
+                                <div class="col-sm-12  col-md-4 pt-3">
 
                                     <label for="document_type_id" class="text-small text-uppercase">
                                         {{ __('panel.document_type_name') }}
@@ -97,6 +97,25 @@
                                         @endforelse
                                     </select>
                                     @error('document_type_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+
+                                <div class="col-sm-12  col-md-4 pt-3">
+
+                                    <label for="document_template_id" class="text-small text-uppercase">
+                                        {{ __('panel.document_template_name') }}
+                                    </label>
+                                    <select class="form-control form-control-lg" wire:model="document_template_id">
+                                        <option value="">---</option>
+                                        @forelse ($document_types as $document_type)
+                                            <option value="{{ $document_type->id }}">
+                                                {{ $document_type->doc_type_name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    @error('document_template_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
 
