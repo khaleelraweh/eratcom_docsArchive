@@ -16,7 +16,6 @@
                     </a>
                 </li>
                 @if ($document_template)
-
                     @if (count($document_template->documentPages) > 0)
                         @foreach ($document_template->documentPages as $key => $documentPage)
                             <li role="tab" wire:click="directMoveToStep({{ $key + 2 }})"
@@ -153,29 +152,36 @@
                 </form>
             </section>
 
+            @if ($document_template)
+                @if (count($document_template->documentPages) > 0)
+                    @foreach ($document_template->documentPages as $key => $documentPage)
+                        {{-- step 2 : متغيرات نموذج الوثيقة  --}}
+                        <h3 id="wizard1-h-0" tabindex="-1"
+                            class="title {{ $currentStep == $key + 2 ? 'current' : '' }} ">
 
-            {{-- step 2 : متغيرات نموذج الوثيقة  --}}
-            <h3 id="wizard1-h-0" tabindex="-1" class="title {{ $currentStep == 3 ? 'current' : '' }} ">
+                            <div class="row align-items-end mb-4 mb-md-0">
+                                <div class="col-md mb-4 mb-md-0">
+                                    <h4>{{ __('panel.document_template_variables') }}</h4>
+                                </div>
+                                <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
+                                    <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
+                                        {{ __('panel.document_template_variables_save') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </h3>
 
-                <div class="row align-items-end mb-4 mb-md-0">
-                    <div class="col-md mb-4 mb-md-0">
-                        <h4>{{ __('panel.document_template_variables') }}</h4>
-                    </div>
-                    <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
-                        <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
-                            {{ __('panel.document_template_variables_save') }}
-                        </button>
-                    </div>
-                </div>
-            </h3>
+                        <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
+                            class="body {{ $currentStep == $key + 2 ? 'current' : '' }}  step"
+                            aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
+                            style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
 
-            <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
-                class="body {{ $currentStep == 3 ? 'current' : '' }}  step"
-                aria-hidden="{{ $currentStep == 3 ? 'false' : 'true' }}"
-                style="display: {{ $currentStep == 3 ? 'block' : 'none' }}">
+                            <div class="row">welcome to step {{ $key + 2 }} </div>
+                        </section>
+                    @endforeach
+                @endif
+            @endif
 
-                <div class="row">welcome </div>
-            </section>
 
 
 
