@@ -20,10 +20,6 @@ class DocumentWizardComponent extends Component
     public $totalSteps = 4;
 
     // -------- for document categories and types ---------//
-
-
-
-
     public $document_categories;
     public $document_types = [];
     public $document_templates = [];
