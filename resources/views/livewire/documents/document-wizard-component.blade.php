@@ -59,7 +59,6 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
 
-                            <!-- document category -->
                             <div class="row">
 
                                 <div class="col-sm-12 col-md-4   pt-3">
@@ -104,9 +103,9 @@
                                     </label>
                                     <select class="form-control form-control-lg" wire:model="document_template_id">
                                         <option value="">---</option>
-                                        @forelse ($document_templates as $document_template)
-                                            <option value="{{ $document_template->id }}">
-                                                {{ $document_template->doc_template_name }}</option>
+                                        @forelse ($document_templates as $doc_template)
+                                            <option value="{{ $doc_template->id }}">
+                                                {{ $doc_template->doc_template_name }}</option>
                                         @empty
                                         @endforelse
                                     </select>
@@ -152,6 +151,7 @@
                 </form>
             </section>
 
+
             @if ($document_template)
                 @if (count($document_template->documentPages) > 0)
                     @foreach ($document_template->documentPages as $key => $documentPage)
@@ -191,35 +191,31 @@
         <div class="actions clearfix">
             <ul role="menu" aria-label="Pagination">
                 <li class="{{ $currentStep == 1 ? 'disabled' : '' }}"
-                    aria-disabled="{{ $currentStep == 1 ? 'true' : 'false' }} ">
+                    aria-disabled="{{ $currentStep == 1 ? 'true' : 'false' }}">
                     <a href="#previous" style="display: {{ $currentStep == 1 ? 'none' : 'none' }} ;"
                         role="menuitem">
                         Previous
                     </a>
                     <a href="#previous" wire:click="previousStep"
-                        style="display: {{ $currentStep == 1 ? 'none' : 'block' }} ;" role="menuitem">
+                        style="display: {{ $currentStep == 1 ? 'none' : 'block' }};" role="menuitem">
                         {{ __('panel.previous') }}
                     </a>
                 </li>
+
                 <li aria-hidden="false" aria-disabled="false"
-                    style="display: {{ $currentStep == 4 ? 'none' : 'block' }}">
+                    style="display: {{ $currentStep == $totalSteps ? 'none' : 'block' }}">
                     <a href="#next" wire:click="nextStep" role="menuitem">
-                        {{-- Next --}}
-                        @if ($currentStep == 1)
-                            {{ __('panel.document_template_text') }} >>
-                        @else
-                            @if ($currentStep == 2)
-                                {{ __('panel.document_template_variables') }} >>
-                            @else
-                                {{ __('panel.document_and_template_formatting') }} >>
-                            @endif
-                        @endif
+                        التالي
                     </a>
                 </li>
-                <li aria-hidden="true" style="display: {{ $currentStep == 4 ? 'block' : 'none' }}"><a href="#finish"
-                        wire:click="finish" role="menuitem">{{ __('panel.finish') }}</a>
+
+                <li aria-hidden="true" style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
+                    <a href="#finish" wire:click="finish" role="menuitem">
+                        {{ __('panel.finish') }}
+                    </a>
                 </li>
             </ul>
         </div>
+
     </div>
 </div>

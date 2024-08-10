@@ -62,6 +62,14 @@ class DocumentWizardComponent extends Component
 
 
 
+        // Dynamically set total steps based on document pages
+        if ($this->document_template) {
+            $this->totalSteps = $this->document_template->documentPages()->count() + 1; // +1 for step 1
+        } else {
+            $this->totalSteps = 4; // default to 4 if no document template is selected
+        }
+
+
 
         return view('livewire.documents.document-wizard-component', [
             'document_categories'   => $this->document_categories,
@@ -144,6 +152,8 @@ class DocumentWizardComponent extends Component
 
             $this->document_id = $document->id;
             $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
+
+            $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep == 2) {
