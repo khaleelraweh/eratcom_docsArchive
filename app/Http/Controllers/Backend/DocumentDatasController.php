@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\DocumentData;
+use App\Models\DocumentTemplate;
 use Illuminate\Http\Request;
 
 class DocumentDatasController extends Controller
