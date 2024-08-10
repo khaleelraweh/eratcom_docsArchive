@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Documents;
 
+use App\Models\Document;
 use App\Models\DocumentTemplate;
 use App\Models\DocumentCategory;
 use App\Models\DocumentPage;
@@ -24,10 +25,11 @@ class DocumentWizardComponent extends Component
     public $document_templates = [];
 
     //step1
+    public $document_id;
     public $document_category_id;
     public $document_type_id;
-    public $document_template_id;
 
+    public $document_template_id;
     public $doc_name;
     public $doc_type;
 
@@ -159,8 +161,9 @@ class DocumentWizardComponent extends Component
     {
         if ($this->currentStep == 1) {
             $this->validate([
-                'document_category_id'  => 'required|numeric',
-                'document_type_id'      => 'required|numeric',
+                'document_template_id'  => 'required|numeric',
+                'doc_name'      => 'required|string',
+                'doc_type'      => 'required|numeric',
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([
@@ -179,27 +182,28 @@ class DocumentWizardComponent extends Component
     public function saveStepData()
     {
         if ($this->currentStep == 1) {
-            if ($this->documentTemplateId) {
-                $documentTemplate = DocumentTemplate::updateOrCreate(
-                    ['id' => $this->documentTemplateId],
+            if ($this->document_id) {
+                $document = Document::updateOrCreate(
+                    ['id' => $this->document_id],
                     [
-                        'document_category_id'  => $this->document_category_id,
-                        'document_type_id'      => $this->document_type_id,
+                        'doc_name'                  => $this->doc_name,
+                        'doc_type'                  => $this->doc_type,
+                        'document_template_id'      => $this->document_template_id,
+
                     ]
                 );
             } else {
-                $documentTemplate = DocumentTemplate::updateOrCreate(
+                $document = Document::updateOrCreate(
                     [
-                        'document_category_id'  => $this->document_category_id,
-                        'document_type_id'      => $this->document_type_id,
+                        'doc_name'                  => $this->doc_name,
+                        'doc_type'                  => $this->doc_type,
+                        'document_template_id'      => $this->document_template_id,
                     ]
                 );
             }
 
-
-
-            $this->documentTemplateId = $documentTemplate->id;
-            $this->alert('success', __('panel.document_template_data_saved'));
+            $this->document_id = $document->id;
+            $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep == 2) {
             DocumentTemplate::updateOrCreate(
                 ['id' => $this->documentTemplateId],
