@@ -29,6 +29,11 @@ class DocumentWizardComponent extends Component
     public $document_type_id;
     public $document_template_id;
 
+    public $doc_no;
+    public $doc_name;
+    public $doc_type;
+
+
     public $doc_template_name;
     public $language;
     public $published_on;
