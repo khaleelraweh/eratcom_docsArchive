@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('doc_no');
             $table->json('doc_name');
             $table->json('slug');
-            $table->json('doc_content');
+            $table->json('doc_content')->nullable();
             $table->string('doc_file')->nullable();
             $table->foreignId('document_template_id')->constrained()->cascadeOnDelete();
 
