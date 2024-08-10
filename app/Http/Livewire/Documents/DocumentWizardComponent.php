@@ -23,6 +23,7 @@ class DocumentWizardComponent extends Component
     public $document_categories;
     public $document_types = [];
     public $document_templates = [];
+    public $document_template; // only the selected documenttemplate when save step1
 
     //step1
     public $document_id;
@@ -203,6 +204,8 @@ class DocumentWizardComponent extends Component
             }
 
             $this->document_id = $document->id;
+            $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
+
             $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep == 2) {
             DocumentTemplate::updateOrCreate(
