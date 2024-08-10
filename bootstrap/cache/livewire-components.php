@@ -4,6 +4,7 @@
   'document-archive.edit-archive-component' => 'App\\Http\\Livewire\\DocumentArchive\\EditArchiveComponent',
   'document-template.edit-form-wizard-component' => 'App\\Http\\Livewire\\DocumentTemplate\\EditFormWizardComponent',
   'document-template.form-wizard-component' => 'App\\Http\\Livewire\\DocumentTemplate\\FormWizardComponent',
+  'documents.document-wizard-component' => 'App\\Http\\Livewire\\Documents\\DocumentWizardComponent',
   'frontend.blogs.blog-list-component' => 'App\\Http\\Livewire\\Frontend\\Blogs\\BlogListComponent',
   'frontend.blogs.blog-review-component' => 'App\\Http\\Livewire\\Frontend\\Blogs\\BlogReviewComponent',
   'frontend.blogs.blog-tag-list-component' => 'App\\Http\\Livewire\\Frontend\\Blogs\\BlogTagListComponent',
