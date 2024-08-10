@@ -12,10 +12,8 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class DocumentWizardComponent extends Component
-
 {
     use LivewireAlert;
-
     public $currentStep = 1;
     public $totalSteps = 4;
 
