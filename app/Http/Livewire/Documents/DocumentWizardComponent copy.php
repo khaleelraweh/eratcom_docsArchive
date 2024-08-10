@@ -32,13 +32,6 @@ class DocumentWizardComponent extends Component
     public $doc_type;
 
 
-
-
-
-
-
-    public $language;
-
     //step2
     public $documentTemplateId;
     public $doc_template_text;
