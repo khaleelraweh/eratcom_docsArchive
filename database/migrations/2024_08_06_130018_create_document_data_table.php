@@ -16,10 +16,10 @@ return new class extends Migration
 
         Schema::create('document_data', function (Blueprint $table) {
             $table->id();
-            $table->string('doc_data_name')->nullable();
-            $table->string('doc_data_value')->nullable();
-            $table->string('doc_data_type')->nullable();
-            $table->foreignId('page_variable_id')->constrained()->cascadeOnDelete();
+            $table->string('page_variable_id')->nullable();
+            $table->string('page_variable_value')->nullable();
+            $table->foreignId('document_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
