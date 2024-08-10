@@ -13,14 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-
         Schema::create('document_data', function (Blueprint $table) {
             $table->id();
-            $table->string('page_variable_id')->nullable();
-            $table->string('page_variable_value')->nullable();
+            $table->foreignId('page_variable_id')->constrained()->cascadeOnDelete();
+            $table->json('page_variable_value');
             $table->foreignId('document_id')->constrained()->cascadeOnDelete();
 
+            // will be use always
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+            // end of will be use always
+
         });
     }
 
