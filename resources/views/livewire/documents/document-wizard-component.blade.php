@@ -126,17 +126,6 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-
-                                <div class="col-sm-12 col-md-12 pt-3">
-                                    <label for="doc_content"> {{ __('panel.document_content') }} </label>
-                                    <textarea name="doc_content" id="doc_content" wire:model.defer="doc_content" class="form-control" cols="30"
-                                        rows="3" readonly></textarea>
-                                    @error('doc_content')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
 
                     </div>
