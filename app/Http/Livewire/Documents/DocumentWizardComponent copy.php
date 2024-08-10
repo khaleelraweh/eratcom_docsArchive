@@ -29,13 +29,12 @@ class DocumentWizardComponent extends Component
 
     // this is for sending data to document template table 
     //step1
-    public $doc_template_id;
+
+    public $document_template_id;
     public $doc_template_name;
-    public $doc_no;
     public $doc_name;
     public $doc_content;
     public $doc_file;
-    public $document_template_id;
     public $doc_type;
     public $doc_status;
 
