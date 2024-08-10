@@ -103,41 +103,70 @@
                                 </div>
                             </div>
 
-
                             <div class="row">
-                                <div class="col-sm-12 col-md-9 pt-3">
-                                    <label for="doc_template_name"> {{ __('panel.document_template_name') }} </label>
-                                    <input type="text" id="doc_template_name" wire:model="doc_template_name"
-                                        name="doc_template_name" value="{{ old('doc_template_name') }}"
-                                        class="form-control" placeholder="">
-                                    @error('doc_template_name')
+
+                                <div class="col-sm-12 col-md-6   pt-3">
+                                    <label for="document_template_id" class="text-small text-uppercase">
+                                        {{ __('panel.document_template_name') }} </label>
+                                    <select class="form-control form-control-lg" wire:model="document_template_id">
+                                        <option value="">---</option>
+                                        @forelse ($document_templates as $document_template)
+                                            <option value="{{ $document_template->id }}">
+                                                {{ $document_template->doc_template_name }}
+                                            </option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    @error('document_template_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
+                                <div class="col-sm-12  col-md-6 pt-3">
+
+                                    <label for="doc_no" class="text-small text-uppercase">
+                                        {{ __('panel.document_number') }}
+                                    </label>
+                                    <input type="number" name="doc_no" id="doc_no" class="form-control"
+                                        wire:model="doc_no">
+                                    @error('doc_no')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-9 pt-3">
+                                    <label for="doc_name"> {{ __('panel.document_name') }} </label>
+                                    <input type="text" id="doc_name" wire:model="doc_name" name="doc_name"
+                                        value="{{ old('doc_name') }}" class="form-control" placeholder="">
+                                    @error('doc_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                                 <div class="col-sm-12 col-md-3 pt-3">
-                                    <label for="language"> {{ __('panel.language') }} </label>
-                                    <select name="language" wire:model.defer="language" class="form-control">
+                                    <label for="doc_type"> {{ __('panel.document_type') }} </label>
+                                    <select name="doc_type" wire:model.defer="doc_type" class="form-control">
                                         <option value="">---</option>
-                                        <option value="1" {{ old('language') == '1' ? 'selected' : null }}>
-                                            {{ __('panel.language_ar') }}
+                                        <option value="1" {{ old('doc_type') == '1' ? 'selected' : null }}>
+                                            {{ __('panel.document_type_inner') }}
                                         </option>
-                                        <option value="2" {{ old('language') == '2' ? 'selected' : null }}>
-                                            {{ __('panel.language_en') }}
+                                        <option value="2" {{ old('doc_type') == '2' ? 'selected' : null }}>
+                                            {{ __('panel.document_type_outer') }}
                                         </option>
-                                        <option value="3" {{ old('language') == '3' ? 'selected' : null }}>
-                                            {{ __('panel.language_both') }}
-                                        </option>
-
                                     </select>
-                                    @error('language')
+                                    @error('doc_type')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
 
                     </div>
                 </form>
