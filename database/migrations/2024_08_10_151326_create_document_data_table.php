@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('document_data', function (Blueprint $table) {
             $table->id();
             $table->foreignId('page_variable_id')->constrained()->cascadeOnDelete();
-            $table->json('page_variable_value');
+            $table->string('value');
             $table->foreignId('document_id')->constrained()->cascadeOnDelete();
 
             // will be use always
