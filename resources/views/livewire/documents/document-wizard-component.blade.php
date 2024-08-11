@@ -214,10 +214,10 @@
                                                     <input type="{{ $pageVariable->pv_type() }}"
                                                         id="{{ $pageVariable->pv_name . $pageVariable->id }}"
                                                         name="docData[{{ $pageVariable->id }}]"
+                                                        value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
                                                         wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
                                                         class="form-control" {{ $pageVariable->pv_required() }}>
                                                 @endforeach
-
 
 
                                             </fieldset>

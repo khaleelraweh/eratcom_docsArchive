@@ -153,7 +153,7 @@ class DocumentWizardComponent extends Component
     public function saveStep($currentStep)
     {
 
-        dd($this->docData);
+
         // Example saving logic
         foreach ($this->docData as $currentStepIn => $values) {
             if ($currentStepIn == $currentStep) {
