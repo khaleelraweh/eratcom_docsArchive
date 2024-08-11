@@ -160,21 +160,23 @@ class DocumentWizardComponent extends Component
             $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
-        } elseif ($this->currentStep > 1) {
-            foreach ($this->docData as $pageVariableId => $value) {
-                DocumentData::updateOrCreate(
-                    [
-                        'document_id' => $this->document_id,
-                        'page_variable_id' => $pageVariableId,
-                    ],
-                    [
-                        'value' => $value,
-                    ]
-                );
-            }
-
-            $this->alert('success', __('panel.document_data_saved'));
+        } else {
         }
+        // elseif ($this->currentStep > 1) {
+        //     foreach ($this->docData as $pageVariableId => $value) {
+        //         DocumentData::updateOrCreate(
+        //             [
+        //                 'document_id' => $this->document_id,
+        //                 'page_variable_id' => $pageVariableId,
+        //             ],
+        //             [
+        //                 'value' => $value,
+        //             ]
+        //         );
+        //     }
+
+        //     $this->alert('success', __('panel.document_data_saved'));
+        // }
     }
 
     public function saveStep($s)
@@ -192,5 +194,15 @@ class DocumentWizardComponent extends Component
         }
 
         $this->alert('success', __('panel.document_data_saved'));
+    }
+
+
+    public function updateDocData($currentStep, $pageVariableId, $value, $type, $required)
+    {
+        $this->docData[$currentStep][$pageVariableId] = [
+            'value' => $value,
+            'type' => $type,
+            'required' => $required
+        ];
     }
 }

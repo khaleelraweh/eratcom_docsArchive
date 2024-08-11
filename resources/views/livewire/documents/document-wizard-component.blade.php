@@ -214,9 +214,10 @@
                                                     <input type="{{ $pageVariable->pv_type() }}"
                                                         id="{{ $pageVariable->pv_name . $pageVariable->id }}"
                                                         name="docData[{{ $pageVariable->id }}]"
-                                                        wire:model.defer="docData.{{ $pageVariable->id }}"
+                                                        wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
                                                         class="form-control" {{ $pageVariable->pv_required() }}>
                                                 @endforeach
+
 
 
                                             </fieldset>
