@@ -189,9 +189,9 @@
                                     <h4>{{ $documentPage->doc_page_name }}</h4>
                                 </div>
                                 <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
-                                    <button wire:click="saveStep({{ $key + 2 }})" class="btn btn-primary">
+                                    {{-- <button wire:click="saveStep({{ $key + 2 }})" class="btn btn-primary">
                                         {{ __('panel.document_template_variables_save') }}
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         </h3>
