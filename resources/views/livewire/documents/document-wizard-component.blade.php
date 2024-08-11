@@ -2,14 +2,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/mywizard.css') }}">
 
     <style>
-        /* form {
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        } */
-
         fieldset {
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -30,38 +22,14 @@
             margin: 10px 0 5px;
             color: #555;
         }
-
-        /*
-        input[type="text"],
-        input[type="email"] {
-            width: calc(100% - 22px);
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        } */
-
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
     </style>
 
 
     <div class="mywizard">
         <div class="steps clearfix">
             <ul role="tablist">
-                <li role="tab" wire:click="directMoveToStep(1)"
-                    class="first {{ $currentStep == 1 ? 'current' : '' }}" aria-disabled="false" aria-selected="true">
+                <li role="tab" wire:click="directMoveToStep(1)" class="first {{ $currentStep == 1 ? 'current' : '' }}"
+                    aria-disabled="false" aria-selected="true">
                     <a id="wizard1-t-0" href="#wizard1-h-0" aria-controls="wizard1-p-0">
                         <span class="current-info audible">current step:
                         </span>
@@ -104,7 +72,6 @@
             <h3 id="wizard1-h-0" tabindex="-1" class="title {{ $currentStep == 1 ? 'current' : '' }} ">
                 {{ __('panel.document_template_data') }}
             </h3>
-
             <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
                 class="body {{ $currentStep == 1 ? 'current' : '' }}  step"
                 aria-hidden="{{ $currentStep == 1 ? 'false' : 'true' }}"
@@ -207,16 +174,13 @@
                     </div>
                 </form>
             </section>
-
             <!-- end step 1  -->
 
 
             <!-- start dynimac steps   -->
-
             @if ($document_template)
                 @if (count($document_template->documentPages) > 0)
                     @foreach ($document_template->documentPages as $key => $documentPage)
-                        {{-- step 2 : متغيرات نموذج الوثيقة  --}}
                         <h3 id="wizard1-h-0" tabindex="-1"
                             class="title {{ $currentStep == $key + 2 ? 'current' : '' }} ">
 
@@ -225,22 +189,19 @@
                                     <h4>{{ $documentPage->doc_page_name }}</h4>
                                 </div>
                                 <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
-                                    <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
+                                    <button wire:click="saveStep({{ $key + 2 }})" class="btn btn-primary">
                                         {{ __('panel.document_template_variables_save') }}
                                     </button>
                                 </div>
                             </div>
                         </h3>
-
                         <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
                             class="body {{ $currentStep == $key + 2 ? 'current' : '' }}  step"
                             aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
                             style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
 
-
                             <form method="post">
                                 @csrf
-
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         @foreach ($documentPage->pageGroups as $pageGroup)
