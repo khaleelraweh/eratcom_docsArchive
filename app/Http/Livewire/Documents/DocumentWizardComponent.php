@@ -160,37 +160,56 @@ class DocumentWizardComponent extends Component
             $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
-        } else {
-        }
-        // elseif ($this->currentStep > 1) {
-        //     foreach ($this->docData as $pageVariableId => $value) {
-        //         DocumentData::updateOrCreate(
-        //             [
-        //                 'document_id' => $this->document_id,
-        //                 'page_variable_id' => $pageVariableId,
-        //             ],
-        //             [
-        //                 'value' => $value,
-        //             ]
-        //         );
-        //     }
+        } elseif ($this->currentStep > 1) {
 
-        //     $this->alert('success', __('panel.document_data_saved'));
-        // }
+            foreach ($this->docData as $currentStepIn => $values) {
+                if ($currentStepIn == $this->currentStep) {
+                    foreach ($values as $pageVariableId => $valueData) {
+                        // Access value, type, required fields
+                        $value = $valueData['value'];
+                        $type = $valueData['type'];
+                        $required = $valueData['required'];
+
+                        // Now you can save $value to the database using $pageVariableId
+
+                        DocumentData::updateOrCreate(
+                            [
+                                'document_id' => $this->document_id,
+                                'page_variable_id' => $pageVariableId,
+                            ],
+                            ['value' => $value]
+                        );
+                    }
+                }
+            }
+
+            $this->alert('success', __('panel.document_data_saved'));
+        }
     }
 
     public function saveStep($currentStep)
     {
-        // Debugging line to check docData
-        dd($this->docData);
 
         // Example saving logic
-        foreach ($this->docData as $pageVariableId => $value) {
-            DocumentData::create([
-                'document_id' => $this->document_id, // Assuming document_id is set
-                'page_variable_id' => $pageVariableId,
-                'value' => $value,
-            ]);
+        foreach ($this->docData as $currentStepIn => $values) {
+            if ($currentStepIn == $currentStep) {
+                foreach ($values as $pageVariableId => $valueData) {
+                    // Access value, type, required fields
+                    $value = $valueData['value'];
+                    $type = $valueData['type'];
+                    $required = $valueData['required'];
+
+                    // Now you can save $value to the database using $pageVariableId
+
+                    DocumentData::updateOrCreate(
+                        [
+                            'document_id' => $this->document_id,
+                            'page_variable_id' => $pageVariableId,
+                        ],
+                        ['value' => $value]
+                    );
+                }
+            }
         }
 
         $this->alert('success', __('panel.document_data_saved'));
