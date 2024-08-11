@@ -92,6 +92,7 @@ class DocumentWizardComponent extends Component
     {
         if ($choseStep > $this->currentStep) {
             $this->validateStep();
+            $this->saveStepData();
         }
 
         $this->currentStep = $choseStep;
@@ -163,10 +164,6 @@ class DocumentWizardComponent extends Component
             ]);
         }
     }
-
-
-
-
 
 
     public function saveStepData()
