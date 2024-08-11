@@ -208,13 +208,13 @@
                                             <fieldset>
                                                 <legend>{{ $pageGroup->pg_name }}</legend>
 
-
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
                                                     <label
                                                         for="{{ $pageVariable->pv_name . $pageVariable->id }}">{{ $pageVariable->pv_name }}:</label>
                                                     <input type="{{ $pageVariable->pv_type() }}"
                                                         id="{{ $pageVariable->pv_name . $pageVariable->id }}"
-                                                        name="{{ $pageVariable->pv_name }}" class="form-control">
+                                                        name="page_variable_values[{{ $pageVariable->id }}]"
+                                                        class="form-control" {{ $pageVariable->pv_required() }}>
                                                 @endforeach
 
                                             </fieldset>

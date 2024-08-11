@@ -79,4 +79,9 @@ class Document extends Model
     {
         return $this->belongsTo(DocumentTemplate::class);
     }
+
+    public function documentData()
+    {
+        return $this->hasMany(DocumentData::class);
+    }
 }

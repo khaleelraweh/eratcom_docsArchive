@@ -36,4 +36,13 @@ class PageVariable extends Model
             return '';
         }
     }
+
+    public function pv_required()
+    {
+        if ($this->pv_required == 0) {
+            return '';
+        } elseif ($this->pv_required == 1) {
+            return 'required';
+        }
+    }
 }
