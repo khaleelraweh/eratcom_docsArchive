@@ -70,6 +70,7 @@ class DocumentWizardComponent extends Component
 
     public function nextStep()
     {
+
         $this->validateStep();
         $this->saveStepData();
         $this->currentStep++;
@@ -117,6 +118,7 @@ class DocumentWizardComponent extends Component
 
     public function saveStepData()
     {
+
         if ($this->currentStep == 1) {
             // Save or update the document information
             $document = Document::updateOrCreate(
@@ -165,6 +167,7 @@ class DocumentWizardComponent extends Component
 
     public function saveStep($currentStep)
     {
+
 
         // Example saving logic
         foreach ($this->docData as $currentStepIn => $values) {
