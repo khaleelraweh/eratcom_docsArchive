@@ -211,31 +211,9 @@ class DocumentWizardComponent extends Component
 
     public function saveStep($currentStep)
     {
-
-
-        // Example saving logic
-        foreach ($this->docData as $currentStepIn => $values) {
-            if ($currentStepIn == $currentStep) {
-                foreach ($values as $pageVariableId => $valueData) {
-                    // Access value, type, required fields
-                    $value = $valueData['value'];
-                    $type = $valueData['type'];
-                    $required = $valueData['required'];
-
-                    // Now you can save $value to the database using $pageVariableId
-
-                    DocumentData::updateOrCreate(
-                        [
-                            'document_id' => $this->document_id,
-                            'page_variable_id' => $pageVariableId,
-                        ],
-                        ['value' => $value]
-                    );
-                }
-            }
-        }
-
-        $this->alert('success', __('panel.document_data_saved'));
+        $this->validateStep();
+        $this->saveStepData();
+        // $this->currentStep++;
     }
 
 
