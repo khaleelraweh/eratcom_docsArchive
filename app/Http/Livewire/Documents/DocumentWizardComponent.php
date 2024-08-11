@@ -38,22 +38,6 @@ class DocumentWizardComponent extends Component
     public $docData = [];
 
 
-
-
-    //step2
-
-
-    // step3 
-
-
-
-    public $stepData = [
-        'step1' => '',
-        'step2' => '',
-        'step3' => '',
-        'step4' => '',
-    ];
-
     public function mount($documentTemplateId = null) {}
 
 
@@ -134,56 +118,48 @@ class DocumentWizardComponent extends Component
     public function saveStepData()
     {
         if ($this->currentStep == 1) {
-            if ($this->document_id) {
-                $document = Document::updateOrCreate(
-                    ['id' => $this->document_id],
-                    [
-                        'doc_name'                  => $this->doc_name,
-                        'doc_type'                  => $this->doc_type,
-                        'document_template_id'      => $this->document_template_id,
-
-                    ]
-                );
-            } else {
-                $document = Document::updateOrCreate(
-                    [
-                        'doc_name'                  => $this->doc_name,
-                        'doc_type'                  => $this->doc_type,
-                        'document_template_id'      => $this->document_template_id,
-                    ]
-                );
-            }
+            // Save or update the document information
+            $document = Document::updateOrCreate(
+                ['id' => $this->document_id],
+                [
+                    'doc_name' => $this->doc_name,
+                    'doc_type' => $this->doc_type,
+                    'document_template_id' => $this->document_template_id,
+                ]
+            );
 
             $this->document_id = $document->id;
             $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
 
+            // Update total steps based on selected document template
             $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep > 1) {
-
+            // Save data for dynamic steps
             foreach ($this->docData as $currentStepIn => $values) {
                 if ($currentStepIn == $this->currentStep) {
                     foreach ($values as $pageVariableId => $valueData) {
-                        // Access value, type, required fields
+                        // Access the value, type, required fields
                         $value = $valueData['value'];
                         $type = $valueData['type'];
                         $required = $valueData['required'];
 
-                        // Now you can save $value to the database using $pageVariableId
-
+                        // Here you can save the data to the database
                         DocumentData::updateOrCreate(
                             [
                                 'document_id' => $this->document_id,
                                 'page_variable_id' => $pageVariableId,
                             ],
-                            ['value' => $value]
+                            [
+                                'value' => $value,
+                            ]
                         );
                     }
                 }
             }
 
-            $this->alert('success', __('panel.document_data_saved'));
+            $this->alert('success', __('panel.step_data_saved'));
         }
     }
 
@@ -221,7 +197,7 @@ class DocumentWizardComponent extends Component
         $this->docData[$currentStep][$pageVariableId] = [
             'value' => $value,
             'type' => $type,
-            'required' => $required
+            'required' => $required,
         ];
     }
 }
