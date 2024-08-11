@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Documents;
 use App\Models\Document;
 use App\Models\DocumentTemplate;
 use App\Models\DocumentCategory;
+use App\Models\DocumentData;
 use App\Models\DocumentPage;
 use App\Models\DocumentType;
 use App\Models\PageGroup;
@@ -160,5 +161,16 @@ class DocumentWizardComponent extends Component
         } elseif ($this->currentStep == 3) {
         } elseif ($this->currentStep == 4) {
         }
+    }
+
+    public function saveStep($s)
+    {
+        DocumentData::create([
+            'document_id' => 1, // Reference a seeded document
+            'page_variable_id' => 1, // Reference a seeded page variable
+            'value' => 'this is new '
+        ]);
+
+        $this->alert('success', __('panel.document_data_saved'));
     }
 }
