@@ -249,10 +249,10 @@
 
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
                                                     <label
-                                                        for="{{ $paveVariable->pv_name . $paveVariable->id }}">{{ $paveVariable->pv_name }}:</label>
+                                                        for="{{ $pageVariable->pv_name . $pageVariable->id }}">{{ $pageVariable->pv_name }}:</label>
                                                     <input type="text"
-                                                        id="{{ $paveVariable->pv_name . $paveVariable->id }}"
-                                                        name="{{ $paveVariable->pv_name }}">
+                                                        id="{{ $pageVariable->pv_name . $pageVariable->id }}"
+                                                        name="{{ $pageVariable->pv_name }}">
                                                 @endforeach
 
                                             </fieldset>
