@@ -114,12 +114,14 @@ class DocumentWizardComponent extends Component
     public function validateStepDynamic()
     {
         $rules = [];
+        $messages = [];
 
         // Check if the current step has any data
         if (isset($this->docData[$this->currentStep]) && !empty($this->docData[$this->currentStep])) {
             foreach ($this->docData[$this->currentStep] as $pageVariableId => $valueData) {
                 $type = $valueData['type'];
                 $required = $valueData['required'];
+                $pageVariable = PageVariable::find($pageVariableId);
 
                 // Define validation rules based on field type and required status
                 $fieldRules = [];
@@ -143,10 +145,16 @@ class DocumentWizardComponent extends Component
 
                 // Add rules for the field
                 $rules["docData.{$this->currentStep}.{$pageVariableId}.value"] = implode('|', $fieldRules);
+
+                // Define custom messages
+                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.required"] = __("The :attribute field is required.", ['attribute' => $pageVariable->pv_name]);
+                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.string"] = __("The :attribute field must be a string.", ['attribute' => $pageVariable->pv_name]);
+                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.numeric"] = __("The :attribute field must be a number.", ['attribute' => $pageVariable->pv_name]);
+                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.date"] = __("The :attribute field must be a valid date.", ['attribute' => $pageVariable->pv_name]);
             }
 
-            // Validate based on dynamic rules
-            $this->validate($rules);
+            // Validate based on dynamic rules and custom messages
+            $this->validate($rules, $messages);
         } else {
             // If there is no data for the current step, you might need to handle it accordingly
             // For example, you can add a rule that ensures at least one field is filled out
@@ -155,6 +163,7 @@ class DocumentWizardComponent extends Component
             ]);
         }
     }
+
 
 
 
