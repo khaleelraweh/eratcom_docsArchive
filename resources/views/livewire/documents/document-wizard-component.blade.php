@@ -246,14 +246,17 @@
                                             <fieldset>
                                                 <legend>{{ $pageGroup->pg_name }}</legend>
 
-                                                <label for="first-name">First Name:</label>
-                                                <input type="text" id="first-name" name="first-name">
 
-                                                <label for="last-name">Last Name:</label>
-                                                <input type="text" id="last-name" name="last-name">
+                                                @foreach ($pageGroup->pageVariables as $pageVariable)
+                                                    <label for="first-name">First Name:</label>
+                                                    <input type="text" id="first-name" name="first-name">
 
-                                                <label for="email">Email:</label>
-                                                <input type="email" id="email" name="email">
+                                                    <label for="last-name">Last Name:</label>
+                                                    <input type="text" id="last-name" name="last-name">
+
+                                                    <label for="email">Email:</label>
+                                                    <input type="email" id="email" name="email">
+                                                @endforeach
 
                                             </fieldset>
                                         @endforeach
