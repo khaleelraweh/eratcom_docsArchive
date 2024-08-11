@@ -221,105 +221,10 @@
                                             </fieldset>
                                         @endforeach
 
-                                        {{-- <input type="submit" value="Submit"> --}}
                                     </div>
                                 </div>
                             </form>
 
-
-                            {{-- <div class="row">
-
-                                <div class="col-sm-12">
-                                    <style>
-                                        body {
-                                            font-family: Arial, sans-serif;
-                                            background-color: #f9f9f9;
-                                            margin: 0;
-                                            padding: 20px;
-                                        }
-
-                                        form {
-                                            max-width: 600px;
-                                            margin: 0 auto;
-                                            background: #fff;
-                                            padding: 20px;
-                                            border-radius: 8px;
-                                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                                        }
-
-                                        fieldset {
-                                            border: 1px solid #ddd;
-                                            border-radius: 4px;
-                                            margin-bottom: 20px;
-                                            padding: 15px;
-                                        }
-
-                                        legend {
-                                            font-size: 1.2em;
-                                            color: #333;
-                                            font-weight: bold;
-                                        }
-
-                                        label {
-                                            display: block;
-                                            margin: 10px 0 5px;
-                                            color: #555;
-                                        }
-
-                                        input[type="text"],
-                                        input[type="email"] {
-                                            width: calc(100% - 22px);
-                                            padding: 8px;
-                                            margin-bottom: 10px;
-                                            border: 1px solid #ccc;
-                                            border-radius: 4px;
-                                        }
-
-                                        input[type="submit"] {
-                                            background-color: #007BFF;
-                                            color: white;
-                                            padding: 10px 20px;
-                                            border: none;
-                                            border-radius: 4px;
-                                            cursor: pointer;
-                                            font-size: 16px;
-                                        }
-
-                                        input[type="submit"]:hover {
-                                            background-color: #0056b3;
-                                        }
-                                    </style>
-
-                                    <form>
-                                        @foreach ($documentPage->pageGroups as $pageGroup)
-                                            <fieldset>
-                                                <legend>{{ $pageGroup->pg_name }}</legend>
-
-                                                <label for="first-name">First Name:</label>
-                                                <input type="text" id="first-name" name="first-name">
-
-                                                <label for="last-name">Last Name:</label>
-                                                <input type="text" id="last-name" name="last-name">
-
-                                                <label for="email">Email:</label>
-                                                <input type="email" id="email" name="email">
-
-                                            </fieldset>
-                                        @endforeach
-
-                                        <input type="submit" value="Submit">
-                                    </form>
-
-
-
-                                </div>
-
-
-
-
-
-
-                            </div> --}}
                         </section>
                     @endforeach
                 @endif

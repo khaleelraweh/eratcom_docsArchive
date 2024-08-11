@@ -167,6 +167,8 @@ class DocumentWizardComponent extends Component
 
     public function saveStep($s)
     {
+
+        dd($this->docData);
         DocumentData::create([
             'document_id' => 1, // Reference a seeded document
             'page_variable_id' => 1, // Reference a seeded page variable
