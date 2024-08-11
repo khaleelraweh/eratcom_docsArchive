@@ -1,11 +1,66 @@
 <div>
     <link rel="stylesheet" href="{{ asset('assets/css/mywizard.css') }}">
 
+    <style>
+        /* form {
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        } */
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        legend {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
+            width: fit-content;
+            padding: 0 0.7rem;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+
     <div class="mywizard">
         <div class="steps clearfix">
             <ul role="tablist">
-                <li role="tab" wire:click="directMoveToStep(1)" class="first {{ $currentStep == 1 ? 'current' : '' }}"
-                    aria-disabled="false" aria-selected="true">
+                <li role="tab" wire:click="directMoveToStep(1)"
+                    class="first {{ $currentStep == 1 ? 'current' : '' }}" aria-disabled="false" aria-selected="true">
                     <a id="wizard1-t-0" href="#wizard1-h-0" aria-controls="wizard1-p-0">
                         <span class="current-info audible">current step:
                         </span>
@@ -166,7 +221,7 @@
 
                             <div class="row align-items-end mb-4 mb-md-0">
                                 <div class="col-md mb-4 mb-md-0">
-                                    <h4>{{ __('panel.document_template_variables') }}</h4>
+                                    <h4>{{ $documentPage->doc_page_name }}</h4>
                                 </div>
                                 <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
                                     <button wire:click="saveStepThreeDataUsingBtn" class="btn btn-primary">
@@ -180,61 +235,6 @@
                             class="body {{ $currentStep == $key + 2 ? 'current' : '' }}  step"
                             aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
                             style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
-
-
-                            <style>
-                                /* form {
-                                    margin: 0 auto;
-                                    background: #fff;
-                                    padding: 20px;
-                                    border-radius: 8px;
-                                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                                } */
-
-                                fieldset {
-                                    border: 1px solid #ddd;
-                                    border-radius: 4px;
-                                    margin-bottom: 20px;
-                                    padding: 15px;
-                                }
-
-                                legend {
-                                    font-size: 1.2em;
-                                    color: #333;
-                                    font-weight: bold;
-                                    width: fit-content;
-                                    padding: 0 0.7rem;
-                                }
-
-                                label {
-                                    display: block;
-                                    margin: 10px 0 5px;
-                                    color: #555;
-                                }
-
-                                input[type="text"],
-                                input[type="email"] {
-                                    width: calc(100% - 22px);
-                                    padding: 8px;
-                                    margin-bottom: 10px;
-                                    border: 1px solid #ccc;
-                                    border-radius: 4px;
-                                }
-
-                                input[type="submit"] {
-                                    background-color: #007BFF;
-                                    color: white;
-                                    padding: 10px 20px;
-                                    border: none;
-                                    border-radius: 4px;
-                                    cursor: pointer;
-                                    font-size: 16px;
-                                }
-
-                                input[type="submit"]:hover {
-                                    background-color: #0056b3;
-                                }
-                            </style>
 
 
                             <form method="post">
@@ -258,7 +258,7 @@
                                             </fieldset>
                                         @endforeach
 
-                                        <input type="submit" value="Submit">
+                                        {{-- <input type="submit" value="Submit"> --}}
                                     </div>
                                 </div>
                             </form>
