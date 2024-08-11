@@ -248,14 +248,11 @@
 
 
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
-                                                    <label for="first-name">First Name:</label>
-                                                    <input type="text" id="first-name" name="first-name">
-
-                                                    <label for="last-name">Last Name:</label>
-                                                    <input type="text" id="last-name" name="last-name">
-
-                                                    <label for="email">Email:</label>
-                                                    <input type="email" id="email" name="email">
+                                                    <label
+                                                        for="{{ $paveVariable->pv_name . $paveVariable->id }}">{{ $paveVariable->pv_name }}:</label>
+                                                    <input type="text"
+                                                        id="{{ $paveVariable->pv_name . $paveVariable->id }}"
+                                                        name="{{ $paveVariable->pv_name }}">
                                                 @endforeach
 
                                             </fieldset>
