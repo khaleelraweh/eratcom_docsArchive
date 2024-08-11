@@ -39,6 +39,7 @@ class DocumentWizardComponent extends Component
 
 
 
+
     //step2
 
 
@@ -159,21 +160,36 @@ class DocumentWizardComponent extends Component
             $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
-        } elseif ($this->currentStep == 2) {
-        } elseif ($this->currentStep == 3) {
-        } elseif ($this->currentStep == 4) {
+        } elseif ($this->currentStep > 1) {
+            foreach ($this->docData as $pageVariableId => $value) {
+                DocumentData::updateOrCreate(
+                    [
+                        'document_id' => $this->document_id,
+                        'page_variable_id' => $pageVariableId,
+                    ],
+                    [
+                        'value' => $value,
+                    ]
+                );
+            }
+
+            $this->alert('success', __('panel.document_data_saved'));
         }
     }
 
     public function saveStep($s)
     {
-
+        // Debugging line to check docData
         dd($this->docData);
-        DocumentData::create([
-            'document_id' => 1, // Reference a seeded document
-            'page_variable_id' => 1, // Reference a seeded page variable
-            'value' => 'this is new '
-        ]);
+
+        // Example saving logic
+        foreach ($this->docData as $pageVariableId => $value) {
+            DocumentData::create([
+                'document_id' => $this->document_id, // Assuming document_id is set
+                'page_variable_id' => $pageVariableId,
+                'value' => $value,
+            ]);
+        }
 
         $this->alert('success', __('panel.document_data_saved'));
     }
