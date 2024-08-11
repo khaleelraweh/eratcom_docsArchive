@@ -41,17 +41,18 @@
             </ul>
         </div>
 
+        <!-- start mycontent -->
         <div class="mycontent">
 
-            {{-- step 1 : بيانات نموذج الوثيقة --}}
+            <!-- start step 1  -->
             <h3 id="wizard1-h-0" tabindex="-1" class="title {{ $currentStep == 1 ? 'current' : '' }} ">
                 {{ __('panel.document_template_data') }}
             </h3>
+
             <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
                 class="body {{ $currentStep == 1 ? 'current' : '' }}  step"
                 aria-hidden="{{ $currentStep == 1 ? 'false' : 'true' }}"
                 style="display: {{ $currentStep == 1 ? 'block' : 'none' }}">
-
 
                 <form action="{{ route('admin.document_templates.store') }}" method="post">
                     @csrf
@@ -151,6 +152,10 @@
                 </form>
             </section>
 
+            <!-- end step 1  -->
+
+
+            <!-- start dynimac steps   -->
 
             @if ($document_template)
                 @if (count($document_template->documentPages) > 0)
@@ -176,7 +181,90 @@
                             aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
                             style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
 
-                            <div class="row">
+
+                            <style>
+                                /* form {
+                                    margin: 0 auto;
+                                    background: #fff;
+                                    padding: 20px;
+                                    border-radius: 8px;
+                                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                                } */
+
+                                fieldset {
+                                    border: 1px solid #ddd;
+                                    border-radius: 4px;
+                                    margin-bottom: 20px;
+                                    padding: 15px;
+                                }
+
+                                legend {
+                                    font-size: 1.2em;
+                                    color: #333;
+                                    font-weight: bold;
+                                    width: fit-content;
+                                    padding: 0 0.7rem;
+                                }
+
+                                label {
+                                    display: block;
+                                    margin: 10px 0 5px;
+                                    color: #555;
+                                }
+
+                                input[type="text"],
+                                input[type="email"] {
+                                    width: calc(100% - 22px);
+                                    padding: 8px;
+                                    margin-bottom: 10px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                }
+
+                                input[type="submit"] {
+                                    background-color: #007BFF;
+                                    color: white;
+                                    padding: 10px 20px;
+                                    border: none;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 16px;
+                                }
+
+                                input[type="submit"]:hover {
+                                    background-color: #0056b3;
+                                }
+                            </style>
+
+
+                            <form method="post">
+                                @csrf
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        @foreach ($documentPage->pageGroups as $pageGroup)
+                                            <fieldset>
+                                                <legend>{{ $pageGroup->pg_name }}</legend>
+
+                                                <label for="first-name">First Name:</label>
+                                                <input type="text" id="first-name" name="first-name">
+
+                                                <label for="last-name">Last Name:</label>
+                                                <input type="text" id="last-name" name="last-name">
+
+                                                <label for="email">Email:</label>
+                                                <input type="email" id="email" name="email">
+
+                                            </fieldset>
+                                        @endforeach
+
+                                        <input type="submit" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            {{-- <div class="row">
 
                                 <div class="col-sm-12">
                                     <style>
@@ -268,18 +356,18 @@
 
 
 
-                            </div>
+                            </div> --}}
                         </section>
                     @endforeach
                 @endif
             @endif
 
-
-
-
+            <!-- end dynimac steps  -->
 
         </div>
+        <!-- end mycontent -->
 
+        <!-- start next and previous  -->
         <div class="actions clearfix">
             <ul role="menu" aria-label="Pagination">
                 <li class="{{ $currentStep == 1 ? 'disabled' : '' }}"
@@ -308,6 +396,7 @@
                 </li>
             </ul>
         </div>
+        <!-- end next and previous  -->
 
     </div>
 </div>
