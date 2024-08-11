@@ -179,7 +179,7 @@ class DocumentWizardComponent extends Component
         // }
     }
 
-    public function saveStep($s)
+    public function saveStep($currentStep)
     {
         // Debugging line to check docData
         dd($this->docData);
