@@ -31,6 +31,7 @@
             color: #555;
         }
 
+        /*
         input[type="text"],
         input[type="email"] {
             width: calc(100% - 22px);
@@ -38,7 +39,7 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-        }
+        } */
 
         input[type="submit"] {
             background-color: #007BFF;
@@ -250,9 +251,9 @@
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
                                                     <label
                                                         for="{{ $pageVariable->pv_name . $pageVariable->id }}">{{ $pageVariable->pv_name }}:</label>
-                                                    <input type="text"
+                                                    <input type="{{ $pageVariable->pv_type() }}"
                                                         id="{{ $pageVariable->pv_name . $pageVariable->id }}"
-                                                        name="{{ $pageVariable->pv_name }}">
+                                                        name="{{ $pageVariable->pv_name }}" class="form-control">
                                                 @endforeach
 
                                             </fieldset>

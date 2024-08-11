@@ -22,4 +22,18 @@ class PageVariable extends Model
     {
         return $this->hasMany(DocumentData::class);
     }
+
+
+    public function pv_type()
+    {
+        if ($this->pv_type == 1) {
+            return 'text';
+        } elseif ($this->pv_type == 2) {
+            return 'number';
+        } elseif ($this->pv_type == 3) {
+            return '';
+        } else {
+            return '';
+        }
+    }
 }
