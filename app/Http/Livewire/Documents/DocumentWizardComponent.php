@@ -105,20 +105,13 @@ class DocumentWizardComponent extends Component
                 'doc_name'      => 'required|string',
                 'doc_type'      => 'required|numeric',
             ]);
-        } elseif ($this->currentStep == 2) {
-            // $this->validate([
-
-            // ]);
-        } elseif ($this->currentStep == 3) {
-            // Perform validation
-
-        } elseif ($this->currentStep == 4) {
+        } else {
         }
     }
 
+
     public function saveStepData()
     {
-
         if ($this->currentStep == 1) {
             // Save or update the document information
             $document = Document::updateOrCreate(
@@ -133,40 +126,34 @@ class DocumentWizardComponent extends Component
             $this->document_id = $document->id;
             $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
 
-            // Update total steps based on selected document template
             $this->totalSteps = $this->document_template->documentPages()->count() + 1;
 
             $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep > 1) {
-            // Save data for dynamic steps
-            foreach ($this->docData as $currentStepIn => $values) {
-                if ($currentStepIn == $this->currentStep) {
-                    foreach ($values as $pageVariableId => $valueData) {
-                        // Access the value, type, required fields
-                        $value = $valueData['value'];
-                        $type = $valueData['type'];
-                        $required = $valueData['required'];
+            // Loop through dynamic fields and save their values
+            foreach ($this->docData[$this->currentStep] as $pageVariableId => $valueData) {
+                $value = $valueData['value'];
+                $type = $valueData['type'];
+                $required = $valueData['required'];
 
-                        // Here you can save the data to the database
-                        DocumentData::updateOrCreate(
-                            [
-                                'document_id' => $this->document_id,
-                                'page_variable_id' => $pageVariableId,
-                            ],
-                            [
-                                'value' => $value,
-                            ]
-                        );
-                    }
-                }
+                DocumentData::updateOrCreate(
+                    [
+                        'document_id' => $this->document_id,
+                        'page_variable_id' => $pageVariableId,
+                    ],
+                    ['value' => $value]
+                );
             }
 
             $this->alert('success', __('panel.step_data_saved'));
         }
     }
 
+
     public function saveStep($currentStep)
     {
+
+        dd($this->docData);
         // Example saving logic
         foreach ($this->docData as $currentStepIn => $values) {
             if ($currentStepIn == $currentStep) {
