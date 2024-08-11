@@ -105,9 +105,59 @@ class DocumentWizardComponent extends Component
                 'doc_name'      => 'required|string',
                 'doc_type'      => 'required|numeric',
             ]);
-        } else {
+        } else if ($this->currentStep > 1) {
+            $this->validateStepDynamic();
         }
     }
+
+
+    public function validateStepDynamic()
+    {
+        $rules = [];
+
+        // Check if the current step has any data
+        if (isset($this->docData[$this->currentStep]) && !empty($this->docData[$this->currentStep])) {
+            foreach ($this->docData[$this->currentStep] as $pageVariableId => $valueData) {
+                $type = $valueData['type'];
+                $required = $valueData['required'];
+
+                // Define validation rules based on field type and required status
+                $fieldRules = [];
+                if ($required) {
+                    $fieldRules[] = 'required';
+                }
+
+                // Add type-specific validation rules
+                switch ($type) {
+                    case 'text':
+                        $fieldRules[] = 'string';
+                        break;
+                    case 'number':
+                        $fieldRules[] = 'numeric';
+                        break;
+                    case 'date':
+                        $fieldRules[] = 'date';
+                        break;
+                        // Add other types as needed
+                }
+
+                // Add rules for the field
+                $rules["docData.{$this->currentStep}.{$pageVariableId}.value"] = implode('|', $fieldRules);
+            }
+
+            // Validate based on dynamic rules
+            $this->validate($rules);
+        } else {
+            // If there is no data for the current step, you might need to handle it accordingly
+            // For example, you can add a rule that ensures at least one field is filled out
+            $this->validate([
+                "docData.{$this->currentStep}" => 'required'
+            ]);
+        }
+    }
+
+
+
 
 
     public function saveStepData()

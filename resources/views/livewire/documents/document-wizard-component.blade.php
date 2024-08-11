@@ -204,24 +204,30 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
+
                                         @foreach ($documentPage->pageGroups as $pageGroup)
                                             <fieldset>
                                                 <legend>{{ $pageGroup->pg_name }}</legend>
 
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
                                                     <label
-                                                        for="{{ $pageVariable->pv_name . $pageVariable->id }}">{{ $pageVariable->pv_name }}:</label>
+                                                        for="docData[{{ $pageVariable->id }}]">{{ $pageVariable->pv_name }}:</label>
                                                     <input type="{{ $pageVariable->pv_type() }}"
-                                                        id="{{ $pageVariable->pv_name . $pageVariable->id }}"
+                                                        id="docData[{{ $pageVariable->id }}]"
                                                         name="docData[{{ $pageVariable->id }}]"
                                                         value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
                                                         wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
                                                         class="form-control" {{ $pageVariable->pv_required() }}>
-                                                @endforeach
 
+                                                    @error('docData.' . $currentStep . '.' . $pageVariable->id .
+                                                        '.value')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                @endforeach
 
                                             </fieldset>
                                         @endforeach
+
 
                                     </div>
                                 </div>
