@@ -213,7 +213,8 @@
                                                         for="{{ $pageVariable->pv_name . $pageVariable->id }}">{{ $pageVariable->pv_name }}:</label>
                                                     <input type="{{ $pageVariable->pv_type() }}"
                                                         id="{{ $pageVariable->pv_name . $pageVariable->id }}"
-                                                        name="page_variable_values[{{ $pageVariable->id }}]"
+                                                        name="docData[{{ $pageVariable->id }}]"
+                                                        wire:model.defer="docData.{{ $pageVariable->id }}"
                                                         class="form-control" {{ $pageVariable->pv_required() }}>
                                                 @endforeach
 

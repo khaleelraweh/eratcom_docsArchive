@@ -35,6 +35,8 @@ class DocumentWizardComponent extends Component
     public $doc_name;
     public $doc_type;
 
+    public $docData = [];
+
 
 
     //step2
