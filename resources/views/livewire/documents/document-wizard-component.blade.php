@@ -268,7 +268,7 @@
                         aria-hidden="{{ $currentStep == $totalSteps ? 'false' : 'true' }}"
                         style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
 
-                        we are in last step
+                        {!! $document_template_choosen->doc_template_text !!}
                     </section>
                 @endif
             @endif

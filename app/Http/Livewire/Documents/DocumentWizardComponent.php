@@ -63,6 +63,7 @@ class DocumentWizardComponent extends Component
             'document_categories'   => $this->document_categories,
             'document_types'        => $this->document_types,
             'document_templates'    => $this->document_templates,
+            'document_template_choosen'     => $this->document_template,
 
 
         ]);
