@@ -103,10 +103,17 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <a href="{{ route('admin.documents.print', $document->id) }}"
-                                class="btn btn-primary btn-sm ml-auto"><i class="fa fa-print"></i>
-                                {{ __('panel.document_print') }}</a>
-                            {{-- <a href="{{ route('invoice.pdf', $invoice->id) }}" class="btn btn-secondary btn-sm ml-auto"><i
-                                    class="fa fa-file-pdf"></i> {{ __('Frontend/frontend.export_pdf') }}</a> --}}
+                                class="btn btn-primary btn-sm ml-auto">
+                                <i class="fa fa-print"></i>
+                                {{ __('panel.document_print') }}
+                            </a>
+
+                            <a href="{{ route('admin.documents.pdf', $document->id) }}"
+                                class="btn btn-secondary btn-sm ml-auto">
+                                <i class="fa fa-file-pdf"></i>
+                                {{ __('panel.document_export_pdf') }}
+                            </a>
+
                             {{-- <a href="{{ route('invoice.send_to_email', $invoice->id) }}"
                                 class="btn btn-success btn-sm ml-auto"><i class="fa fa-envelope"></i>
                                 {{ __('Frontend/frontend.send_to_email') }}</a> --}}

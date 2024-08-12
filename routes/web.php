@@ -99,6 +99,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('document_archives', DocumentArchivesController::class);
 
         Route::get('document/print/{id}', [DocumentsController::class, 'print'])->name('documents.print');
+        Route::get('document/pdf/{id}', [DocumentsController::class, 'pdf'])->name('documents.pdf');
         Route::resource('documents', DocumentsController::class);
 
         Route::resource('document_datas', DocumentDatasController::class);
