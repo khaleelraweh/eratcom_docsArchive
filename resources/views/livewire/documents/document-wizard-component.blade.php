@@ -268,7 +268,9 @@
                         aria-hidden="{{ $currentStep == $totalSteps ? 'false' : 'true' }}"
                         style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
 
-                        {!! $document_template_choosen->doc_template_text !!}
+                        @if ($document_template_choosen && $document_template_choosen->doc_template_text)
+                            {!! $document_template_choosen->doc_template_text !!}
+                        @endif
                     </section>
                 @endif
             @endif
