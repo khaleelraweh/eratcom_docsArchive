@@ -9,6 +9,7 @@
         "barryvdh/laravel-debugbar": "^3.9",
         "barryvdh/laravel-dompdf": "^3.0",
         "beyondcode/laravel-websockets": "^2.0@beta",
+        "carlos-meneses/laravel-mpdf": "^2.1",
         "codezero/laravel-unique-translation": "^4.2",
         "cviebrock/eloquent-sluggable": "^9.0",
         "fruitcake/laravel-cors": "^2.0.5",

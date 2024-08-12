@@ -173,7 +173,6 @@ return [
         Mindscms\Entrust\EntrustServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
 
         // paytabs 
@@ -210,7 +209,6 @@ return [
         'Entrust'   => Mindscms\Entrust\EntrustFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
     ])->toArray(),
 
 ];

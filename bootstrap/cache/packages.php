@@ -33,6 +33,17 @@
       'WebSocketRouter' => 'BeyondCode\\LaravelWebSockets\\Facades\\WebSocketRouter',
     ),
   ),
+  'carlos-meneses/laravel-mpdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Mccarlosen\\LaravelMpdf\\LaravelMpdfServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Mccarlosen\\LaravelMpdf\\Facades\\LaravelMpdf',
+    ),
+  ),
   'codezero/laravel-unique-translation' => 
   array (
     'providers' => 
