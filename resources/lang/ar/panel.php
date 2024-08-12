@@ -251,6 +251,14 @@ return [
     'document_text'                                     =>  'محتوى الوثيقة',
 
 
+    'document_status'                                       =>  'حالة الوثيقة',
+    'document_status_draft'                                 =>  'مسودة',
+    'document_status_completed'                            =>  'مكتملة',
+
+    'document_file'                                         =>  'ملف المسودة',
+
+
+
 
     // --------------- Document Archive  --------------//
     'show_document_archives'                               => 'إرشيف الوثائق',

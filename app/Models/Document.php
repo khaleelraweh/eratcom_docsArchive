@@ -57,9 +57,18 @@ class Document extends Model
     public function doc_status()
     {
         if ($this->doc_status == 0) {
-            return __('panel.status_inactive');
+            return __('panel.document_status_draft');
         } elseif ($this->doc_status == 1) {
-            return __('panel.status_active');
+            return __('panel.document_status_completed');
+        }
+    }
+
+    public function doc_type()
+    {
+        if ($this->doc_type == 0) {
+            return __('panel.document_type_inner');
+        } elseif ($this->doc_status == 1) {
+            return __('panel.document_type_outer');
         }
     }
 

@@ -25,7 +25,15 @@ class DocumentsController extends Controller
         if (!auth()->user()->ability('admin', 'create_documents')) {
             return redirect('admin/index');
         }
-        $documentTemplates = DocumentTemplate::whereStatus(1)->get(['id', 'doc_template_name']);
-        return view('backend.documents.create', compact('documentTemplates'));
+        return view('backend.documents.create');
+    }
+
+    public function show($id)
+    {
+        if (!auth()->user()->ability('admin', 'display_documents')) {
+            return redirect('admin/index');
+        }
+        $document = Document::findOrFail($id);
+        return view('backend.documents.show', compact('document'));
     }
 }

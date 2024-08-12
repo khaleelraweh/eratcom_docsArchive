@@ -240,7 +240,13 @@ return [
     'document_type'                                     =>   'Document Type',
     'document_type_inner'                               =>   'Inner',
     'document_type_outer'                               =>   'Outer',
-    'document_content'                                     =>  'Document Content',
+    'document_content'                                      =>  'Document Content',
+
+    'document_status'                                       =>  'Document Status',
+    'document_status_draft'                                 =>  'Draft',
+    'document_status_completed'                            =>  'Completed',
+
+    'document_file'                                         =>  'Document File',
 
 
 

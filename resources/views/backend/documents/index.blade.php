@@ -102,6 +102,10 @@
                                         <td>{{ $document->doc_status() }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
+                                                <a href="{{ route('admin.documents.show', $document->id) }}"
+                                                    class="btn btn-success">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
                                                 <a href="{{ route('admin.documents.edit', $document->id) }}"
                                                     class="btn btn-primary">
                                                     <i class="fa fa-edit"></i>
