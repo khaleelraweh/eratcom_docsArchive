@@ -257,6 +257,10 @@ return [
 
     'document_file'                                         =>  'ملف المسودة',
 
+    'document_print'                                        =>  'طباعة',
+    'document_export_pdf'                                   =>  'تصدير الى PDF',
+    'document_send_to_email'                                =>  'إرسال الى بريد',
+
 
 
 

@@ -36,4 +36,11 @@ class DocumentsController extends Controller
         $document = Document::findOrFail($id);
         return view('backend.documents.show', compact('document'));
     }
+
+
+    public function print($id)
+    {
+        $document = Document::findOrFail($id);
+        return view('backend.documents.print', compact('document'));
+    }
 }

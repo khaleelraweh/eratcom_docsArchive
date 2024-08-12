@@ -248,6 +248,10 @@ return [
 
     'document_file'                                         =>  'Document File',
 
+    'document_print'                                        =>  'Print',
+    'document_export_pdf'                                   =>  'Export PDF',
+    'document_send_to_email'                                =>  'Send to email',
+
 
 
     // --------------- Document Archive  --------------//

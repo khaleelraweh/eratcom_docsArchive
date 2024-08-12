@@ -97,6 +97,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::resource('document_types', DocumentTypesController::class);
         Route::resource('document_templates', DocumentTemplatesController::class);
         Route::resource('document_archives', DocumentArchivesController::class);
+
+        Route::get('document/print/{id}', [DocumentsController::class, 'print'])->name('documents.print');
         Route::resource('documents', DocumentsController::class);
 
         Route::resource('document_datas', DocumentDatasController::class);
