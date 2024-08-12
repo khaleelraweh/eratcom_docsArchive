@@ -45,9 +45,25 @@ class DocumentsController extends Controller
         return view('backend.documents.print', compact('document'));
     }
 
+
     public function pdf($id)
     {
         $document = Document::findOrFail($id);
-        return view('backend.documents.pdf', compact('document'));
+
+
+        $data = [
+            'foo' => 'bar'
+        ];
+
+        // المكان الذي يوجد فيه ملف ال pdf.blade.php  
+        // نقوم بارسال البيانات اليه من اجل عرضها في ذلك الملف 
+        $pdf = PDF::loadView('backend.documents.pdf', $data);
+
+        // لطباعة ملف البيدي اف باسم معين وفي المسار المعين 
+        return $pdf->stream('document.pdf');
+
+
+
+        // return view('backend.documents.pdf', compact('document'));
     }
 }
