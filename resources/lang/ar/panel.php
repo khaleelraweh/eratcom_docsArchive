@@ -262,6 +262,10 @@ return [
     'document_send_to_email'                                =>  'إرسال الى بريد',
 
 
+    'document_created_at'                                   =>  'تاريخ الإنشاء',
+    'document_created_by'                                   =>  'انشات بواسطة',
+
+
 
 
     // --------------- Document Archive  --------------//

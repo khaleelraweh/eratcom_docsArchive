@@ -109,21 +109,22 @@
 </head>
 
 <body>
-    <div class="invoice-box">
+    <div class="invoice-box {{ config('app.locale') == 'ar' ? 'rtl' : '' }}">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://sparksuite.github.io/simple-html-invoice-template/images/logo.png"
-                                    style="width: 100%; max-width: 300px" />
+                                <img src="{{ URL::asset('assets/img/brand/logo.png') }}"
+                                    style="width: 100px; max-width: 100px" />
                             </td>
 
                             <td>
-                                Invoice #: 123<br />
-                                Created: January 1, 2023<br />
-                                Due: February 1, 2023
+                                {{ __('panel.document_number') }}: {{ $doc_no ?? 'N/A' }}<br />
+                                {{ __('panel.document_created_by') }}: {{ $created_by ?? 'admin' }}<br />
+                                {{ __('panel.document_created_at') }}:
+                                {{ $created_at->format('Y-m-d') ?? Carbon\Carbon::now()->format('Y-m-d') }}<br />
                             </td>
                         </tr>
                     </table>

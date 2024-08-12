@@ -252,6 +252,9 @@ return [
     'document_export_pdf'                                   =>  'Export PDF',
     'document_send_to_email'                                =>  'Send to email',
 
+    'document_created_at'                                   =>  'Created at',
+    'document_created_by'                                   =>  'Created by',
+
 
 
     // --------------- Document Archive  --------------//
