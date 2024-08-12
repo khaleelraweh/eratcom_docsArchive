@@ -50,10 +50,13 @@ class DocumentsController extends Controller
     {
         $document = Document::findOrFail($id);
 
-
-        $data = [
-            'foo' => 'bar'
-        ];
+        $data['doc_id']         =  $document->id;
+        $data['doc_no']         =  $document->doc_no;
+        $data['doc_content']    =  $document->doc_content;
+        $data['doc_type']       =  $document->doc_type;
+        $data['doc_status']     =  $document->doc_status;
+        $data['created_by']     =  $document->created_by;
+        $data['created_at']     =  $document->created_at;
 
         // المكان الذي يوجد فيه ملف ال pdf.blade.php  
         // نقوم بارسال البيانات اليه من اجل عرضها في ذلك الملف 
