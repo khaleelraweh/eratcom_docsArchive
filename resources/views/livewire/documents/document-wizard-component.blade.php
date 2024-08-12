@@ -64,7 +64,7 @@
 
                 @if ($document_template)
                     @if (count($document_template->documentPages) > 0)
-                        <li role="tab" wire:click="directMoveToStep($totalSteps)"
+                        <li role="tab" wire:click="directMoveToStep({{ $totalSteps }})"
                             class="first {{ $currentStep == $totalSteps ? 'current' : '' }}" aria-disabled="false"
                             aria-selected="true">
                             <a id="wizard1-t-0" href="#wizard1-h-0" aria-controls="wizard1-p-0">
