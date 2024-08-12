@@ -12,10 +12,12 @@ use App\Models\PageGroup;
 use App\Models\PageVariable;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DocumentWizardComponent extends Component
 {
     use LivewireAlert;
+
 
     public $currentStep = 1;
     public $totalSteps = 4;
@@ -273,5 +275,19 @@ class DocumentWizardComponent extends Component
             'type' => $type,
             'required' => $required,
         ];
+    }
+
+    public function downloadPdf()
+    {
+        // Load the HTML content of the viewText
+        $htmlContent = $this->viewText;
+
+        // Generate the PDF
+        $pdf = Pdf::loadHTML($htmlContent);
+
+        // Return the PDF for download
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'document.pdf');
     }
 }

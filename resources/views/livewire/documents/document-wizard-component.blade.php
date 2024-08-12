@@ -268,6 +268,9 @@
                         aria-hidden="{{ $currentStep == $totalSteps ? 'false' : 'true' }}"
                         style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
 
+                        <button wire:click="downloadPdf" class="btn btn-primary">
+                            Save as PDF
+                        </button>
                         {!! $viewText !!}
 
                     </section>
