@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DocumentTemplate;
 use Illuminate\Http\Request;
+use PDF;
 
 class DocumentsController extends Controller
 {
