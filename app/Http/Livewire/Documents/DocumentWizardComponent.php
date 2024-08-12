@@ -82,7 +82,7 @@ class DocumentWizardComponent extends Component
 
     public function finish()
     {
-        // $this->validateStep();
+        $this->validateStep();
         $this->saveStepData();
         return redirect()->route('admin.documents.index');
     }
@@ -110,8 +110,9 @@ class DocumentWizardComponent extends Component
                 'doc_name'      => 'required|string',
                 'doc_type'      => 'required|numeric',
             ]);
-        } else if ($this->currentStep > 1) {
+        } else if ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
             $this->validateStepDynamic();
+        } else {
         }
     }
 
