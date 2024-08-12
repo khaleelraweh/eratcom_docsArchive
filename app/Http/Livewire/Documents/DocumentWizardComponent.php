@@ -207,7 +207,7 @@ class DocumentWizardComponent extends Component
 
             // If template text exists, process it
             if ($this->document_template->doc_template_text) {
-                $this->viewText = $this->replacePlaceholders($this->document_template->doc_template_text);
+                $this->replacePlaceholders();
             }
 
             $this->alert('success', __('panel.step_data_saved'));
@@ -216,28 +216,39 @@ class DocumentWizardComponent extends Component
         }
     }
 
-    private function replacePlaceholders($text)
+    public function replacePlaceholders()
     {
-        // Find all placeholders in the text
-        preg_match_all('/{!-(\d+)-[^!]+!}/', $text, $matches);
+        $viewText = $this->document_template->doc_template_text;
 
+        // Initialize an empty array for replacements
         $forReplacement = [];
 
-        // Map placeholders to values from docData
-        foreach ($matches[1] as $index => $pageVariableId) {
-            $step = $this->currentStep; // or the specific step you want to target
-            if (isset($this->docData[$step][$pageVariableId])) {
-                $forReplacement[$matches[0][$index]] = $this->docData[$step][$pageVariableId]['value'];
+        // Match all placeholders in the format {!-number-Description!}
+        preg_match_all('/{\!-([0-9]+)-[^\!]+\!}/', $viewText, $matches);
+
+        if (isset($matches[1]) && isset($matches[0])) {
+            foreach ($matches[1] as $index => $pageVariableId) {
+                // Iterate over all steps in docData to find the value
+                foreach ($this->docData as $stepData) {
+                    if (isset($stepData[$pageVariableId])) {
+                        // Map the placeholder to the value in docData
+                        $forReplacement[$matches[0][$index]] = $stepData[$pageVariableId]['value'];
+                        break;
+                    }
+                }
             }
         }
 
-        // Replace placeholders with values
-        foreach ($forReplacement as $placeholder => $replacement) {
-            $text = str_replace($placeholder, $replacement, $text);
-        }
+        // Replace all placeholders in viewText with their corresponding values
+        $viewText = strtr($viewText, $forReplacement);
 
-        return $text;
+        // Update the viewText property with the replaced content
+        $this->viewText = $viewText;
+
+        // Optionally, return or display the replaced text
+        return $viewText;
     }
+
 
 
 
