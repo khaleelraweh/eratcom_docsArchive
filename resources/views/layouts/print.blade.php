@@ -18,19 +18,14 @@
 </head>
 
 <body class="main-body app sidebar-mini">
-    <!-- Loader -->
-    <div id="global-loader">
-        <img src="{{ URL::asset('assets/img/loader.svg') }}" class="loader-img" alt="Loader">
-    </div>
-
     <!-- container -->
     <div class="container">
         @yield('page-header')
         @yield('content')
     </div>
 
-
     @include('partial.backend.footer-scripts')
+    @yield('script')
 </body>
 
 </html>
