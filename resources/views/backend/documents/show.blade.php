@@ -63,7 +63,7 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">
                             <i class="fa fa-plus-square me-3 " style="font-size: 20px;"></i>
-                            {{ __('panel.add_new_document_template') }}
+                            {{ __('panel.show_documents') }}
                         </h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
