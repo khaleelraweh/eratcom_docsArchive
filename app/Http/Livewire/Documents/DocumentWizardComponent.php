@@ -82,7 +82,7 @@ class DocumentWizardComponent extends Component
 
     public function finish()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         return redirect()->route('admin.documents.index');
     }
@@ -212,7 +212,12 @@ class DocumentWizardComponent extends Component
 
             $this->alert('success', __('panel.step_data_saved'));
         } else if ($this->currentStep == $this->totalSteps) {
-            // Final step handling
+
+            $document = Document::find($this->document_id);
+            $document->doc_content =    $this->viewText;
+            $document->doc_status = 1; //mean finished 
+            $document->save();
+            $this->alert('success', __('panel.document_data_saved'));
         }
     }
 
