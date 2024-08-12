@@ -62,6 +62,23 @@
 
                 @endif
 
+                @if ($document_template)
+                    @if (count($document_template->documentPages) > 0)
+                        <li role="tab" wire:click="directMoveToStep($totalSteps)"
+                            class="first {{ $currentStep == $totalSteps ? 'current' : '' }}" aria-disabled="false"
+                            aria-selected="true">
+                            <a id="wizard1-t-0" href="#wizard1-h-0" aria-controls="wizard1-p-0">
+                                <span class="current-info audible">current step:
+                                </span>
+                                <span class="number">{{ $totalSteps }}</span>
+                                <span class="title">
+                                    show page
+                                </span>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
             </ul>
         </div>
 
@@ -237,8 +254,25 @@
                     @endforeach
                 @endif
             @endif
-
             <!-- end dynimac steps  -->
+
+            <!-- Start last step -->
+            @if ($document_template)
+                @if (count($document_template->documentPages) > 0)
+                    <h3 id="wizard1-h-0" tabindex="-1"
+                        class="title {{ $currentStep == $totalSteps ? 'current' : '' }} ">
+                        show page
+                    </h3>
+                    <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
+                        class="body {{ $currentStep == $totalSteps ? 'current' : '' }}  step"
+                        aria-hidden="{{ $currentStep == $totalSteps ? 'false' : 'true' }}"
+                        style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
+
+                        we are in last step
+                    </section>
+                @endif
+            @endif
+            <!-- End last step -->
 
         </div>
         <!-- end mycontent -->
