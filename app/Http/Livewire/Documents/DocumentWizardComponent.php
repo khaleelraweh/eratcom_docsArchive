@@ -37,6 +37,8 @@ class DocumentWizardComponent extends Component
 
     public $docData = [];
 
+    public $viewText;
+
 
     public function mount($documentTemplateId = null) {}
 
@@ -64,6 +66,7 @@ class DocumentWizardComponent extends Component
             'document_types'        => $this->document_types,
             'document_templates'    => $this->document_templates,
             'document_template_choosen'     => $this->document_template,
+            'viewText'     => $this->viewText,
 
 
         ]);
@@ -202,10 +205,40 @@ class DocumentWizardComponent extends Component
                 );
             }
 
+            // If template text exists, process it
+            if ($this->document_template->doc_template_text) {
+                $this->viewText = $this->replacePlaceholders($this->document_template->doc_template_text);
+            }
+
             $this->alert('success', __('panel.step_data_saved'));
-        } else {
+        } else if ($this->currentStep == $this->totalSteps) {
+            // Final step handling
         }
     }
+
+    private function replacePlaceholders($text)
+    {
+        // Find all placeholders in the text
+        preg_match_all('/{!-(\d+)-[^!]+!}/', $text, $matches);
+
+        $forReplacement = [];
+
+        // Map placeholders to values from docData
+        foreach ($matches[1] as $index => $pageVariableId) {
+            $step = $this->currentStep; // or the specific step you want to target
+            if (isset($this->docData[$step][$pageVariableId])) {
+                $forReplacement[$matches[0][$index]] = $this->docData[$step][$pageVariableId]['value'];
+            }
+        }
+
+        // Replace placeholders with values
+        foreach ($forReplacement as $placeholder => $replacement) {
+            $text = str_replace($placeholder, $replacement, $text);
+        }
+
+        return $text;
+    }
+
 
 
     public function saveStep($currentStep)
