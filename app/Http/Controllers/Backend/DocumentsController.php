@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DocumentTemplate;
 use Illuminate\Http\Request;
-use PDF;
+// use PDF;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 class DocumentsController extends Controller
 {
@@ -66,7 +67,7 @@ class DocumentsController extends Controller
 
 
         // لطباعة ملف البيدي اف باسم معين وفي المسار المعين 
-        return $pdf->stream($document->id . '.pdf');
+        // return $pdf->stream($document->id . '.pdf');
 
 
 
