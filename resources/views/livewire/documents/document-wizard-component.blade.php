@@ -1,7 +1,18 @@
 <div>
     <link rel="stylesheet" href="{{ asset('assets/css/mywizard.css') }}">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+
+
     <style>
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+
         fieldset {
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -28,8 +39,8 @@
     <div class="mywizard">
         <div class="steps clearfix">
             <ul role="tablist">
-                <li role="tab" wire:click="directMoveToStep(1)" class="first {{ $currentStep == 1 ? 'current' : '' }}"
-                    aria-disabled="false" aria-selected="true">
+                <li role="tab" wire:click="directMoveToStep(1)"
+                    class="first {{ $currentStep == 1 ? 'current' : '' }}" aria-disabled="false" aria-selected="true">
                     <a id="wizard1-t-0" href="#wizard1-h-0" aria-controls="wizard1-p-0">
                         <span class="current-info audible">current step:
                         </span>

@@ -10,9 +10,14 @@ use App\Models\DocumentPage;
 use App\Models\DocumentType;
 use App\Models\PageGroup;
 use App\Models\PageVariable;
+use Illuminate\Support\Facades\Storage;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Barryvdh\DomPDF\Facade\Pdf;
+use niklasravnsborg\LaravelPdf\Facades\PDF;
+
+
+
+
 
 class DocumentWizardComponent extends Component
 {
@@ -277,17 +282,41 @@ class DocumentWizardComponent extends Component
         ];
     }
 
-    public function downloadPdf()
-    {
-        // Load the HTML content of the viewText
-        $htmlContent = $this->viewText;
 
-        // Generate the PDF
-        $pdf = Pdf::loadHTML($htmlContent);
 
-        // Return the PDF for download
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();
-        }, 'document.pdf');
-    }
+    // public function downloadPdf()
+    // {
+    //     $pdf = PDF::loadHTML($this->viewText);
+
+
+    //     $dateTime = now();
+    //     $fileName = $dateTime->format('YmdHis') . '_translation.pdf';
+
+    //     $pdf->save(storage_path('app/public/' . $fileName));
+
+
+
+    //     //Get the file url
+    //     $urlToDownload =  Storage::disk('public')->url($fileName);
+
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'url' => $urlToDownload,
+    //     ]);
+    // }
+
+    // public function downloadPdf()
+    // {
+    //     // Load the HTML content of the viewText
+    //     $htmlContent = $this->viewText;
+
+    //     // Generate the PDF
+    //     $pdf = Pdf::loadHTML($htmlContent);
+
+    //     // Return the PDF for download
+    //     return response()->streamDownload(function () use ($pdf) {
+    //         echo $pdf->output();
+    //     }, 'document.pdf');
+    // }
 }

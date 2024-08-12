@@ -24,6 +24,7 @@
         "mindscms/entrust": "^2.6",
         "mindscms/laravelshoppingcart": "^2.1",
         "nicolaslopezj/searchable": "^1.13",
+        "niklasravnsborg/laravel-pdf": "^4.1",
         "paytabscom/laravel_paytabs": "^1.7",
         "predis/predis": "^2.2",
         "pusher/pusher-php-server": "^7.2",
