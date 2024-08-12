@@ -92,60 +92,13 @@
 
                         </table>
 
-                        {{-- <h3>{{ __('Frontend/frontend.invoice_details') }}</h3>
+                        <h3>{{ __('panel.document_text') }}</h3>
+                        <div class="card">
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>{{ __('Frontend/frontend.product_name') }}</th>
-                                    <th>{{ __('Frontend/frontend.unit') }}</th>
-                                    <th>{{ __('Frontend/frontend.quantity') }}</th>
-                                    <th>{{ __('Frontend/frontend.unit_price') }}</th>
-                                    <th>{{ __('Frontend/frontend.product_subtotal') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($invoice->details as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->product_name }}</td>
-                                        <td>{{ $item->unitText() }}</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td>{{ $item->unit_price }}</td>
-                                        <td>{{ $item->row_sub_total }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <th colspan="2">{{ __('Frontend/frontend.sub_total') }}</th>
-                                    <td>{{ $invoice->sub_total }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <th colspan="2">{{ __('Frontend/frontend.discount') }}</th>
-                                    <td>{{ $invoice->discountResult() }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <th colspan="2">{{ __('Frontend/frontend.vat') }}</th>
-                                    <td>{{ $invoice->vat_value }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <th colspan="2">{{ __('Frontend/frontend.shipping') }}</th>
-                                    <td>{{ $invoice->shippint }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <th colspan="2">{{ __('Frontend/frontend.total_due') }}</th>
-                                    <td>{{ $invoice->total_due }}</td>
-                                </tr>
-
-                            </tfoot>
-                        </table> --}}
+                            <div class="card-body">
+                                {!! $document->doc_content !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
