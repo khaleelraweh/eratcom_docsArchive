@@ -238,24 +238,28 @@
                                                 <legend>{{ $pageGroup->pg_name }}</legend>
 
                                                 @foreach ($pageGroup->pageVariables as $pageVariable)
-                                                    <label for="docData[{{ $pageVariable->id }}]">
-                                                        {{ $pageVariable->pv_name }}:
-                                                        (<small>{{ $pageVariable->pv_question }}</small>)
-                                                    </label>
-                                                    <input type="{{ $pageVariable->pv_type() }}"
-                                                        id="docData[{{ $pageVariable->id }}]"
-                                                        name="docData[{{ $pageVariable->id }}]"
-                                                        value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
-                                                        wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
-                                                        class="form-control" {{ $pageVariable->pv_required() }}>
-                                                    <small>{{ $pageVariable->pv_details }}</small>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 {{ $loop->first ? '' : 'pt-3' }} ">
+                                                            <label for="docData[{{ $pageVariable->id }}]">
+                                                                {{ $pageVariable->pv_name }}:
+                                                                (<small>{{ $pageVariable->pv_question }}</small>)
+                                                            </label>
+                                                            <input type="{{ $pageVariable->pv_type() }}"
+                                                                id="docData[{{ $pageVariable->id }}]"
+                                                                name="docData[{{ $pageVariable->id }}]"
+                                                                value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
+                                                                wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
+                                                                class="form-control"
+                                                                {{ $pageVariable->pv_required() }}>
+                                                            <small>{{ $pageVariable->pv_details }}</small>
 
-                                                    @error('docData.' . $currentStep . '.' . $pageVariable->id .
-                                                        '.value')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                            @error('docData.' . $currentStep . '.' . $pageVariable->id .
+                                                                '.value')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                 @endforeach
-
                                             </fieldset>
                                         @endforeach
 
