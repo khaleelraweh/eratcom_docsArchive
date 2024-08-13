@@ -49,7 +49,7 @@
                         </span>
                     </a>
                 </li>
-                @if ($document_template)
+                @if ($chosen_template)
                     @if (count($document_template->documentPages) > 0)
                         @foreach ($document_template->documentPages as $key => $documentPage)
                             <li role="tab" wire:click="directMoveToStep({{ $key + 2 }})"
@@ -72,7 +72,7 @@
 
                 @endif
 
-                @if ($document_template)
+                @if ($chosen_template)
                     @if (count($document_template->documentPages) > 0)
                         <li role="tab" wire:click="directMoveToStep({{ $totalSteps }})"
                             class="first {{ $currentStep == $totalSteps ? 'current' : '' }}" aria-disabled="false"
