@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DocumentTemplate;
 use Illuminate\Http\Request;
-// use PDF;
-use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
+use PDF;
+
 
 class DocumentsController extends Controller
 {
@@ -61,13 +61,15 @@ class DocumentsController extends Controller
         // $data['created_at']     =  $document->created_at;
 
 
+        $data['doc_id']         =  'khaleel';
+
         // المكان الذي يوجد فيه ملف ال pdf.blade.php  
         // نقوم بارسال البيانات اليه من اجل عرضها في ذلك الملف 
-        // $pdf = PDF::loadView('backend.documents.pdf', $data);
+        $pdf = PDF::loadView('backend.documents.pdf', $data);
 
 
         // لطباعة ملف البيدي اف باسم معين وفي المسار المعين 
-        // return $pdf->stream($document->id . '.pdf');
+        return $pdf->stream($document->id . '.pdf');
 
 
 
