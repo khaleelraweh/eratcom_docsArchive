@@ -50,8 +50,8 @@
                     </a>
                 </li>
                 @if ($chosen_template)
-                    @if (count($document_template->documentPages) > 0)
-                        @foreach ($document_template->documentPages as $key => $documentPage)
+                    @if (count($chosen_template->documentPages) > 0)
+                        @foreach ($chosen_template->documentPages as $key => $documentPage)
                             <li role="tab" wire:click="directMoveToStep({{ $key + 2 }})"
                                 class="disabled {{ $currentStep == $key + 2 ? 'current' : '' }}" aria-disabled="true">
                                 <a id="wizard1-t-{{ $key + 2 }}" href="#wizard1-h-1"
@@ -73,7 +73,7 @@
                 @endif
 
                 @if ($chosen_template)
-                    @if (count($document_template->documentPages) > 0)
+                    @if (count($chosen_template->documentPages) > 0)
                         <li role="tab" wire:click="directMoveToStep({{ $totalSteps }})"
                             class="first {{ $currentStep == $totalSteps ? 'current' : '' }}" aria-disabled="false"
                             aria-selected="true">

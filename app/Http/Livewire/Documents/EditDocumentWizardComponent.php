@@ -30,6 +30,7 @@ class EditDocumentWizardComponent extends Component
     public $document_template_id;
 
     public $chosen_template;
+    public $chosen_template_id;
 
 
 
@@ -42,6 +43,9 @@ class EditDocumentWizardComponent extends Component
         $this->document_types       = $this->document_category_id != '' ? DocumentType::whereStatus(true)->whereDocumentCategoryId($this->document_category_id)->get() : [];
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
+
+        $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+        $this->chosen_template_id = $this->document->document_template_id;
     }
 
     public function render()
