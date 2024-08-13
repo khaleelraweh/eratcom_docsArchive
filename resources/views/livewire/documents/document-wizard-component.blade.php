@@ -313,7 +313,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>{{ __('panel.document_type') }}</th>
-                                                        <td>{{ $document->doc_type }}</td>
+                                                        <td>{{ $document->doc_type() }}</td>
                                                         <th>{{ __('panel.created_at') }}</th>
                                                         <td>{{ $document->created_at }}</td>
                                                     </tr>

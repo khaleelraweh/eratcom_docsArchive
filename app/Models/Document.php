@@ -67,7 +67,7 @@ class Document extends Model
     {
         if ($this->doc_type == 0) {
             return __('panel.document_type_inner');
-        } elseif ($this->doc_status == 1) {
+        } elseif ($this->doc_type == 1) {
             return __('panel.document_type_outer');
         }
     }
