@@ -84,7 +84,7 @@ class EditDocumentWizardComponent extends Component
     public function nextStep()
     {
         // $this->validateStep();
-        // $this->saveStepData();
+        $this->saveStepData();
         $this->currentStep++;
     }
 
@@ -103,5 +103,31 @@ class EditDocumentWizardComponent extends Component
         // }
 
         $this->currentStep = $choseStep;
+    }
+
+    public function saveStepData()
+    {
+        if ($this->currentStep == 1) {
+            // Save or update the document information
+            $document = Document::updateOrCreate(
+                ['id' => $this->document_id],
+                [
+                    'doc_name' => $this->doc_name,
+                    'doc_type' => $this->doc_type_id,
+                    'doc_status' => 0,
+                    'document_template_id' => $this->document_template_id,
+                ]
+            );
+
+
+            $this->document = $document;
+            $this->document_id = $document->id;
+
+            // $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
+
+            // $this->totalSteps = $this->document_template->documentPages()->count() + 2;
+
+            $this->alert('success', __('panel.document_data_saved'));
+        }
     }
 }
