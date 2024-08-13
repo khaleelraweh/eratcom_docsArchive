@@ -202,6 +202,80 @@
 
             <!---- related to step 1 end ----->
 
+            <!---- related to dynamic steps --->
+
+
+            <!-- start dynimac steps   -->
+            @if ($chosen_template)
+                @if (count($chosen_template->documentPages) > 0)
+                    @foreach ($chosen_template->documentPages as $key => $documentPage)
+                        <h3 id="wizard1-h-0" tabindex="-1"
+                            class="title {{ $currentStep == $key + 2 ? 'current' : '' }} ">
+
+                            <div class="row align-items-end mb-4 mb-md-0">
+                                <div class="col-md mb-4 mb-md-0">
+                                    <h4>{{ $documentPage->doc_page_name }}</h4>
+                                </div>
+                                <div class="col-md-auto aos-init aos-animate" data-aos="fade-start">
+                                    {{-- <button wire:click="saveStep({{ $key + 2 }})" class="btn btn-primary">
+                                      {{ __('panel.document_template_variables_save') }}
+                                  </button> --}}
+                                </div>
+                            </div>
+                        </h3>
+                        <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
+                            class="body {{ $currentStep == $key + 2 ? 'current' : '' }}  step"
+                            aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
+                            style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
+
+                            <form method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+
+                                        @foreach ($documentPage->pageGroups as $pageGroup)
+                                            <fieldset>
+                                                <legend>{{ $pageGroup->pg_name }}</legend>
+
+                                                @foreach ($pageGroup->pageVariables as $pageVariable)
+                                                    <div class="row">
+                                                        <div class="col-sm-12 {{ $loop->first ? '' : 'pt-3' }} ">
+                                                            <label for="docData[{{ $pageVariable->id }}]">
+                                                                {{ $pageVariable->pv_name }}:
+                                                                (<small>{{ $pageVariable->pv_question }}</small>)
+                                                            </label>
+                                                            <input type="{{ $pageVariable->pv_type() }}"
+                                                                id="docData[{{ $pageVariable->id }}]"
+                                                                name="docData[{{ $pageVariable->id }}]"
+                                                                value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
+                                                                wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
+                                                                class="form-control"
+                                                                {{ $pageVariable->pv_required() }}>
+                                                            <small>{{ $pageVariable->pv_details }}</small>
+
+                                                            @error('docData.' . $currentStep . '.' . $pageVariable->id .
+                                                                '.value')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </fieldset>
+                                        @endforeach
+
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </section>
+                    @endforeach
+                @endif
+            @endif
+            <!-- end dynimac steps  -->
+
+            <!---- end related to dynamic steps --->
+
 
 
 

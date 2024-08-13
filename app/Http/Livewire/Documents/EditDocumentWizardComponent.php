@@ -35,6 +35,8 @@ class EditDocumentWizardComponent extends Component
     public $doc_name;
     public $doc_type_id;
 
+    public $docData = [];
+
 
 
 
@@ -138,5 +140,14 @@ class EditDocumentWizardComponent extends Component
 
             $this->alert('success', __('panel.document_data_saved'));
         }
+    }
+
+    public function updateDocData($currentStep, $pageVariableId, $value, $type, $required)
+    {
+        $this->docData[$currentStep][$pageVariableId] = [
+            'value' => $value,
+            'type' => $type,
+            'required' => $required,
+        ];
     }
 }
