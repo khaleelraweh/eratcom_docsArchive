@@ -83,7 +83,7 @@
                                 </span>
                                 <span class="number">{{ $totalSteps }}</span>
                                 <span class="title">
-                                    show page
+                                    {{ __('panel.document_review') }}
                                 </span>
                             </a>
                         </li>
@@ -279,7 +279,7 @@
                 @if (count($document_template->documentPages) > 0)
                     <h3 id="wizard1-h-0" tabindex="-1"
                         class="title {{ $currentStep == $totalSteps ? 'current' : '' }} ">
-                        show page
+                        {{ __('panel.document_review') }}
                     </h3>
                     <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
                         class="body {{ $currentStep == $totalSteps ? 'current' : '' }}  step"

@@ -264,6 +264,7 @@ return [
 
     'document_created_at'                                   =>  'تاريخ الإنشاء',
     'document_created_by'                                   =>  'انشات بواسطة',
+    'document_review'                                       =>  'مراجعة الوثيقة',
 
 
 

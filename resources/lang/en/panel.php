@@ -254,6 +254,7 @@ return [
 
     'document_created_at'                                   =>  'Created at',
     'document_created_by'                                   =>  'Created by',
+    'document_review'                                       =>  'Document Review',
 
 
 
