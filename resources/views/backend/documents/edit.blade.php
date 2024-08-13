@@ -30,12 +30,12 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">
-                    <a
-                        href="{{ route('admin.document_templates.index') }}">{{ __('panel.manage_document_categories') }}</a>
+                    <a href="{{ route('admin.documents.index') }}">{{ __('panel.manage_documents') }}</a>
+
                 </h4>
                 <span class="text-muted mt-1 tx-13 mr-2 mb-0">
                     /
-                    {{ __('panel.edit_existing_document_template') }}
+                    {{ __('panel.edit_existing_document') }}
                 </span>
             </div>
         </div>
@@ -43,8 +43,8 @@
 
 
             <div class="pr-1 mb-3 mb-xl-0">
-                <a href="{{ route('admin.document_templates.edit', $documentTemplate->id) }}"
-                    class="btn btn-warning  btn-icon ml-2">
+                {{-- <button type="button" class="btn btn-warning  btn-icon ml-2"><i class="mdi mdi-refresh"></i></button> --}}
+                <a href="{{ route('admin.document_templates.create') }}" class="btn btn-warning  btn-icon ml-2">
                     <i class="mdi mdi-refresh"></i>
                 </a>
             </div>
@@ -63,34 +63,14 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">
-                            <i class="fa fa-edit me-3" style="font-size: 20px;"></i>
-                            {{ __('panel.edit_existing_document_template') }}
+                            <i class="fa fa-plus-square me-3 " style="font-size: 20px;"></i>
+                            {{ __('panel.edit_existing_document') }}
                         </h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
-
                     </div>
                 </div>
                 <div class="card-body">
-                    {{-- erorrs show is exists --}}
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    {{-- @livewire('document-template.edit-form-wizard-component') --}}
-
-                    @livewire('document-template.edit-form-wizard-component', ['documentTemplate' => $documentTemplate]);
-
-                    {{-- <form action="{{ route('admin.document_templates.update', $documentTemplate->id) }}" method="post">
-                        @csrf
-                        @method('PATCH')
-
-                    </form> --}}
+                    @livewire('documents.edit-document-wizard-component', ['document_id' => $document->id])
                 </div>
             </div>
         </div>
@@ -99,6 +79,7 @@
 
     <!-- main-content closed -->
 @endsection
+
 
 @section('js')
     <!-- Internal Data tables -->

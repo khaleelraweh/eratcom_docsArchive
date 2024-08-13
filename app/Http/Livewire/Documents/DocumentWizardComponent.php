@@ -15,10 +15,6 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use niklasravnsborg\LaravelPdf\Facades\PDF;
 
-
-
-
-
 class DocumentWizardComponent extends Component
 {
     use LivewireAlert;

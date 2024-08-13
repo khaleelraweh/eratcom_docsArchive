@@ -30,6 +30,18 @@ class DocumentsController extends Controller
         return view('backend.documents.create');
     }
 
+
+    public function edit($id)
+    {
+        if (!auth()->user()->ability('admin', 'update_document_templates')) {
+            return redirect('admin/index');
+        }
+
+        $document = Document::query()->where('id', $id)->first();
+
+        return view('backend.documents.edit', compact('document'));
+    }
+
     public function show($id)
     {
         if (!auth()->user()->ability('admin', 'display_documents')) {
