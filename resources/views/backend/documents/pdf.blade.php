@@ -121,8 +121,8 @@
                             </td>
 
                             <td>
-                                {{ __('panel.document_number') }}: {{ $doc_no ?? 'N/A' }}<br />
-                                {{ __('panel.document_created_by') }}: {{ $created_by ?? 'admin' }}<br />
+                                {{ __('panel.document_number') }}: 'N/A' <br />
+                                {{ __('panel.document_created_by') }}: 'admin' <br />
                                 {{ __('panel.document_created_at') }}:
                                 2005<br />
                             </td>
