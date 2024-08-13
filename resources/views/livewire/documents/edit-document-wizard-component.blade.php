@@ -36,6 +36,7 @@
     </style>
 
     <div class="mywizard">
+        <!------------- part 1 : Steps ------------->
         <div class="steps clearfix">
             <ul role="tablist">
                 <li role="tab" wire:click="directMoveToStep(1)"
@@ -58,12 +59,7 @@
                                     aria-controls="wizard1-p-{{ $key + 2 }}">
                                     <span class="number">{{ $key + 2 }}</span>
                                     <span class="title">
-
-                                        {{-- {!! Str::limit($documentPage->doc_page_name, 10, ' ...') !!} --}}
-
                                         {!! Str::words($documentPage->doc_page_name, 3, ' ...') !!}
-
-                                        {{-- {{ $documentPage->doc_page_name }} --}}
                                     </span>
                                 </a>
                             </li>
@@ -91,6 +87,129 @@
 
             </ul>
         </div>
+        <!------------- part 1 : Steps end ------------->
+
+        <!------------- part 2 : Content ------------->
+        <div class="mycontent">
+
+            <!---- related to step 1 ----->
+
+            <h3 id="wizard1-h-0" tabindex="-1" class="title {{ $currentStep == 1 ? 'current' : '' }} ">
+                {{ __('panel.document_template_data') }}
+            </h3>
+
+            <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
+                class="body {{ $currentStep == 1 ? 'current' : '' }}  step"
+                aria-hidden="{{ $currentStep == 1 ? 'false' : 'true' }}"
+                style="display: {{ $currentStep == 1 ? 'block' : 'none' }}">
+
+                <form method="post">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4   pt-3">
+                                    <label for="document_category_id" class="text-small text-uppercase">
+                                        {{ __('panel.document_category_name') }} </label>
+                                    <select class="form-control form-control-lg" wire:model="document_category_id">
+                                        <option value="">---</option>
+                                        @forelse ($document_categories as $document_category)
+                                            <option value="{{ $document_category->id }}">
+                                                {{ $document_category->doc_cat_name }}
+                                            </option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    @error('document_category_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-12  col-md-4 pt-3">
+
+                                    <label for="document_type_id" class="text-small text-uppercase">
+                                        {{ __('panel.document_type_name') }}
+                                    </label>
+                                    <select class="form-control form-control-lg" wire:model="document_type_id">
+                                        <option value="">---</option>
+                                        @forelse ($document_types as $document_type)
+                                            <option value="{{ $document_type->id }}">
+                                                {{ $document_type->doc_type_name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    @error('document_type_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+
+                                <div class="col-sm-12  col-md-4 pt-3">
+                                    <label for="document_template_id" class="text-small text-uppercase">
+                                        {{ __('panel.document_template_name') }}
+                                    </label>
+                                    <select class="form-control form-control-lg" wire:model="document_template_id">
+                                        <option value="">---</option>
+                                        @forelse ($document_templates as $doc_template)
+                                            <option value="{{ $doc_template->id }}">
+                                                {{ $doc_template->doc_template_name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    @error('document_template_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-9 pt-3">
+                                    <label for="doc_name"> {{ __('panel.document_name') }} </label>
+                                    <input type="text" id="doc_name" wire:model="doc_name" name="doc_name"
+                                        value="{{ old('doc_name') }}" class="form-control" placeholder="">
+                                    @error('doc_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-12 col-md-3 pt-3">
+                                    <label for="doc_type_id"> {{ __('panel.document_type') }} </label>
+                                    <select name="doc_type_id" wire:model.defer="doc_type_id" class="form-control">
+                                        <option value="">---</option>
+                                        <option value="0" {{ old('doc_type_id') == '0' ? 'selected' : null }}>
+                                            {{ __('panel.document_type_inner') }}
+                                        </option>
+                                        <option value="1" {{ old('doc_type_id') == '1' ? 'selected' : null }}>
+                                            {{ __('panel.document_type_outer') }}
+                                        </option>
+                                    </select>
+                                    @error('doc_type_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </section>
+
+            <!---- related to step 1 end ----->
+
+
+
+
+
+
+
+        </div>
+        <!------------- part 2 : Content end ------------->
     </div>
 
 </div>

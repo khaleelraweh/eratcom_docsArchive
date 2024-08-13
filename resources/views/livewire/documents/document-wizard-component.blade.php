@@ -100,6 +100,7 @@
             <h3 id="wizard1-h-0" tabindex="-1" class="title {{ $currentStep == 1 ? 'current' : '' }} ">
                 {{ __('panel.document_template_data') }}
             </h3>
+
             <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
                 class="body {{ $currentStep == 1 ? 'current' : '' }}  step"
                 aria-hidden="{{ $currentStep == 1 ? 'false' : 'true' }}"
