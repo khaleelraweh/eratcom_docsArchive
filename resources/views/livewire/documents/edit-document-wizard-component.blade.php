@@ -228,6 +228,18 @@
                             aria-hidden="{{ $currentStep == $key + 2 ? 'false' : 'true' }}"
                             style="display: {{ $currentStep == $key + 2 ? 'block' : 'none' }}">
 
+                            @isset($document->documentData)
+                                {{ $document->documentData }}
+
+                                Now we try to show data from the array
+                                @isset($docData)
+                                    <br>
+                                    {{ $currentStep }}
+                                    {{ $docData[$currentStep][4]['value'] }}
+                                @endisset
+                            @endisset
+
+
                             <form method="post">
                                 @csrf
                                 <div class="row">
@@ -247,7 +259,8 @@
                                                             <input type="{{ $pageVariable->pv_type() }}"
                                                                 id="docData[{{ $pageVariable->id }}]"
                                                                 name="docData[{{ $pageVariable->id }}]"
-                                                                value="{{ isset($docData[$currentStep][$pageVariable->id]['value']) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
+                                                                {{-- value="{{ isset($docData) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}" --}}
+                                                                value="{{ isset($docData) ? $docData[$currentStep][$pageVariable->id]['value'] : old('docData.' . $pageVariable->id) }}"
                                                                 wire:change="updateDocData('{{ $currentStep }}', '{{ $pageVariable->id }}', $event.target.value, '{{ $pageVariable->pv_type() }}', '{{ $pageVariable->pv_required() }}')"
                                                                 class="form-control"
                                                                 {{ $pageVariable->pv_required() }}>

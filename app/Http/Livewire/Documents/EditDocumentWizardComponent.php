@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\DocumentTemplate;
 use App\Models\DocumentType;
+use App\Models\PageVariable;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -62,6 +63,21 @@ class EditDocumentWizardComponent extends Component
 
             $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
         }
+
+        if ($this->document->documentData) {
+            foreach ($this->document->documentData as $doc_Data) {
+
+                $pageVariable = PageVariable::find($doc_Data->page_variable_id);
+
+                $currentStep = $pageVariable->pageGroup->documentPage->id;
+                $pageVariableId = $doc_Data->page_variable_id;
+                $value = $doc_Data->value;
+                $type = $pageVariable->pv_type;
+                $required = $pageVariable->pv_required;
+
+                self::updateDocData($currentStep, $pageVariableId, $value, $type, $required);
+            }
+        }
     }
 
     public function render()
@@ -76,6 +92,23 @@ class EditDocumentWizardComponent extends Component
         $this->chosen_template_id = $this->document->document_template_id;
         $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
         // end to update chosen template status in the frontend 
+
+        // To update docData array with data
+        if ($this->document->documentData) {
+            foreach ($this->document->documentData as $doc_Data) {
+
+                $pageVariable = PageVariable::find($doc_Data->page_variable_id);
+
+                // $currentStep = $pageVariable->pageGroup->documentPage->id;
+                $pageVariableId = $doc_Data->page_variable_id;
+                $value = $doc_Data->value;
+                $type = $pageVariable->pv_type;
+                $required = $pageVariable->pv_required;
+
+                self::updateDocData($this->currentStep, $pageVariableId, $value, $type, $required);
+            }
+        }
+        // end To update docData array with data
 
         return view('livewire.documents.edit-document-wizard-component', [
             'document_categories'   => $this->document_categories,
@@ -149,5 +182,6 @@ class EditDocumentWizardComponent extends Component
             'type' => $type,
             'required' => $required,
         ];
+        // dd($this->docData);
     }
 }
