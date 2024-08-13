@@ -47,8 +47,7 @@ class EditDocumentWizardComponent extends Component
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
 
-        $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
-        $this->chosen_template_id = $this->document->document_template_id;
+
 
         if ($this->document) {
             $this->document_type_id = $this->document->documentTemplate->documentType->id;
@@ -56,6 +55,9 @@ class EditDocumentWizardComponent extends Component
             $this->document_category_id = $this->document->documentTemplate->documentType->documentCategory->id;
             $this->doc_name = $this->document->doc_name;
             $this->doc_type_id = $this->document->doc_type;
+
+            $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+            $this->chosen_template_id = $this->document->document_template_id;
         }
     }
 
