@@ -102,7 +102,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('document/pdf/{id}', [DocumentsController::class, 'pdf'])->name('documents.pdf');
         Route::resource('documents', DocumentsController::class);
 
-        Route::resource('document_datas', DocumentDatasController::class);
+
 
 
 

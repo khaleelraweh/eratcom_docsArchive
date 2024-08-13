@@ -852,12 +852,21 @@
     'watermark_image_alpha' => 0.2,
     'watermark_image_size' => 'D',
     'watermark_image_position' => 'P',
-    'custom_font_dir' => '',
+    'custom_font_dir' => 'C:\\xampp\\htdocs\\AdelProject\\public/fonts/',
     'custom_font_data' => 
     array (
+      'almarai' => 
+      array (
+        'R' => 'Almarai-Regular.ttf',
+        'B' => 'Almarai-Bold.ttf',
+        'I' => 'Almarai-Light.ttf',
+        'BI' => 'Almarai-ExtraBold.ttf',
+        'useOTL' => 255,
+        'useKashida' => 75,
+      ),
     ),
     'auto_language_detection' => false,
-    'temp_dir' => 'C:\\xampp\\htdocs\\AdelProject\\storage\\app',
+    'temp_dir' => '',
     'pdfa' => false,
     'pdfaauto' => false,
     'use_active_forms' => false,
