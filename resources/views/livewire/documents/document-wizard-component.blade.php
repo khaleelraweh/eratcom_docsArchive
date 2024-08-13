@@ -184,10 +184,10 @@
                                     <label for="doc_type"> {{ __('panel.document_type') }} </label>
                                     <select name="doc_type" wire:model.defer="doc_type" class="form-control">
                                         <option value="">---</option>
-                                        <option value="1" {{ old('doc_type') == '1' ? 'selected' : null }}>
+                                        <option value="1" {{ old('doc_type') == '0' ? 'selected' : null }}>
                                             {{ __('panel.document_type_inner') }}
                                         </option>
-                                        <option value="2" {{ old('doc_type') == '2' ? 'selected' : null }}>
+                                        <option value="2" {{ old('doc_type') == '1' ? 'selected' : null }}>
                                             {{ __('panel.document_type_outer') }}
                                         </option>
                                     </select>

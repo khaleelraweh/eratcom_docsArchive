@@ -187,7 +187,7 @@ class DocumentWizardComponent extends Component
                 ['id' => $this->document_id],
                 [
                     'doc_name' => $this->doc_name,
-                    'doc_type' => $this->doc_type,
+                    'doc_type' => $this->document_type_id,
                     'doc_status' => 0,
                     'document_template_id' => $this->document_template_id,
                 ]
