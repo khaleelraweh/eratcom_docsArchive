@@ -47,8 +47,6 @@ class EditDocumentWizardComponent extends Component
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
 
-
-
         if ($this->document) {
             $this->document_type_id = $this->document->documentTemplate->documentType->id;
             $this->document_template_id = $this->document->documentTemplate->id;
@@ -58,6 +56,8 @@ class EditDocumentWizardComponent extends Component
 
             $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
             $this->chosen_template_id = $this->document->document_template_id;
+
+            $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
         }
     }
 
@@ -74,5 +74,34 @@ class EditDocumentWizardComponent extends Component
             'document_templates'    => $this->document_templates,
             'document'              => $this->document,
         ]);
+    }
+
+    public function previousStep()
+    {
+        $this->currentStep--;
+    }
+
+    public function nextStep()
+    {
+        // $this->validateStep();
+        // $this->saveStepData();
+        $this->currentStep++;
+    }
+
+    public function finish()
+    {
+        // $this->validateStep();
+        // $this->saveStepData();
+        return redirect()->route('admin.documents.show', $this->document_id);
+    }
+
+    public function directMoveToStep($choseStep)
+    {
+        // if ($choseStep > $this->currentStep) {
+        //     $this->validateStep();
+        //     $this->saveStepData();
+        // }
+
+        $this->currentStep = $choseStep;
     }
 }

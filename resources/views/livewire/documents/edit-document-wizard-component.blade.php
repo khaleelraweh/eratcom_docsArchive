@@ -210,6 +210,37 @@
 
         </div>
         <!------------- part 2 : Content end ------------->
+
+        <!------------- part 2 : navagition wizard ------------->
+        <div class="actions clearfix">
+            <ul role="menu" aria-label="Pagination">
+                <li class="{{ $currentStep == 1 ? 'disabled' : '' }}"
+                    aria-disabled="{{ $currentStep == 1 ? 'true' : 'false' }}">
+                    <a href="#previous" style="display: {{ $currentStep == 1 ? 'none' : 'none' }} ;"
+                        role="menuitem">
+                        Previous
+                    </a>
+                    <a href="#previous" wire:click="previousStep"
+                        style="display: {{ $currentStep == 1 ? 'none' : 'block' }};" role="menuitem">
+                        {{ __('panel.previous') }}
+                    </a>
+                </li>
+
+                <li aria-hidden="false" aria-disabled="false"
+                    style="display: {{ $currentStep == $totalSteps ? 'none' : 'block' }}">
+                    <a href="#next" wire:click="nextStep" role="menuitem">
+                        التالي
+                    </a>
+                </li>
+
+                <li aria-hidden="true" style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
+                    <a href="#finish" wire:click="finish" role="menuitem">
+                        {{ __('panel.finish') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!------------- part 2 : navagition wizard end ------------->
     </div>
 
 </div>
