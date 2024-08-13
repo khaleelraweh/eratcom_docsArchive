@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    {{ $doc_content }}
+    {!! $doc_content !!}
 </body>
 
 </html>
