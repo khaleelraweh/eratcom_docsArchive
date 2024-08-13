@@ -32,6 +32,7 @@ class DocumentWizardComponent extends Component
     public $document_types = [];
     public $document_templates = [];
     public $document_template; // only the selected documenttemplate when save step1
+    public $document;
 
     //step1
     public $document_id;
@@ -187,11 +188,13 @@ class DocumentWizardComponent extends Component
                 [
                     'doc_name' => $this->doc_name,
                     'doc_type' => $this->doc_type,
+                    'doc_status' => 0,
                     'document_template_id' => $this->document_template_id,
                 ]
             );
 
             $this->document_id = $document->id;
+            $this->document = $document;
             $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
 
             $this->totalSteps = $this->document_template->documentPages()->count() + 2;
@@ -281,42 +284,4 @@ class DocumentWizardComponent extends Component
             'required' => $required,
         ];
     }
-
-
-
-    // public function downloadPdf()
-    // {
-    //     $pdf = PDF::loadHTML($this->viewText);
-
-
-    //     $dateTime = now();
-    //     $fileName = $dateTime->format('YmdHis') . '_translation.pdf';
-
-    //     $pdf->save(storage_path('app/public/' . $fileName));
-
-
-
-    //     //Get the file url
-    //     $urlToDownload =  Storage::disk('public')->url($fileName);
-
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'url' => $urlToDownload,
-    //     ]);
-    // }
-
-    // public function downloadPdf()
-    // {
-    //     // Load the HTML content of the viewText
-    //     $htmlContent = $this->viewText;
-
-    //     // Generate the PDF
-    //     $pdf = Pdf::loadHTML($htmlContent);
-
-    //     // Return the PDF for download
-    //     return response()->streamDownload(function () use ($pdf) {
-    //         echo $pdf->output();
-    //     }, 'document.pdf');
-    // }
 }
