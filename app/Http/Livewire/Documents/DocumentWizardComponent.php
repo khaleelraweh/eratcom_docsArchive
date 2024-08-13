@@ -92,7 +92,7 @@ class DocumentWizardComponent extends Component
     {
         $this->validateStep();
         $this->saveStepData();
-        return redirect()->route('admin.documents.index');
+        return redirect()->route('admin.documents.show', $this->document_id);
     }
 
     public function previousStep()
