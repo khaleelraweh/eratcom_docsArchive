@@ -32,6 +32,9 @@ class EditDocumentWizardComponent extends Component
     public $chosen_template;
     public $chosen_template_id;
 
+    public $doc_name;
+    public $doc_type_id;
+
 
 
 
@@ -51,6 +54,8 @@ class EditDocumentWizardComponent extends Component
             $this->document_type_id = $this->document->documentTemplate->documentType->id;
             $this->document_template_id = $this->document->documentTemplate->id;
             $this->document_category_id = $this->document->documentTemplate->documentType->documentCategory->id;
+            $this->doc_name = $this->document->doc_name;
+            $this->doc_type_id = $this->document->doc_type;
         }
     }
 
