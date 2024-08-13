@@ -41,7 +41,7 @@ class DocumentWizardComponent extends Component
 
     public $document_template_id;
     public $doc_name;
-    public $doc_type;
+    public $doc_type_id;
 
     public $docData = [];
 
@@ -116,7 +116,7 @@ class DocumentWizardComponent extends Component
             $this->validate([
                 'document_template_id'  => 'required|numeric',
                 'doc_name'      => 'required|string',
-                'doc_type'      => 'required|numeric',
+                'doc_type_id'      => 'required|numeric',
             ]);
         } else if ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
             $this->validateStepDynamic();
@@ -187,7 +187,7 @@ class DocumentWizardComponent extends Component
                 ['id' => $this->document_id],
                 [
                     'doc_name' => $this->doc_name,
-                    'doc_type' => $this->document_type_id,
+                    'doc_type' => $this->doc_type_id,
                     'doc_status' => 0,
                     'document_template_id' => $this->document_template_id,
                 ]

@@ -181,17 +181,17 @@
                                 </div>
 
                                 <div class="col-sm-12 col-md-3 pt-3">
-                                    <label for="doc_type"> {{ __('panel.document_type') }} </label>
-                                    <select name="doc_type" wire:model.defer="doc_type" class="form-control">
+                                    <label for="doc_type_id"> {{ __('panel.document_type') }} </label>
+                                    <select name="doc_type_id" wire:model.defer="doc_type_id" class="form-control">
                                         <option value="">---</option>
-                                        <option value="1" {{ old('doc_type') == '0' ? 'selected' : null }}>
+                                        <option value="0" {{ old('doc_type_id') == '0' ? 'selected' : null }}>
                                             {{ __('panel.document_type_inner') }}
                                         </option>
-                                        <option value="2" {{ old('doc_type') == '1' ? 'selected' : null }}>
+                                        <option value="1" {{ old('doc_type_id') == '1' ? 'selected' : null }}>
                                             {{ __('panel.document_type_outer') }}
                                         </option>
                                     </select>
-                                    @error('doc_type')
+                                    @error('doc_type_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -274,7 +274,7 @@
             @endif
             <!-- end dynimac steps  -->
 
-            <!-- Start last step -->
+            <!-- Start last step Review Docs -->
             @if ($document_template)
                 @if (count($document_template->documentPages) > 0)
                     <h3 id="wizard1-h-0" tabindex="-1"
@@ -313,7 +313,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>{{ __('panel.document_type') }}</th>
-                                                        <td>{{ $document->doc_type() }}</td>
+                                                        <td>{{ $document->doc_type }}</td>
                                                         <th>{{ __('panel.created_at') }}</th>
                                                         <td>{{ $document->created_at }}</td>
                                                     </tr>
@@ -341,14 +341,7 @@
                             </div>
                         @endisset
 
-                        {{-- end new part  --}}
-
-
-
-                        {{-- <button wire:click="downloadPdf" class="btn btn-primary">
-                            Save as PDF
-                        </button>
-                        {!! $viewText !!} --}}
+                        {{-- end new part review Document --}}
 
                     </section>
                 @endif
