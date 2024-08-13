@@ -47,6 +47,7 @@ class EditDocumentWizardComponent extends Component
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
 
+
         if ($this->document) {
             $this->document_type_id = $this->document->documentTemplate->documentType->id;
             $this->document_template_id = $this->document->documentTemplate->id;
@@ -67,6 +68,12 @@ class EditDocumentWizardComponent extends Component
         $this->document_types       = $this->document_category_id != '' ? DocumentType::whereStatus(true)->whereDocumentCategoryId($this->document_category_id)->get() : [];
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
+
+        // To update chosen template status in the frontend 
+        $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+        $this->chosen_template_id = $this->document->document_template_id;
+        $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
+        // end to update chosen template status in the frontend 
 
         return view('livewire.documents.edit-document-wizard-component', [
             'document_categories'   => $this->document_categories,
@@ -122,6 +129,8 @@ class EditDocumentWizardComponent extends Component
 
             $this->document = $document;
             $this->document_id = $document->id;
+
+
 
             // $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
 
