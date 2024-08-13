@@ -96,8 +96,10 @@
                                         <td class="text-center"><input type="checkbox" name="checkfilter"
                                                 value="{{ $document->id }}"></td>
                                         <td>{{ $document->doc_name }}</td>
-                                        <td>{{ $document->doc_content }}</td>
-                                        <td>{{ $document->published_on }}</td>
+                                        <td>
+                                            {!! Str::words($document->doc_content, 4, ' ...') !!}
+                                        </td>
+                                        <td>{{ $document->created_at->format('Y-m-d') }}</td>
                                         <td>{{ $document->created_by }}</td>
                                         <td>{{ $document->doc_status() }}</td>
                                         <td>
