@@ -124,7 +124,7 @@
                                 {{ __('panel.document_number') }}: {{ $doc_no ?? 'N/A' }}<br />
                                 {{ __('panel.document_created_by') }}: {{ $created_by ?? 'admin' }}<br />
                                 {{ __('panel.document_created_at') }}:
-                                {{ $created_at->format('Y-m-d') ?? Carbon\Carbon::now()->format('Y-m-d') }}<br />
+                                2005<br />
                             </td>
                         </tr>
                     </table>
