@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    welcome
+    {{ $doc_content }}
 </body>
 
 </html>

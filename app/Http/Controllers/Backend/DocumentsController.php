@@ -61,7 +61,7 @@ class DocumentsController extends Controller
         // $data['created_at']     =  $document->created_at;
 
 
-        $data['doc_id']         =  'khaleel';
+        $data['doc_content']         =  $document->doc_content;
 
         // المكان الذي يوجد فيه ملف ال pdf.blade.php  
         // نقوم بارسال البيانات اليه من اجل عرضها في ذلك الملف 
