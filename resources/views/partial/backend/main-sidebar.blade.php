@@ -71,13 +71,20 @@
                             <span class="side-menu__label">{{ $menu->display_name }}</span>
                             <i class="angle fe fe-chevron-down"></i>
                         </a>
+
+                        <style>
+                            .slide-item::before {
+                                content: '' !important;
+                            }
+                        </style>
+
                         @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
                             <ul class="slide-menu">
                                 @foreach ($menu->appearedChildren as $sub_menu)
                                     <li>
                                         <a class="slide-item" href="{{ route('admin.' . $sub_menu->as) }}">
-                                            <i class="{{ $sub_menu->icon != null ? $sub_menu->icon : 'fas fa-home' }} side-menu side-menu__icon"
-                                                style="font-size: 1rem;line-height: 150%"></i>
+                                            <i class="{{ $sub_menu->icon != null ? $sub_menu->icon : 'fas fa-home' }} side-menu side-menu__icon my_custom_icon"
+                                                style="font-size: 1rem;line-height: 150% ; "></i>
                                             {{ $sub_menu->display_name }}
                                         </a>
                                     </li>
