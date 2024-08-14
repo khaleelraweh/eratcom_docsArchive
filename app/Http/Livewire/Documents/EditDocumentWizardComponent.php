@@ -210,12 +210,40 @@ class EditDocumentWizardComponent extends Component
                 'doc_type_id'      => 'required|numeric',
             ]);
         } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+            // if (count($this->docData) > 0) {
+            //     foreach ($this->docData as $pageIndex => $documentPage) {
+            //         foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
+            //             foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+            //                 $this->validate([
+            //                     "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_required" == 0 ? '' : 'required' . '|' . ("docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_type" == 0 ?  'text' : 'numeric'),
+            //                 ]);
+            //             }
+            //         }
+            //     }
+            // }
+
+
             if (count($this->docData) > 0) {
                 foreach ($this->docData as $pageIndex => $documentPage) {
                     foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
                         foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+                            $rules = [];
+
+                            // Determine if the field is required
+                            if ($pageVariable['pv_required'] == 1) {
+                                $rules[] = 'required';
+                            }
+
+                            // Determine the type of the field
+                            if ($pageVariable['pv_type'] == 0) {
+                                $rules[] = 'string';
+                            } else {
+                                $rules[] = 'numeric';
+                            }
+
+                            // Validate the field based on the constructed rules
                             $this->validate([
-                                "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_required" == 0 ? 'nullable' : 'required' . '|' . ("docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_type" == 0 ?  'text' : 'numeric'),
+                                "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => implode('|', $rules),
                             ]);
                         }
                     }
