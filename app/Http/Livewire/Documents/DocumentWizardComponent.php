@@ -17,25 +17,28 @@ use niklasravnsborg\LaravelPdf\Facades\PDF;
 
 class DocumentWizardComponent extends Component
 {
+
     use LivewireAlert;
 
-
+    //global variables
     public $currentStep = 1;
     public $totalSteps = 4;
 
-    // -------- for document categories and types ---------//
-    public $document_categories;
-    public $document_types = [];
-    public $document_templates = [];
-    public $document_template; // only the selected documenttemplate when save step1
+    public $document_id;
     public $document;
 
-    //step1
-    public $document_id;
+    public $document_categories;
     public $document_category_id;
+
+    public $document_types = [];
     public $document_type_id;
 
+    public $document_templates = [];
     public $document_template_id;
+
+    public $chosen_template;
+    public $chosen_template_id;
+
     public $doc_name;
     public $doc_type_id;
 
@@ -44,24 +47,108 @@ class DocumentWizardComponent extends Component
     public $viewText;
 
 
-    public function mount($documentTemplateId = null) {}
 
-
-    public function render()
+    public function mount($document_id = null)
     {
-        // -------- for document categories and types ---------//
+        $this->document_id = $document_id;
+
         $this->document_categories  = DocumentCategory::whereStatus(true)->get();
         $this->document_types       = $this->document_category_id != '' ? DocumentType::whereStatus(true)->whereDocumentCategoryId($this->document_category_id)->get() : [];
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
+        $this->document = Document::find($this->document_id);
 
 
+        if ($this->document) {
+            $this->document_type_id = $this->document->documentTemplate->documentType->id;
+            $this->document_template_id = $this->document->documentTemplate->id;
+            $this->document_category_id = $this->document->documentTemplate->documentType->documentCategory->id;
+            $this->doc_name = $this->document->doc_name;
+            $this->doc_type_id = $this->document->doc_type;
 
-        // Dynamically set total steps based on document pages
-        if ($this->document_template) {
-            $this->totalSteps = $this->document_template->documentPages()->count() + 2; // +1 for step 1
-        } else {
-            $this->totalSteps = 4; // default to 4 if no document template is selected
+            $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+            $this->chosen_template_id = $this->document->document_template_id;
+
+            $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
+            if ($this->document->documentData) {
+
+                $this->docData = $this->chosen_template->documentPages->map(function ($page) {
+                    return [
+                        'pageId' => $page->id,
+                        'doc_page_name' => $page->doc_page_name,
+                        'doc_page_description' => $page->doc_page_description,
+                        'groups' => $page->pageGroups->map(function ($group) {
+                            return [
+                                'pg_id'     =>  $group->id,
+                                'pg_name' => $group->pg_name,
+                                'variables' => $group->pageVariables->map(function ($variable) {
+                                    return [
+                                        'pv_id'     =>  $variable->id,
+                                        'pv_name' => $variable->pv_name,
+                                        'pv_question' => $variable->pv_question,
+                                        'pv_type' => $variable->pv_type,
+                                        'pv_required' => $variable->pv_required,
+                                        'pv_details' => $variable->pv_details,
+                                        'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
+                                            ->where('page_variable_id', $variable->id)
+                                            ->value('value') ?? '',
+                                    ];
+                                })->toArray(),
+                            ];
+                        })->toArray(),
+                        'saved' => true,
+                    ];
+                })->toArray();
+            }
         }
+    }
+
+    public function render()
+    {
+        $this->document_categories  = DocumentCategory::whereStatus(true)->get();
+        $this->document_types       = $this->document_category_id != '' ? DocumentType::whereStatus(true)->whereDocumentCategoryId($this->document_category_id)->get() : [];
+        $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
+        $this->document = Document::find($this->document_id);
+
+        // To update chosen template status in the frontend 
+        if ($this->document != null) {
+            $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+            $this->chosen_template_id = $this->document->document_template_id;
+            $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
+            if ($this->document->documentData) {
+
+                $this->docData = $this->chosen_template->documentPages->map(function ($page) {
+                    return [
+                        'pageId' => $page->id,
+                        'doc_page_name' => $page->doc_page_name,
+                        'doc_page_description' => $page->doc_page_description,
+                        'groups' => $page->pageGroups->map(function ($group) {
+                            return [
+                                'pg_id'     =>  $group->id,
+                                'pg_name' => $group->pg_name,
+                                'variables' => $group->pageVariables->map(function ($variable) {
+                                    return [
+                                        'pv_id'     =>  $variable->id,
+                                        'pv_name' => $variable->pv_name,
+                                        'pv_question' => $variable->pv_question,
+                                        'pv_type' => $variable->pv_type,
+                                        'pv_required' => $variable->pv_required,
+                                        'pv_details' => $variable->pv_details,
+                                        'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
+                                            ->where('page_variable_id', $variable->id)
+                                            ->value('value') ?? '',
+                                    ];
+                                })->toArray(),
+                            ];
+                        })->toArray(),
+                        'saved' => true,
+                    ];
+                })->toArray();
+            }
+        }
+
+        // end to update chosen template status in the frontend 
+
+
 
 
 
@@ -69,16 +156,18 @@ class DocumentWizardComponent extends Component
             'document_categories'   => $this->document_categories,
             'document_types'        => $this->document_types,
             'document_templates'    => $this->document_templates,
-            'document_template_choosen'     => $this->document_template,
+            'document'              => $this->document,
             'viewText'     => $this->viewText,
-
-
         ]);
+    }
+
+    public function previousStep()
+    {
+        $this->currentStep--;
     }
 
     public function nextStep()
     {
-
         $this->validateStep();
         $this->saveStepData();
         $this->currentStep++;
@@ -86,14 +175,9 @@ class DocumentWizardComponent extends Component
 
     public function finish()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         return redirect()->route('admin.documents.show', $this->document_id);
-    }
-
-    public function previousStep()
-    {
-        $this->currentStep--;
     }
 
     public function directMoveToStep($choseStep)
@@ -114,66 +198,35 @@ class DocumentWizardComponent extends Component
                 'doc_name'      => 'required|string',
                 'doc_type_id'      => 'required|numeric',
             ]);
-        } else if ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-            $this->validateStepDynamic();
-        } else {
-        }
-    }
+        } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+            if (count($this->docData) > 0) {
+                foreach ($this->docData as $pageIndex => $documentPage) {
+                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
+                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+                            $rules = [];
 
+                            // Determine if the field is required
+                            if ($pageVariable['pv_required'] == 1) {
+                                $rules[] = 'required';
+                            }
 
-    public function validateStepDynamic()
-    {
-        $rules = [];
-        $messages = [];
+                            // Determine the type of the field
+                            if ($pageVariable['pv_type'] == 0) {
+                                $rules[] = 'string';
+                            } else {
+                                $rules[] = 'numeric';
+                            }
 
-        // Check if the current step has any data
-        if (isset($this->docData[$this->currentStep]) && !empty($this->docData[$this->currentStep])) {
-            foreach ($this->docData[$this->currentStep] as $pageVariableId => $valueData) {
-                $type = $valueData['type'];
-                $required = $valueData['required'];
-                $pageVariable = PageVariable::find($pageVariableId);
-
-                // Define validation rules based on field type and required status
-                $fieldRules = [];
-                if ($required) {
-                    $fieldRules[] = 'required';
+                            // Validate the field based on the constructed rules
+                            $this->validate([
+                                "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => implode('|', $rules),
+                            ]);
+                        }
+                    }
                 }
-
-                // Add type-specific validation rules
-                switch ($type) {
-                    case 'text':
-                        $fieldRules[] = 'string';
-                        break;
-                    case 'number':
-                        $fieldRules[] = 'numeric';
-                        break;
-                    case 'date':
-                        $fieldRules[] = 'date';
-                        break;
-                        // Add other types as needed
-                }
-
-                // Add rules for the field
-                $rules["docData.{$this->currentStep}.{$pageVariableId}.value"] = implode('|', $fieldRules);
-
-                // Define custom messages
-                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.required"] = __("The :attribute field is required.", ['attribute' => $pageVariable->pv_name]);
-                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.string"] = __("The :attribute field must be a string.", ['attribute' => $pageVariable->pv_name]);
-                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.numeric"] = __("The :attribute field must be a number.", ['attribute' => $pageVariable->pv_name]);
-                $messages["docData.{$this->currentStep}.{$pageVariableId}.value.date"] = __("The :attribute field must be a valid date.", ['attribute' => $pageVariable->pv_name]);
             }
-
-            // Validate based on dynamic rules and custom messages
-            $this->validate($rules, $messages);
-        } else {
-            // If there is no data for the current step, you might need to handle it accordingly
-            // For example, you can add a rule that ensures at least one field is filled out
-            $this->validate([
-                "docData.{$this->currentStep}" => 'required'
-            ]);
         }
     }
-
 
     public function saveStepData()
     {
@@ -189,40 +242,44 @@ class DocumentWizardComponent extends Component
                 ]
             );
 
-            $this->document_id = $document->id;
             $this->document = $document;
-            $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
-
-            $this->totalSteps = $this->document_template->documentPages()->count() + 2;
+            $this->document_id = $document->id;
 
             $this->alert('success', __('panel.document_data_saved'));
         } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-            // Loop through dynamic fields and save their values
-            foreach ($this->docData[$this->currentStep] as $pageVariableId => $valueData) {
-                $value = $valueData['value'];
-                $type = $valueData['type'];
-                $required = $valueData['required'];
 
-                DocumentData::updateOrCreate(
-                    [
-                        'document_id' => $this->document_id,
-                        'page_variable_id' => $pageVariableId,
-                    ],
-                    ['value' => $value]
-                );
+            // To delete the document data related to this document 
+            DocumentData::where('document_id', $this->document->id)
+                ->each(function ($documentData) {
+                    $documentData->delete(); // Delete docData 
+                });
+
+            if (count($this->docData) > 0) {
+                foreach ($this->docData as $pageIndex => $documentPage) {
+                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
+                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+                            DocumentData::updateOrCreate(
+                                [
+                                    'document_id' => $this->document_id,
+                                    'page_variable_id' => $pageVariable['pv_id'],
+                                ],
+                                ['value' => $pageVariable['pv_value']]
+                            );
+                        }
+                    }
+                }
             }
 
-            // If template text exists, process it
-            if ($this->document_template->doc_template_text) {
+            if ($this->chosen_template->doc_template_text) {
                 $this->replacePlaceholders();
             }
 
-            $this->alert('success', __('panel.step_data_saved'));
-        } else if ($this->currentStep == $this->totalSteps) {
+            $this->alert('success', __('panel.document_data_saved'));
+        } elseif ($this->currentStep == $this->totalSteps) {
 
             $document = Document::find($this->document_id);
-            $document->doc_content =    $this->viewText;
-            $document->doc_status = 1; //mean finished 
+            $document->doc_content = $this->viewText;
+            $document->doc_status = 1; // Mark as finished
             $document->save();
             $this->alert('success', __('panel.document_data_saved'));
         }
@@ -230,7 +287,7 @@ class DocumentWizardComponent extends Component
 
     public function replacePlaceholders()
     {
-        $viewText = $this->document_template->doc_template_text;
+        $viewText = $this->chosen_template->doc_template_text;
 
         // Initialize an empty array for replacements
         $forReplacement = [];
@@ -242,10 +299,14 @@ class DocumentWizardComponent extends Component
             foreach ($matches[1] as $index => $pageVariableId) {
                 // Iterate over all steps in docData to find the value
                 foreach ($this->docData as $stepData) {
-                    if (isset($stepData[$pageVariableId])) {
-                        // Map the placeholder to the value in docData
-                        $forReplacement[$matches[0][$index]] = $stepData[$pageVariableId]['value'];
-                        break;
+                    foreach ($stepData['groups'] as $groupData) {
+                        foreach ($groupData['variables'] as $variableData) {
+                            if ($variableData['pv_id'] == $pageVariableId) {
+                                // Map the placeholder to the value in docData
+                                $forReplacement[$matches[0][$index]] = $variableData['pv_value'];
+                                break 3; // Exit all three loops once the value is found
+                            }
+                        }
                     }
                 }
             }
@@ -259,25 +320,5 @@ class DocumentWizardComponent extends Component
 
         // Optionally, return or display the replaced text
         return $viewText;
-    }
-
-
-
-
-    public function saveStep($currentStep)
-    {
-        $this->validateStep();
-        $this->saveStepData();
-        // $this->currentStep++;
-    }
-
-
-    public function updateDocData($currentStep, $pageVariableId, $value, $type, $required)
-    {
-        $this->docData[$currentStep][$pageVariableId] = [
-            'value' => $value,
-            'type' => $type,
-            'required' => $required,
-        ];
     }
 }
