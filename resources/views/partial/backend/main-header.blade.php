@@ -33,7 +33,7 @@
             @endif
 
             <div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-                <input class="form-control" placeholder="Search for anything..." type="search">
+                <input class="form-control" placeholder="{{ __('panel.search_for_anything') }}" type="search">
                 <button class="btn">
                     <i class="fas fa-search d-none d-md-block"></i>
                 </button>
@@ -328,6 +328,17 @@
                             $user_img = asset('image/not_found/avator2.webp');
                         }
                     @endphp
+
+                    <style>
+                        .profile-user img {
+                            display: block;
+                            margin: 0 auto 0px;
+                            border: 2px solid #c9d2e8;
+                            box-shadow: 0px 1px 1px 0px rgba(44, 44, 44, 0.2);
+                            padding: 3px;
+                            background: #fff;
+                        }
+                    </style>
 
                     <a class="profile-user d-flex" href="">
                         <img alt="" class="header-icon-svgs " src="{{ $user_img }}">

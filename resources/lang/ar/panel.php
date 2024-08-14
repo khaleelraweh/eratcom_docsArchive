@@ -144,6 +144,9 @@ return [
     'update_profile'                                =>  'تحديث الملف الشخصي',
 
 
+    ########################### Manage Main Pages  ##################################
+    'search_for_anything'                              => 'إبحث عن اى شئ...',
+
 
     ########################### Manage Document Categories and Types  ##################################
 

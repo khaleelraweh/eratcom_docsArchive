@@ -145,6 +145,9 @@ return [
     'update_profile'                                =>  'Update Profile',
 
 
+    ########################### Manage Main Pages  ##################################
+    'search_for_anything'                              => 'Search for anything...',
+
 
     ########################### Manage Document Categories and Types  ##################################
 
