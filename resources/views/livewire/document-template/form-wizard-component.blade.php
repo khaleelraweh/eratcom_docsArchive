@@ -448,12 +448,12 @@
                                                                             for="pv_type">{{ __('panel.pv_type') }}</label>
                                                                         <select name="pv_type" class="form-control"
                                                                             wire:model.defer="pages.{{ $currentPageIndex }}.groups.{{ $groupIndex }}.variables.{{ $variableIndex }}.pv_type">
-                                                                            <option value="1"
-                                                                                {{ old('pv_type') == '1' ? 'selected' : null }}>
+                                                                            <option value="0"
+                                                                                {{ old('pv_type') == '0' ? 'selected' : null }}>
                                                                                 {{ __('panel.pv_type_text') }}
                                                                             </option>
-                                                                            <option value="2"
-                                                                                {{ old('pv_type') == '2' ? 'selected' : null }}>
+                                                                            <option value="1"
+                                                                                {{ old('pv_type') == '1' ? 'selected' : null }}>
                                                                                 {{ __('panel.pv_type_number') }}
                                                                             </option>
                                                                         </select>

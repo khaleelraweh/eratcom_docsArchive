@@ -84,9 +84,7 @@ class EditDocumentWizardComponent extends Component
                                     'pv_type' => $variable->pv_type,
                                     'pv_required' => $variable->pv_required,
                                     'pv_details' => $variable->pv_details,
-                                    'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
-                                        ->where('page_variable_id', $variable->id)
-                                        ->value('value') ?? '',
+                                    'pv_value'  =>  DocumentData::find($variable->id)->value,
                                 ];
                             })->toArray(),
                         ];
@@ -128,38 +126,6 @@ class EditDocumentWizardComponent extends Component
         // }
         // end To update docData array with data
 
-
-        if ($this->document->documentData) {
-
-            $this->docData = $this->chosen_template->documentPages->map(function ($page) {
-                return [
-                    'pageId' => $page->id,
-                    'doc_page_name' => $page->doc_page_name,
-                    'doc_page_description' => $page->doc_page_description,
-                    'groups' => $page->pageGroups->map(function ($group) {
-                        return [
-                            'pg_id'     =>  $group->id,
-                            'pg_name' => $group->pg_name,
-                            'variables' => $group->pageVariables->map(function ($variable) {
-                                return [
-                                    'pv_id'     =>  $variable->id,
-                                    'pv_name' => $variable->pv_name,
-                                    'pv_question' => $variable->pv_question,
-                                    'pv_type' => $variable->pv_type,
-                                    'pv_required' => $variable->pv_required,
-                                    'pv_details' => $variable->pv_details,
-                                    'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
-                                        ->where('page_variable_id', $variable->id)
-                                        ->value('value') ?? '',
-                                ];
-                            })->toArray(),
-                        ];
-                    })->toArray(),
-                    'saved' => true,
-                ];
-            })->toArray();
-        }
-
         return view('livewire.documents.edit-document-wizard-component', [
             'document_categories'   => $this->document_categories,
             'document_types'        => $this->document_types,
@@ -175,10 +141,10 @@ class EditDocumentWizardComponent extends Component
 
     public function nextStep()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         $this->currentStep++;
-        // dd($this->docData);
+        dd($this->docData);
     }
 
     public function finish()
@@ -198,29 +164,6 @@ class EditDocumentWizardComponent extends Component
         $this->currentStep = $choseStep;
     }
 
-    public function validateStep()
-    {
-        if ($this->currentStep == 1) {
-            $this->validate([
-                'document_template_id'  => 'required|numeric',
-                'doc_name'      => 'required|string',
-                'doc_type_id'      => 'required|numeric',
-            ]);
-        } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-            if (count($this->docData) > 0) {
-                foreach ($this->docData as $pageIndex => $documentPage) {
-                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-                            $this->validate([
-                                "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_required" == 0 ? 'nullable' : 'required' . '|' . ("docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_type" == 0 ?  'text' : 'numeric'),
-                            ]);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public function saveStepData()
     {
         if ($this->currentStep == 1) {
@@ -235,35 +178,38 @@ class EditDocumentWizardComponent extends Component
                 ]
             );
 
+
             $this->document = $document;
             $this->document_id = $document->id;
 
-            $this->alert('success', __('panel.document_data_saved'));
-        } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
 
-            // To delete the document data related to this document 
-            DocumentData::where('document_id', $this->document->id)
-                ->each(function ($documentData) {
-                    $documentData->delete(); // Delete docData 
-                });
 
-            if (count($this->docData) > 0) {
-                foreach ($this->docData as $pageIndex => $documentPage) {
-                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-                            DocumentData::updateOrCreate(
-                                [
-                                    'document_id' => $this->document_id,
-                                    'page_variable_id' => $pageVariable['pv_id'],
-                                ],
-                                ['value' => $pageVariable['pv_value']]
-                            );
-                        }
-                    }
-                }
-            }
+            // $this->document_template = $this->document_template_id ? DocumentTemplate::find($this->document_template_id) : null;
+
+            // $this->totalSteps = $this->document_template->documentPages()->count() + 2;
 
             $this->alert('success', __('panel.document_data_saved'));
         }
+    }
+
+    public function updateDocData($currentStep, $pageVariableId, $value, $type, $required)
+    {
+
+        $this->docData[] = [
+            $currentStep =>
+            [
+                $pageVariableId => [
+                    'value'     =>  $value,
+                    'type'      =>  $type,
+                    'required'  =>  $required
+                ]
+            ]
+        ];
+        // $this->docData[$currentStep][$pageVariableId] = [
+        //     'value' => $value,
+        //     'type' => $type,
+        //     'required' => $required,
+        // ];
+        dd($this->docData);
     }
 }

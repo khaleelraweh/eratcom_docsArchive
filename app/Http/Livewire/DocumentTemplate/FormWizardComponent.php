@@ -74,7 +74,7 @@ class FormWizardComponent extends Component
                                 [
                                     'pv_name'               =>  '',
                                     'pv_question'           =>  '',
-                                    'pv_type'               =>   1,
+                                    'pv_type'               =>   0,
                                     'pv_required'           =>   1,
                                     'pv_details'            =>  '',
                                 ],
@@ -291,7 +291,7 @@ class FormWizardComponent extends Component
                         [
                             'pv_name'       =>  '',
                             'pv_question'   =>  '',
-                            'pv_type'       =>   1,
+                            'pv_type'       =>   0,
                             'pv_required'   =>   1,
                             'pv_details'    =>  '',
                         ],
@@ -317,7 +317,7 @@ class FormWizardComponent extends Component
                 [
                     'pv_name'           =>  '',
                     'pv_question'       =>  '',
-                    'pv_type'           =>  1,
+                    'pv_type'           =>  0,
                     'pv_required'       =>  1,
                     'pv_details'        =>  '',
                 ],
@@ -333,7 +333,7 @@ class FormWizardComponent extends Component
         $this->pages[$pageIndex]['groups'][$groupIndex]['variables'][] = [
             'pv_name'           =>  '',
             'pv_question'       =>  '',
-            'pv_type'           =>  1,
+            'pv_type'           =>  0,
             'pv_required'       =>  1,
             'pv_details'        =>  '',
         ];
@@ -472,7 +472,5 @@ class FormWizardComponent extends Component
         $this->currentStep++;
     }
 
-    public function updateDocTemplateText()
-    {
-    }
+    public function updateDocTemplateText() {}
 }
