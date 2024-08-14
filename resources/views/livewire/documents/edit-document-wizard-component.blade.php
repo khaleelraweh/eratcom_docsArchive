@@ -238,7 +238,9 @@
                                                             {{ $pageVariable['pv_name'] }}:
                                                             (<small>{{ $pageVariable['pv_question'] }}</small>)
                                                         </label>
-                                                        <input type="text" id="{{ 'text_' . $pageVariable['pv_id'] }}"
+                                                        <input
+                                                            type="{{ $pageVariable['pv_type'] == 0 ? 'text' : 'number' }}"
+                                                            id="{{ 'text_' . $pageVariable['pv_id'] }}"
                                                             name="{{ $pageVariable['pv_id'] }}"
                                                             wire:model.defer="docData.{{ $pageIndex }}.groups.{{ $groupIndex }}.variables.{{ $variableIndex }}.pv_value"
                                                             value="{{ $pageVariable['pv_value'] }}" class="form-control"
