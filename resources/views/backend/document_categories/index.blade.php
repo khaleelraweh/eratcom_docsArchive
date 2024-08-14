@@ -89,8 +89,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-
                                 @foreach ($documentCategories as $docCat)
                                     <tr>
                                         <td class="text-center"><input type="checkbox" name="checkfilter"

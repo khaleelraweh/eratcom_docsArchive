@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="main-header-right">
-            <ul class="nav">
+            <ul class="nav d-none">
                 <li class="">
                     <div class="dropdown  nav-itemd-none d-md-flex">
                         <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown"
@@ -300,23 +300,20 @@
                         </svg></a>
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
-
                     @php
                         if (auth()->user()->user_image != null) {
                             $user_img = asset('assets/users/' . auth()->user()->user_image);
-
                             if (!file_exists(public_path('assets/users/' . auth()->user()->user_image))) {
                                 $user_img = asset('image/not_found/avator2.webp');
-                                // $user_img = asset('assets/img/faces/6.jpg');
                             }
                         } else {
                             $user_img = asset('image/not_found/avator2.webp');
                         }
                     @endphp
 
-
-                    <a class="profile-user d-flex" href=""><img alt=""
-                            src="{{ $user_img }}"></a>
+                    <a class="profile-user d-flex" href="">
+                        <img alt="" class="header-icon-svgs " src="{{ $user_img }}">
+                    </a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3">
                             <div class="d-flex wd-100p">
