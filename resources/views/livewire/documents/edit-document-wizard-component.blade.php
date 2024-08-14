@@ -203,11 +203,6 @@
             <!---- related to dynamic steps --->
 
 
-            <!-- start dynimac steps   -->
-
-
-
-
             @isset($docData)
                 @foreach ($docData as $pageIndex => $documentPage)
                     <h3 id="wizard1-h-0" tabindex="-1"
@@ -270,10 +265,8 @@
                     </section>
                 @endforeach
             @endisset
-            <!-- end dynimac steps  -->
 
             <!---- end related to dynamic steps --->
-
 
 
 
