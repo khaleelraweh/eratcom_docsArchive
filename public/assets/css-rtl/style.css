@@ -2376,7 +2376,7 @@ a.badge-dark.focus {
 .breadcrumb-style2 .breadcrumb-item + .breadcrumb-item::before, .breadcrumb-style3 .breadcrumb-item + .breadcrumb-item::before {
   width: 16px;
   text-align: center;
-  font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+  font-family: 'Ionicons';
  }
 
 .breadcrumb-style2 .breadcrumb-item + .breadcrumb-item::before {
@@ -2399,7 +2399,7 @@ a.badge-dark.focus {
     position: relative; }
     .main-content-breadcrumb span + span::before {
       content: '\f3d1';
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+      font-family: 'Ionicons';
       font-size: 12px;
       font-weight: 300;
       display: inline;
@@ -5839,7 +5839,7 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
     .main-nav-tabs .lSAction > a:hover, .main-nav-tabs .lSAction > a:focus {
       background-color: #a5afc4; }
     .main-nav-tabs .lSAction > a::before {
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+      font-family: 'Ionicons';
       font-size: 18px;
       position: absolute;
       top: -4px;
@@ -8405,7 +8405,7 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
           width: auto; }
     .main-navbar .nav-link.with-sub::after {
       content: '\f3d0';
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+      font-family: 'Ionicons';
       font-size: 11px;
       font-weight: 400;
       display: inline-block;
@@ -8461,7 +8461,7 @@ textarea.form-control.is-invalid, textarea.form-control.parsley-error {
       justify-content: space-between; }
       .main-navbar .nav-sub-link.with-sub::after {
         content: '\f3d0';
-        font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+        font-family: 'Ionicons';
         font-size: 11px;
         font-weight: 400;
         display: inline-block;
@@ -10631,7 +10631,7 @@ body {
   border-bottom: 0;
   border-left: 0;
   content: '\f3d0';
-  font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+  font-family: 'Ionicons';
   position: absolute;
   display: inline-block;
   color: #7a8eb1; }
@@ -10643,7 +10643,7 @@ body {
   border-bottom: 0;
   border-left: 0;
   content: '\f3d0';
-  font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+  font-family: 'Ionicons';
   position: absolute;
   display: inline-block;
   color: #7a8eb1; }
@@ -10766,8 +10766,7 @@ body {
   font-weight: 400; }
   .flag-text:before {
     content: '\f3d0';
-    font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+    font-family: 'Ionicons';
     font-weight: 400;
     font-size: 12px;
     position: absolute;
@@ -17830,7 +17829,7 @@ pre {
     .main-header-menu .nav-item > .nav-link.with-sub::after {
       content: '\f3d0';
       display: inline-block;
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
+      font-family: 'Ionicons';
       font-size: 12px;
       font-weight: 400;
       margin-left: auto;
@@ -20144,8 +20143,7 @@ object, embed, video {
       justify-content: space-between; }
       .main-iconbar-body .nav-link.with-sub::after {
         content: '\f3d0';
-        font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+        font-family: 'Ionicons';
         font-size: 11px;
         font-weight: 400;
         display: inline-block;
@@ -21194,8 +21192,7 @@ object, embed, video {
     justify-content: space-between; }
     .main-sidebar-body .nav-sub-link.with-sub::after {
       content: '\f3d0';
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+      font-family: 'Ionicons';
       font-size: 12px;
       font-weight: 400;
       display: inline-block;
@@ -21869,8 +21866,7 @@ table.dataTable {
     background-color: #ecf0fa;
     position: relative; }
   table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after {
-    font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+    font-family: 'Ionicons';
     font-size: 11px;
     position: absolute;
     line-height: 0;
@@ -21885,8 +21881,7 @@ table.dataTable {
     background-image: none;
     position: relative; }
     table.dataTable thead .sorting::before, table.dataTable thead .sorting::after {
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+      font-family: 'Ionicons';
       font-size: 11px;
       position: absolute;
       line-height: 0;
@@ -22097,8 +22092,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       top: 3px; }
     .ui-datepicker .ui-datepicker-header .ui-datepicker-next::before, .ui-datepicker .ui-datepicker-header .ui-datepicker-prev::before {
       font-size: 16px;
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+      font-family: 'Ionicons';
       position: absolute;
       top: -2px;
       text-indent: 0; }
@@ -22162,8 +22156,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       bottom: 0;
       left: 0; }
     .datetimepicker table th.prev span::before, .datetimepicker table th.next span::before {
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+      font-family: 'Ionicons';
       position: absolute;
       top: 50%;
       font-size: 16px;
@@ -22236,8 +22229,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       position: relative;
       text-indent: -999999px; }
     .main-datetimepicker > .datepicker_header a:nth-child(2)::before, .main-datetimepicker > .datepicker_header a:last-child::before {
-      font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+      font-family: 'Ionicons';
       position: absolute;
       top: 50%;
       line-height: 0;
@@ -23400,8 +23392,7 @@ input.parsley-error:focus, textarea.parsley-error:focus, input.parsley-success:f
   width: 10px; }
   .sp-dd::before {
     content: '\f280';
-    font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+    font-family: 'Ionicons';
     font-size: 15px;
     color: #949eb7;
     position: absolute;
@@ -23772,8 +23763,7 @@ input.parsley-error:focus, textarea.parsley-error:focus, input.parsley-success:f
   .main-calendar .fc-icon-left-single-arrow, .main-calendar .fc-icon-right-single-arrow {
     top: 0; }
   .main-calendar .fc-icon-left-single-arrow::after, .main-calendar .fc-icon-right-single-arrow::after {
-    font-family: 'DroidKufi-Regular', 'Open Sans', sans-serif !important;
-
+    font-family: 'Ionicons';
     font-size: 18px;
     font-weight: 400;
     line-height: 1; }
