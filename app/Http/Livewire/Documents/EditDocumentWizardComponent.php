@@ -42,8 +42,6 @@ class EditDocumentWizardComponent extends Component
     public $viewText;
 
 
-
-
     public function mount($document_id)
     {
         $this->document_id = $document_id;
@@ -112,25 +110,6 @@ class EditDocumentWizardComponent extends Component
         $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
         // end to update chosen template status in the frontend 
 
-        // To update docData array with data
-        // if ($this->document->documentData) {
-
-        //     foreach ($this->document->documentData as $doc_Data) {
-
-        //         $pageVariable = PageVariable::find($doc_Data->page_variable_id);
-
-        //         $currentStep = $pageVariable->pageGroup->documentPage->id;
-        //         $pageVariableId = $doc_Data->page_variable_id;
-        //         $value = $doc_Data->value;
-        //         $type = $pageVariable->pv_type;
-        //         $required = $pageVariable->pv_required;
-
-        //         self::updateDocData($currentStep, $pageVariableId, $value, $type, $required);
-        //     }
-        // }
-        // end To update docData array with data
-
-
         if ($this->document->documentData) {
 
             $this->docData = $this->chosen_template->documentPages->map(function ($page) {
@@ -181,7 +160,6 @@ class EditDocumentWizardComponent extends Component
         $this->validateStep();
         $this->saveStepData();
         $this->currentStep++;
-        // dd($this->docData);
     }
 
     public function finish()
@@ -193,10 +171,10 @@ class EditDocumentWizardComponent extends Component
 
     public function directMoveToStep($choseStep)
     {
-        // if ($choseStep > $this->currentStep) {
-        //     $this->validateStep();
-        //     $this->saveStepData();
-        // }
+        if ($choseStep > $this->currentStep) {
+            $this->validateStep();
+            $this->saveStepData();
+        }
 
         $this->currentStep = $choseStep;
     }
@@ -210,19 +188,6 @@ class EditDocumentWizardComponent extends Component
                 'doc_type_id'      => 'required|numeric',
             ]);
         } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-            // if (count($this->docData) > 0) {
-            //     foreach ($this->docData as $pageIndex => $documentPage) {
-            //         foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-            //             foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-            //                 $this->validate([
-            //                     "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_required" == 0 ? '' : 'required' . '|' . ("docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_type" == 0 ?  'text' : 'numeric'),
-            //                 ]);
-            //             }
-            //         }
-            //     }
-            // }
-
-
             if (count($this->docData) > 0) {
                 foreach ($this->docData as $pageIndex => $documentPage) {
                     foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
@@ -308,7 +273,6 @@ class EditDocumentWizardComponent extends Component
             $this->alert('success', __('panel.document_data_saved'));
         }
     }
-
 
     public function replacePlaceholders()
     {
