@@ -42,7 +42,7 @@ class EditDocumentWizardComponent extends Component
     public $viewText;
 
 
-    public function mount($document_id)
+    public function mount($document_id = null)
     {
         $this->document_id = $document_id;
 
@@ -63,37 +63,37 @@ class EditDocumentWizardComponent extends Component
             $this->chosen_template_id = $this->document->document_template_id;
 
             $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
-        }
 
-        if ($this->document->documentData) {
+            if ($this->document->documentData) {
 
-            $this->docData = $this->chosen_template->documentPages->map(function ($page) {
-                return [
-                    'pageId' => $page->id,
-                    'doc_page_name' => $page->doc_page_name,
-                    'doc_page_description' => $page->doc_page_description,
-                    'groups' => $page->pageGroups->map(function ($group) {
-                        return [
-                            'pg_id'     =>  $group->id,
-                            'pg_name' => $group->pg_name,
-                            'variables' => $group->pageVariables->map(function ($variable) {
-                                return [
-                                    'pv_id'     =>  $variable->id,
-                                    'pv_name' => $variable->pv_name,
-                                    'pv_question' => $variable->pv_question,
-                                    'pv_type' => $variable->pv_type,
-                                    'pv_required' => $variable->pv_required,
-                                    'pv_details' => $variable->pv_details,
-                                    'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
-                                        ->where('page_variable_id', $variable->id)
-                                        ->value('value') ?? '',
-                                ];
-                            })->toArray(),
-                        ];
-                    })->toArray(),
-                    'saved' => true,
-                ];
-            })->toArray();
+                $this->docData = $this->chosen_template->documentPages->map(function ($page) {
+                    return [
+                        'pageId' => $page->id,
+                        'doc_page_name' => $page->doc_page_name,
+                        'doc_page_description' => $page->doc_page_description,
+                        'groups' => $page->pageGroups->map(function ($group) {
+                            return [
+                                'pg_id'     =>  $group->id,
+                                'pg_name' => $group->pg_name,
+                                'variables' => $group->pageVariables->map(function ($variable) {
+                                    return [
+                                        'pv_id'     =>  $variable->id,
+                                        'pv_name' => $variable->pv_name,
+                                        'pv_question' => $variable->pv_question,
+                                        'pv_type' => $variable->pv_type,
+                                        'pv_required' => $variable->pv_required,
+                                        'pv_details' => $variable->pv_details,
+                                        'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
+                                            ->where('page_variable_id', $variable->id)
+                                            ->value('value') ?? '',
+                                    ];
+                                })->toArray(),
+                            ];
+                        })->toArray(),
+                        'saved' => true,
+                    ];
+                })->toArray();
+            }
         }
     }
 
@@ -104,42 +104,45 @@ class EditDocumentWizardComponent extends Component
         $this->document_templates       = $this->document_type_id != '' ? DocumentTemplate::whereStatus(true)->whereDocumentTypeId($this->document_type_id)->get() : [];
         $this->document = Document::find($this->document_id);
 
-        // To update chosen template status in the frontend 
-        $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
-        $this->chosen_template_id = $this->document->document_template_id;
-        $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
-        // end to update chosen template status in the frontend 
+        if ($this->document != null) {
+            $this->chosen_template = DocumentTemplate::find($this->document->document_template_id);
+            $this->chosen_template_id = $this->document->document_template_id;
+            $this->totalSteps = $this->chosen_template->documentPages()->count() + 2;
 
-        if ($this->document->documentData) {
+            if ($this->document->documentData) {
 
-            $this->docData = $this->chosen_template->documentPages->map(function ($page) {
-                return [
-                    'pageId' => $page->id,
-                    'doc_page_name' => $page->doc_page_name,
-                    'doc_page_description' => $page->doc_page_description,
-                    'groups' => $page->pageGroups->map(function ($group) {
-                        return [
-                            'pg_id'     =>  $group->id,
-                            'pg_name' => $group->pg_name,
-                            'variables' => $group->pageVariables->map(function ($variable) {
-                                return [
-                                    'pv_id'     =>  $variable->id,
-                                    'pv_name' => $variable->pv_name,
-                                    'pv_question' => $variable->pv_question,
-                                    'pv_type' => $variable->pv_type,
-                                    'pv_required' => $variable->pv_required,
-                                    'pv_details' => $variable->pv_details,
-                                    'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
-                                        ->where('page_variable_id', $variable->id)
-                                        ->value('value') ?? '',
-                                ];
-                            })->toArray(),
-                        ];
-                    })->toArray(),
-                    'saved' => true,
-                ];
-            })->toArray();
+                $this->docData = $this->chosen_template->documentPages->map(function ($page) {
+                    return [
+                        'pageId' => $page->id,
+                        'doc_page_name' => $page->doc_page_name,
+                        'doc_page_description' => $page->doc_page_description,
+                        'groups' => $page->pageGroups->map(function ($group) {
+                            return [
+                                'pg_id'     =>  $group->id,
+                                'pg_name' => $group->pg_name,
+                                'variables' => $group->pageVariables->map(function ($variable) {
+                                    return [
+                                        'pv_id'     =>  $variable->id,
+                                        'pv_name' => $variable->pv_name,
+                                        'pv_question' => $variable->pv_question,
+                                        'pv_type' => $variable->pv_type,
+                                        'pv_required' => $variable->pv_required,
+                                        'pv_details' => $variable->pv_details,
+                                        'pv_value'  =>  DocumentData::where('document_id', $this->document_id)
+                                            ->where('page_variable_id', $variable->id)
+                                            ->value('value') ?? '',
+                                    ];
+                                })->toArray(),
+                            ];
+                        })->toArray(),
+                        'saved' => true,
+                    ];
+                })->toArray();
+            }
         }
+
+
+
 
         return view('livewire.documents.edit-document-wizard-component', [
             'document_categories'   => $this->document_categories,
