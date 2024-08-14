@@ -187,7 +187,7 @@ class EditDocumentWizardComponent extends Component
     public function finish()
     {
         // $this->validateStep();
-        // $this->saveStepData();
+        $this->saveStepData();
         return redirect()->route('admin.documents.show', $this->document_id);
     }
 
@@ -271,11 +271,11 @@ class EditDocumentWizardComponent extends Component
             }
 
             $this->alert('success', __('panel.document_data_saved'));
-        } else if ($this->currentStep == $this->totalSteps) {
+        } elseif ($this->currentStep == $this->totalSteps) {
 
             $document = Document::find($this->document_id);
-            $document->doc_content =    $this->viewText;
-            $document->doc_status = 1; //mean finished 
+            $document->doc_content = $this->viewText;
+            $document->doc_status = 1; // Mark as finished
             $document->save();
             $this->alert('success', __('panel.document_data_saved'));
         }
