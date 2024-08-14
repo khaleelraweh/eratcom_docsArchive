@@ -266,6 +266,10 @@ class EditDocumentWizardComponent extends Component
                 }
             }
 
+            if ($this->chosen_template->doc_template_text) {
+                $this->replacePlaceholders();
+            }
+
             $this->alert('success', __('panel.document_data_saved'));
         } else if ($this->currentStep == $this->totalSteps) {
 
@@ -280,7 +284,7 @@ class EditDocumentWizardComponent extends Component
 
     public function replacePlaceholders()
     {
-        $viewText = $this->document_template->doc_template_text;
+        $viewText = $this->chosen_template->doc_template_text;
 
         // Initialize an empty array for replacements
         $forReplacement = [];
@@ -292,10 +296,14 @@ class EditDocumentWizardComponent extends Component
             foreach ($matches[1] as $index => $pageVariableId) {
                 // Iterate over all steps in docData to find the value
                 foreach ($this->docData as $stepData) {
-                    if (isset($stepData[$pageVariableId])) {
-                        // Map the placeholder to the value in docData
-                        $forReplacement[$matches[0][$index]] = $stepData[$pageVariableId]['value'];
-                        break;
+                    foreach ($stepData['groups'] as $groupData) {
+                        foreach ($groupData['variables'] as $variableData) {
+                            if ($variableData['pv_id'] == $pageVariableId) {
+                                // Map the placeholder to the value in docData
+                                $forReplacement[$matches[0][$index]] = $variableData['pv_value'];
+                                break 3; // Exit all three loops once the value is found
+                            }
+                        }
                     }
                 }
             }
