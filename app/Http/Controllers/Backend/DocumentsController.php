@@ -51,6 +51,30 @@ class DocumentsController extends Controller
         return view('backend.documents.show', compact('document'));
     }
 
+    public function destroy($id)
+    {
+        if (!auth()->user()->ability('admin', 'delete_documents')) {
+            return redirect('admin/index');
+        }
+
+        $document = Document::findOrFail($id);
+
+        $document->deleted_by = auth()->user()->full_name;
+        $document->save();
+        $document->delete();
+
+        if ($document) {
+            return redirect()->route('admin.documents.index')->with([
+                'message' => __('panel.deleted_successfully'),
+                'alert-type' => 'success'
+            ]);
+        }
+        return redirect()->route('admin.documents.index')->with([
+            'message' => __('panel.something_was_wrong'),
+            'alert-type' => 'danger'
+        ]);
+    }
+
 
     public function print($id)
     {
