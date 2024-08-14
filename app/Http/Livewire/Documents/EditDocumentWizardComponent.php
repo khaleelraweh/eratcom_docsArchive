@@ -39,6 +39,8 @@ class EditDocumentWizardComponent extends Component
 
     public $docData = [];
 
+    public $viewText;
+
 
 
 
@@ -165,6 +167,7 @@ class EditDocumentWizardComponent extends Component
             'document_types'        => $this->document_types,
             'document_templates'    => $this->document_templates,
             'document'              => $this->document,
+            'viewText'     => $this->viewText,
         ]);
     }
 
@@ -264,6 +267,47 @@ class EditDocumentWizardComponent extends Component
             }
 
             $this->alert('success', __('panel.document_data_saved'));
+        } else if ($this->currentStep == $this->totalSteps) {
+
+            $document = Document::find($this->document_id);
+            $document->doc_content =    $this->viewText;
+            $document->doc_status = 1; //mean finished 
+            $document->save();
+            $this->alert('success', __('panel.document_data_saved'));
         }
+    }
+
+
+    public function replacePlaceholders()
+    {
+        $viewText = $this->document_template->doc_template_text;
+
+        // Initialize an empty array for replacements
+        $forReplacement = [];
+
+        // Match all placeholders in the format {!-number-Description!}
+        preg_match_all('/{\!-([0-9]+)-[^\!]+\!}/', $viewText, $matches);
+
+        if (isset($matches[1]) && isset($matches[0])) {
+            foreach ($matches[1] as $index => $pageVariableId) {
+                // Iterate over all steps in docData to find the value
+                foreach ($this->docData as $stepData) {
+                    if (isset($stepData[$pageVariableId])) {
+                        // Map the placeholder to the value in docData
+                        $forReplacement[$matches[0][$index]] = $stepData[$pageVariableId]['value'];
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Replace all placeholders in viewText with their corresponding values
+        $viewText = strtr($viewText, $forReplacement);
+
+        // Update the viewText property with the replaced content
+        $this->viewText = $viewText;
+
+        // Optionally, return or display the replaced text
+        return $viewText;
     }
 }

@@ -201,8 +201,6 @@
             <!---- related to step 1 end ----->
 
             <!---- related to dynamic steps --->
-
-
             @isset($docData)
                 @foreach ($docData as $pageIndex => $documentPage)
                     <h3 id="wizard1-h-0" tabindex="-1"
@@ -265,8 +263,82 @@
                     </section>
                 @endforeach
             @endisset
-
             <!---- end related to dynamic steps --->
+
+            <!------ review step ----->
+            @if ($chosen_template)
+                @if (count($chosen_template->documentPages) > 0)
+                    <h3 id="wizard1-h-0" tabindex="-1"
+                        class="title {{ $currentStep == $totalSteps ? 'current' : '' }} ">
+                        {{ __('panel.document_review') }}
+                    </h3>
+                    <section id="wizard1-p-0" role="tabpanel" aria-labelledby="wizard1-h-0"
+                        class="body {{ $currentStep == $totalSteps ? 'current' : '' }}  step"
+                        aria-hidden="{{ $currentStep == $totalSteps ? 'false' : 'true' }}"
+                        style="display: {{ $currentStep == $totalSteps ? 'block' : 'none' }}">
+
+
+                        {{-- start new part  --}}
+
+                        @isset($document)
+                            <div class="row row-sm ">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header pb-0">
+                                            <div class="d-flex justify-content-between">
+                                                <h4 class="card-title mg-b-0">
+                                                    <i class="fa fa-plus-square me-3 " style="font-size: 20px;"></i>
+                                                    {{ __('panel.show_documents') }}
+                                                </h4>
+                                                <i class="mdi mdi-dots-horizontal text-gray"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>{{ __('panel.document_name') }}</th>
+                                                        <td>{{ $document->doc_name }}</td>
+                                                        <th>{{ __('panel.document_number') }}</th>
+                                                        <td>{{ $document->doc_no ?? '-' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>{{ __('panel.document_type') }}</th>
+                                                        <td>{{ $document->doc_type() }}</td>
+                                                        <th>{{ __('panel.created_at') }}</th>
+                                                        <td>{{ $document->created_at }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>{{ __('panel.document_status') }}</th>
+                                                        <td>{{ $document->doc_status() }}</td>
+                                                        <th>{{ __('panel.document_file') }}</th>
+                                                        <td>{{ $document->doc_file ?? '-' }} </td>
+                                                    </tr>
+
+                                                </table>
+
+                                                <h3>{{ __('panel.document_text') }}</h3>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        {!! $viewText !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        @endisset
+
+                        {{-- end new part review Document --}}
+
+                    </section>
+                @endif
+            @endif
+
+            <!------ end review step ----->
 
 
 
