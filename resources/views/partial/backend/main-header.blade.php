@@ -16,9 +16,27 @@
                 <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
                 <a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
             </div>
+
+            @if (config('app.locale') == 'ar')
+                <style>
+                    .main-header-center .form-control {
+                        padding: 1rem 2.1rem;
+                    }
+
+                    .main-header-left .btn {
+                        left: auto !important;
+                        right: 0 !important;
+                        padding-left: initial !important !important;
+                        padding-right: 12px;
+                    }
+                </style>
+            @endif
+
             <div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-                <input class="form-control" placeholder="Search for anything..." type="search"> <button
-                    class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
+                <input class="form-control" placeholder="Search for anything..." type="search">
+                <button class="btn">
+                    <i class="fas fa-search d-none d-md-block"></i>
+                </button>
             </div>
         </div>
         <div class="main-header-right">
