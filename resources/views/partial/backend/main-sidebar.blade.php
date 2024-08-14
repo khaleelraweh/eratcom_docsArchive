@@ -88,38 +88,6 @@
                 @endif
             @endforeach
 
-            {{-- @foreach ($admin_side_menu as $menu)
-                @if (count($menu->appearedChildren) == 0)
-                    <li>
-                        <a href="{{ route('admin.' . $menu->as) }}" class="waves-effect">
-                            <i class="{{ $menu->icon != null ? $menu->icon : 'fas fa-home' }}"></i>
-                            <span><b>{{ $menu->display_name }}</b></span>
-
-                        </a>
-                    </li>
-                @else
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="{{ $menu->icon != null ? $menu->icon : 'fas fa-home' }}"></i>
-                            <span><b>{{ $menu->display_name }}</b></span>
-                        </a>
-                        @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
-                            <ul class="sub-menu" aria-expanded="false">
-                                @foreach ($menu->appearedChildren as $sub_menu)
-                                    <li>
-                                        <a href="{{ route('admin.' . $sub_menu->as) }}">
-                                            <i
-                                                class="{{ $sub_menu->icon != null ? $sub_menu->icon : 'fas fa-home' }}"></i>
-                                            <span><b> {{ $sub_menu->display_name }}</b></span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </li>
-                @endif
-            @endforeach --}}
-
         </ul>
     </div>
 </aside>
