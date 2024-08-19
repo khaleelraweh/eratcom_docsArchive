@@ -273,6 +273,15 @@ class DocumentWizardComponent extends Component
         }
         // Save data for dynamic steps (between 2 and totalSteps - 1)
         elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+
+
+            // To delete the document data related to this document 
+            // DocumentData::where('document_id', $this->document->id)
+            //     ->each(function ($documentData) {
+            //         $documentData->delete(); // Delete docData 
+            //     });
+
+
             // Determine the index of the documentPage we're on
             $pageIndex = $this->currentStep - 2;
 
