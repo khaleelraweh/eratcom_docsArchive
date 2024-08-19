@@ -237,11 +237,11 @@ class DocumentWizardComponent extends Component
                 'doc_type_id' => 'required|integer',
             ];
             $validationAttributes = [
-                'document_category_id' => 'Document Category',
-                'document_type_id' => 'Document Type',
-                'document_template_id' => 'Document Template',
-                'doc_name' => 'Document Name',
-                'doc_type_id' => 'Document Type ID',
+                'document_category_id' => __('panel.document_category_name'),
+                'document_type_id' => __('panel.document_type_name'),
+                'document_template_id' => __('panel.document_template_name'),
+                'doc_name' => __('panel.document_name'),
+                'doc_type_id' => __('panel.document_type'),
             ];
         }
         // Validation for steps between 2 and (totalSteps - 1)
