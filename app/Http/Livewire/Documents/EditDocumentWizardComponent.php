@@ -167,7 +167,7 @@ class EditDocumentWizardComponent extends Component
 
     public function finish()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         return redirect()->route('admin.documents.show', $this->document_id);
     }
@@ -249,7 +249,15 @@ class EditDocumentWizardComponent extends Component
                 }
             }
         }
+        // Final review step does not need validation (if needed, you can add validation here)
+
+        // Validate data based on the rules
+        $this->validate($rules);
+
+        // After validation, save the current step's data
+        // $this->saveCurrentStepData();
     }
+
 
 
     public function saveStepData()
@@ -273,15 +281,6 @@ class EditDocumentWizardComponent extends Component
         }
         // Save data for dynamic steps (between 2 and totalSteps - 1)
         elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-
-
-            // To delete the document data related to this document 
-            // DocumentData::where('document_id', $this->document->id)
-            //     ->each(function ($documentData) {
-            //         $documentData->delete(); // Delete docData 
-            //     });
-
-
             // Determine the index of the documentPage we're on
             $pageIndex = $this->currentStep - 2;
 
