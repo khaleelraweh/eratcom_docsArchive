@@ -174,50 +174,14 @@ class EditDocumentWizardComponent extends Component
 
     public function directMoveToStep($choseStep)
     {
-        if ($choseStep > $this->currentStep) {
+        if ($choseStep > $this->currentStep && $choseStep == ($this->currentStep + 1)) {
             $this->validateStep();
             $this->saveStepData();
+            $this->currentStep = $choseStep;
+        } elseif ($choseStep < $this->currentStep) {
+            $this->currentStep = $choseStep;
         }
-
-        $this->currentStep = $choseStep;
     }
-
-    // public function validateStep()
-    // {
-    //     // Base validation rules
-    //     $rules = [];
-
-    //     // Step 1 validation (this is static, since it's always step 1)
-    //     if ($this->currentStep == 1) {
-    //         $rules = [
-    //             'document_category_id' => 'required|integer',
-    //             'document_type_id' => 'required|integer',
-    //             'document_template_id' => 'required|integer',
-    //             'doc_name' => 'required|string|max:255',
-    //             'doc_type_id' => 'required|integer',
-    //         ];
-    //     }
-    //     // Validation for steps between 2 and (totalSteps - 1)
-    //     elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-    //         // Determine the index of the documentPage we're on
-    //         $pageIndex = $this->currentStep - 2; // Since steps start at 1 and pages at 0
-
-    //         // Loop through the groups and variables to build dynamic validation rules
-    //         foreach ($this->docData[$pageIndex]['groups'] as $groupIndex => $pageGroup) {
-    //             foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-    //                 $rules['docData.' . $pageIndex . '.groups.' . $groupIndex . '.variables.' . $variableIndex . '.pv_value'] =
-    //                     $pageVariable['pv_required'] ? 'required' : 'nullable';
-    //             }
-    //         }
-    //     }
-    //     // Final review step does not need validation (if needed, you can add validation here)
-
-    //     // Validate data based on the rules
-    //     $this->validate($rules);
-
-    //     // After validation, save the current step's data
-    //     // $this->saveCurrentStepData();
-    // }
 
 
     public function validateStep()
@@ -268,8 +232,6 @@ class EditDocumentWizardComponent extends Component
         // Validate data based on the rules
         $this->validate($rules);
     }
-
-
 
     public function saveStepData()
     {

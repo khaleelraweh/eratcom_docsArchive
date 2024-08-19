@@ -176,11 +176,13 @@ class DocumentWizardComponent extends Component
 
     public function directMoveToStep($choseStep)
     {
-        if ($choseStep > $this->currentStep) {
+        if ($choseStep > $this->currentStep && $choseStep == ($this->currentStep + 1)) {
             $this->validateStep();
             $this->saveStepData();
+            $this->currentStep = $choseStep;
+        } elseif ($choseStep < $this->currentStep) {
+            $this->currentStep = $choseStep;
         }
-        $this->currentStep = $choseStep;
     }
 
     // public function validateStep()
