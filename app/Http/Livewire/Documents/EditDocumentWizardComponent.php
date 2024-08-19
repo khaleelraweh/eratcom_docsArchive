@@ -182,10 +182,49 @@ class EditDocumentWizardComponent extends Component
         $this->currentStep = $choseStep;
     }
 
+    // public function validateStep()
+    // {
+    //     // Base validation rules
+    //     $rules = [];
+
+    //     // Step 1 validation (this is static, since it's always step 1)
+    //     if ($this->currentStep == 1) {
+    //         $rules = [
+    //             'document_category_id' => 'required|integer',
+    //             'document_type_id' => 'required|integer',
+    //             'document_template_id' => 'required|integer',
+    //             'doc_name' => 'required|string|max:255',
+    //             'doc_type_id' => 'required|integer',
+    //         ];
+    //     }
+    //     // Validation for steps between 2 and (totalSteps - 1)
+    //     elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+    //         // Determine the index of the documentPage we're on
+    //         $pageIndex = $this->currentStep - 2; // Since steps start at 1 and pages at 0
+
+    //         // Loop through the groups and variables to build dynamic validation rules
+    //         foreach ($this->docData[$pageIndex]['groups'] as $groupIndex => $pageGroup) {
+    //             foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+    //                 $rules['docData.' . $pageIndex . '.groups.' . $groupIndex . '.variables.' . $variableIndex . '.pv_value'] =
+    //                     $pageVariable['pv_required'] ? 'required' : 'nullable';
+    //             }
+    //         }
+    //     }
+    //     // Final review step does not need validation (if needed, you can add validation here)
+
+    //     // Validate data based on the rules
+    //     $this->validate($rules);
+
+    //     // After validation, save the current step's data
+    //     // $this->saveCurrentStepData();
+    // }
+
+
     public function validateStep()
     {
         // Base validation rules
         $rules = [];
+        $validationAttributes = [];
 
         // Step 1 validation (this is static, since it's always step 1)
         if ($this->currentStep == 1) {
@@ -196,6 +235,13 @@ class EditDocumentWizardComponent extends Component
                 'doc_name' => 'required|string|max:255',
                 'doc_type_id' => 'required|integer',
             ];
+            $validationAttributes = [
+                'document_category_id' => __('panel.document_category_name'),
+                'document_type_id' => __('panel.document_type_name'),
+                'document_template_id' => __('panel.document_template_name'),
+                'doc_name' => __('panel.document_name'),
+                'doc_type_id' => __('panel.document_type'),
+            ];
         }
         // Validation for steps between 2 and (totalSteps - 1)
         elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
@@ -205,18 +251,22 @@ class EditDocumentWizardComponent extends Component
             // Loop through the groups and variables to build dynamic validation rules
             foreach ($this->docData[$pageIndex]['groups'] as $groupIndex => $pageGroup) {
                 foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-                    $rules['docData.' . $pageIndex . '.groups.' . $groupIndex . '.variables.' . $variableIndex . '.pv_value'] =
-                        $pageVariable['pv_required'] ? 'required' : 'nullable';
+                    $fieldName = 'docData.' . $pageIndex . '.groups.' . $groupIndex . '.variables.' . $variableIndex . '.pv_value';
+                    $rules[$fieldName] = $pageVariable['pv_required'] ? 'required' : 'nullable';
+
+                    // Create a user-friendly name for this field using the pv_name
+                    $validationAttributes[$fieldName] = $pageVariable['pv_name'];
                 }
             }
         }
-        // Final review step does not need validation (if needed, you can add validation here)
+
+        // Set custom attribute names
+        $this->withValidator(function ($validator) use ($validationAttributes) {
+            $validator->setAttributeNames($validationAttributes);
+        });
 
         // Validate data based on the rules
         $this->validate($rules);
-
-        // After validation, save the current step's data
-        // $this->saveCurrentStepData();
     }
 
 
