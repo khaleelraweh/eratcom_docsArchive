@@ -182,43 +182,75 @@ class EditDocumentWizardComponent extends Component
         $this->currentStep = $choseStep;
     }
 
+    // public function validateStep()
+    // {
+    //     if ($this->currentStep == 1) {
+    //         $this->validate([
+    //             'document_template_id'  => 'required|numeric',
+    //             'doc_name'      => 'required|string',
+    //             'doc_type_id'      => 'required|numeric',
+    //         ]);
+    //     } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+    //         if (count($this->docData) > 0) {
+    //             foreach ($this->docData as $pageIndex => $documentPage) {
+    //                 foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
+    //                     foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+    //                         $rules = [];
+
+    //                         // Determine if the field is required
+    //                         if ($pageVariable['pv_required'] == 1) {
+    //                             $rules[] = 'required';
+    //                         }
+
+    //                         // Determine the type of the field
+    //                         if ($pageVariable['pv_type'] == 0) {
+    //                             $rules[] = 'string';
+    //                         } else {
+    //                             $rules[] = 'numeric';
+    //                         }
+
+    //                         // Validate the field based on the constructed rules
+    //                         $this->validate([
+    //                             "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => implode('|', $rules),
+    //                         ]);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+
     public function validateStep()
     {
+        // Base validation rules
+        $rules = [];
+
+        // Step 1 validation (this is static, since it's always step 1)
         if ($this->currentStep == 1) {
-            $this->validate([
-                'document_template_id'  => 'required|numeric',
-                'doc_name'      => 'required|string',
-                'doc_type_id'      => 'required|numeric',
-            ]);
-        } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-            if (count($this->docData) > 0) {
-                foreach ($this->docData as $pageIndex => $documentPage) {
-                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-                            $rules = [];
+            $rules = [
+                'document_category_id' => 'required|integer',
+                'document_type_id' => 'required|integer',
+                'document_template_id' => 'required|integer',
+                'doc_name' => 'required|string|max:255',
+                'doc_type_id' => 'required|integer',
+            ];
+        }
+        // Validation for steps between 2 and (totalSteps - 1)
+        elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+            // Determine the index of the documentPage we're on
+            $pageIndex = $this->currentStep - 2; // Since steps start at 1 and pages at 0
 
-                            // Determine if the field is required
-                            if ($pageVariable['pv_required'] == 1) {
-                                $rules[] = 'required';
-                            }
-
-                            // Determine the type of the field
-                            if ($pageVariable['pv_type'] == 0) {
-                                $rules[] = 'string';
-                            } else {
-                                $rules[] = 'numeric';
-                            }
-
-                            // Validate the field based on the constructed rules
-                            $this->validate([
-                                "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => implode('|', $rules),
-                            ]);
-                        }
-                    }
+            // Loop through the groups and variables to build dynamic validation rules
+            foreach ($this->docData[$pageIndex]['groups'] as $groupIndex => $pageGroup) {
+                foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+                    $rules['docData.' . $pageIndex . '.groups.' . $groupIndex . '.variables.' . $variableIndex . '.pv_value'] =
+                        $pageVariable['pv_required'] ? 'required' : 'nullable';
                 }
             }
         }
     }
+
 
     public function saveStepData()
     {
@@ -238,36 +270,42 @@ class EditDocumentWizardComponent extends Component
             $this->document_id = $document->id;
 
             $this->alert('success', __('panel.document_data_saved'));
-        } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+        }
+        // Save data for dynamic steps (between 2 and totalSteps - 1)
+        elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+
 
             // To delete the document data related to this document 
-            DocumentData::where('document_id', $this->document->id)
-                ->each(function ($documentData) {
-                    $documentData->delete(); // Delete docData 
-                });
+            // DocumentData::where('document_id', $this->document->id)
+            //     ->each(function ($documentData) {
+            //         $documentData->delete(); // Delete docData 
+            //     });
 
-            if (count($this->docData) > 0) {
-                foreach ($this->docData as $pageIndex => $documentPage) {
-                    foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-                        foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-                            DocumentData::updateOrCreate(
-                                [
-                                    'document_id' => $this->document_id,
-                                    'page_variable_id' => $pageVariable['pv_id'],
-                                ],
-                                ['value' => $pageVariable['pv_value']]
-                            );
-                        }
-                    }
+
+            // Determine the index of the documentPage we're on
+            $pageIndex = $this->currentStep - 2;
+
+            foreach ($this->docData[$pageIndex]['groups'] as $groupIndex => $pageGroup) {
+                foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+                    DocumentData::updateOrCreate(
+                        [
+                            'document_id' => $this->document_id,
+                            'page_variable_id' => $pageVariable['pv_id'],
+                        ],
+                        ['value' => $pageVariable['pv_value']]
+                    );
                 }
             }
-
             if ($this->chosen_template->doc_template_text) {
                 $this->replacePlaceholders();
             }
-
             $this->alert('success', __('panel.document_data_saved'));
-        } elseif ($this->currentStep == $this->totalSteps) {
+        }
+
+        // Proceed to the next step if validation passes
+        if ($this->currentStep < $this->totalSteps) {
+            // $this->currentStep++;
+        } else {
 
             $document = Document::find($this->document_id);
             $document->doc_content = $this->viewText;

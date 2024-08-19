@@ -169,7 +169,7 @@ class DocumentWizardComponent extends Component
 
     public function finish()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         return redirect()->route('admin.documents.show', $this->document_id);
     }
@@ -248,6 +248,13 @@ class DocumentWizardComponent extends Component
                 }
             }
         }
+        // Final review step does not need validation (if needed, you can add validation here)
+
+        // Validate data based on the rules
+        $this->validate($rules);
+
+        // After validation, save the current step's data
+        // $this->saveCurrentStepData();
     }
 
 
@@ -273,15 +280,6 @@ class DocumentWizardComponent extends Component
         }
         // Save data for dynamic steps (between 2 and totalSteps - 1)
         elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-
-
-            // To delete the document data related to this document 
-            // DocumentData::where('document_id', $this->document->id)
-            //     ->each(function ($documentData) {
-            //         $documentData->delete(); // Delete docData 
-            //     });
-
-
             // Determine the index of the documentPage we're on
             $pageIndex = $this->currentStep - 2;
 
@@ -314,6 +312,64 @@ class DocumentWizardComponent extends Component
             $this->alert('success', __('panel.document_data_saved'));
         }
     }
+
+
+    // public function saveStepData()
+    // {
+    //     if ($this->currentStep == 1) {
+    //         // Save or update the document information
+    //         $document = Document::updateOrCreate(
+    //             ['id' => $this->document_id],
+    //             [
+    //                 'doc_name' => $this->doc_name,
+    //                 'doc_type' => $this->doc_type_id,
+    //                 'doc_status' => 0,
+    //                 'document_template_id' => $this->document_template_id,
+    //             ]
+    //         );
+
+    //         $this->document = $document;
+    //         $this->document_id = $document->id;
+
+    //         $this->alert('success', __('panel.document_data_saved'));
+    //     } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
+
+    //         // To delete the document data related to this document 
+    //         DocumentData::where('document_id', $this->document->id)
+    //             ->each(function ($documentData) {
+    //                 $documentData->delete(); // Delete docData 
+    //             });
+
+    //         if (count($this->docData) > 0) {
+    //             foreach ($this->docData as $pageIndex => $documentPage) {
+    //                 foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
+    //                     foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
+    //                         DocumentData::updateOrCreate(
+    //                             [
+    //                                 'document_id' => $this->document_id,
+    //                                 'page_variable_id' => $pageVariable['pv_id'],
+    //                             ],
+    //                             ['value' => $pageVariable['pv_value']]
+    //                         );
+    //                     }
+    //                 }
+    //             }
+    //         }
+
+    //         if ($this->chosen_template->doc_template_text) {
+    //             $this->replacePlaceholders();
+    //         }
+
+    //         $this->alert('success', __('panel.document_data_saved'));
+    //     } elseif ($this->currentStep == $this->totalSteps) {
+
+    //         $document = Document::find($this->document_id);
+    //         $document->doc_content = $this->viewText;
+    //         $document->doc_status = 1; // Mark as finished
+    //         $document->save();
+    //         $this->alert('success', __('panel.document_data_saved'));
+    //     }
+    // }
 
     public function replacePlaceholders()
     {
