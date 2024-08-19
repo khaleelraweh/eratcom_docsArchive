@@ -160,7 +160,7 @@ class EditDocumentWizardComponent extends Component
 
     public function nextStep()
     {
-        $this->validateStep();
+        // $this->validateStep();
         $this->saveStepData();
         $this->currentStep++;
     }
@@ -175,7 +175,7 @@ class EditDocumentWizardComponent extends Component
     public function directMoveToStep($choseStep)
     {
         if ($choseStep > $this->currentStep) {
-            $this->validateStep();
+            // $this->validateStep();
             $this->saveStepData();
         }
 
