@@ -182,45 +182,6 @@ class EditDocumentWizardComponent extends Component
         $this->currentStep = $choseStep;
     }
 
-    // public function validateStep()
-    // {
-    //     if ($this->currentStep == 1) {
-    //         $this->validate([
-    //             'document_template_id'  => 'required|numeric',
-    //             'doc_name'      => 'required|string',
-    //             'doc_type_id'      => 'required|numeric',
-    //         ]);
-    //     } elseif ($this->currentStep > 1 && $this->currentStep < $this->totalSteps) {
-    //         if (count($this->docData) > 0) {
-    //             foreach ($this->docData as $pageIndex => $documentPage) {
-    //                 foreach ($documentPage['groups'] as $groupIndex => $pageGroup) {
-    //                     foreach ($pageGroup['variables'] as $variableIndex => $pageVariable) {
-    //                         $rules = [];
-
-    //                         // Determine if the field is required
-    //                         if ($pageVariable['pv_required'] == 1) {
-    //                             $rules[] = 'required';
-    //                         }
-
-    //                         // Determine the type of the field
-    //                         if ($pageVariable['pv_type'] == 0) {
-    //                             $rules[] = 'string';
-    //                         } else {
-    //                             $rules[] = 'numeric';
-    //                         }
-
-    //                         // Validate the field based on the constructed rules
-    //                         $this->validate([
-    //                             "docData.$pageIndex.groups.$groupIndex.variables.$variableIndex.pv_value" => implode('|', $rules),
-    //                         ]);
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-
     public function validateStep()
     {
         // Base validation rules
